@@ -33,7 +33,7 @@ export function SeoPage({ page }: SeoPageProps) {
       ];
 
   return (
-    <main className="flex-1 bg-white">
+    <main className="flex-1 bg-transparent">
       {isHomePage ? <FaqJsonLd faqs={page.faqs} /> : null}
       <BreadcrumbJsonLd items={breadcrumbItems} />
       <PageContainer>
@@ -45,7 +45,7 @@ export function SeoPage({ page }: SeoPageProps) {
             >
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
-                  <Link href={routes.home} className="hover:text-sky-700">
+                  <Link href={routes.home} className="hover:text-sky-300">
                     Home
                   </Link>
                 </li>
@@ -53,7 +53,7 @@ export function SeoPage({ page }: SeoPageProps) {
                 <li>
                   <Link
                     href={routes.bubbleFontGenerator}
-                    className="hover:text-sky-700"
+                    className="hover:text-sky-300"
                   >
                     Bubble Font Generator
                   </Link>
@@ -61,41 +61,54 @@ export function SeoPage({ page }: SeoPageProps) {
                 {page.path !== routes.bubbleFontGenerator ? (
                   <>
                     <li aria-hidden="true">/</li>
-                    <li className="text-slate-700">{page.h1}</li>
+                    <li className="text-slate-300">{page.h1}</li>
                   </>
                 ) : null}
               </ol>
             </nav>
           ) : null}
 
-          <header className="rounded-3xl bg-gradient-to-br from-sky-50 via-white to-violet-50 p-8 sm:p-12">
+          <header className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-950/80 p-8 shadow-2xl shadow-black/20 sm:p-12">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
                   {presentation.heroLabel}
                 </p>
-                <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+                <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
                   {page.h1}
                 </h1>
-                <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-700">
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
                   {page.intro}
                 </p>
                 {isHomePage ? (
-                  <ul className="mt-8 space-y-3 text-sm leading-6 text-slate-700">
+                  <ul className="mt-8 space-y-3 text-sm leading-6 text-slate-300">
                     {presentation.highlights.map((highlight) => (
                       <li key={highlight} className="flex gap-3">
                         <span
                           aria-hidden="true"
-                          className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-sky-500"
+                          className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-cyan-400"
                         />
                         <span>{highlight}</span>
                       </li>
                     ))}
                   </ul>
                 ) : null}
+                {isHomePage ? (
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Link
+                      href={presentation.callToAction.href}
+                      className="inline-flex items-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+                    >
+                      {presentation.callToAction.label}
+                    </Link>
+                    <p className="text-sm leading-6 text-slate-400">
+                      {presentation.callToAction.description}
+                    </p>
+                  </div>
+                ) : null}
               </div>
 
-              <figure className="overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
+              <figure className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-2xl shadow-black/30">
                 <Image
                   src={presentation.sampleImage.src}
                   alt={presentation.sampleImage.alt}
@@ -104,9 +117,9 @@ export function SeoPage({ page }: SeoPageProps) {
                   className="block h-auto w-full"
                   unoptimized
                 />
-                <figcaption className="border-t border-slate-200 px-5 py-4 text-sm leading-6 text-slate-600">
-                  This preview image is rendered in the initial HTML with
-                  descriptive alt text for SEO-friendly page structure.
+                <figcaption className="border-t border-white/10 px-5 py-4 text-sm leading-6 text-slate-400">
+                  A quick preview of the bubble text editor and style options
+                  available across the site.
                 </figcaption>
               </figure>
             </div>
@@ -117,11 +130,11 @@ export function SeoPage({ page }: SeoPageProps) {
               {isToolPage ? (
                 <section
                   aria-labelledby="editor-preview"
-                  className="rounded-2xl border border-slate-200 p-8"
+                  className="rounded-2xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10"
                 >
                   <h2
                     id="editor-preview"
-                    className="text-2xl font-semibold tracking-tight text-slate-950"
+                    className="text-2xl font-semibold tracking-tight text-slate-50"
                   >
                     Online Editor Preview
                   </h2>
@@ -138,17 +151,17 @@ export function SeoPage({ page }: SeoPageProps) {
                   aria-labelledby={section.id}
                   className={`rounded-2xl border p-8 ${
                     index % 2 === 0
-                      ? "border-slate-200 bg-white"
-                      : "border-sky-100 bg-sky-50/50"
+                      ? "border-white/10 bg-slate-950/55"
+                      : "border-cyan-400/10 bg-slate-900/45"
                   }`}
                 >
                   <h2
                     id={section.id}
-                    className="text-2xl font-semibold tracking-tight text-slate-950"
+                    className="text-2xl font-semibold tracking-tight text-slate-50"
                   >
                     {section.title}
                   </h2>
-                  <div className="mt-4 space-y-4 text-base leading-7 text-slate-700">
+                  <div className="mt-4 space-y-4 text-base leading-7 text-slate-300">
                     {section.paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
@@ -159,21 +172,21 @@ export function SeoPage({ page }: SeoPageProps) {
               {isHomePage ? (
                 <section
                   aria-labelledby="page-faq"
-                  className="rounded-2xl border border-slate-200 p-8"
+                  className="rounded-2xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10"
                 >
                   <h2
                     id="page-faq"
-                    className="text-2xl font-semibold tracking-tight text-slate-950"
+                    className="text-2xl font-semibold tracking-tight text-slate-50"
                   >
                     Frequently Asked Questions
                   </h2>
                   <div className="mt-6 space-y-6">
                     {page.faqs.map((faq) => (
                       <div key={faq.question}>
-                        <h3 className="text-lg font-semibold text-slate-900">
+                        <h3 className="text-lg font-semibold text-slate-100">
                           {faq.question}
                         </h3>
-                        <p className="mt-2 text-base leading-7 text-slate-700">
+                        <p className="mt-2 text-base leading-7 text-slate-300">
                           {faq.answer}
                         </p>
                       </div>

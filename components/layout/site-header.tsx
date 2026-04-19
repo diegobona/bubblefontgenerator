@@ -1,20 +1,16 @@
 import Link from "next/link";
 
 import { PageContainer } from "./page-container";
-import {
-  headerArticleLinks,
-  headerToolLinks,
-  primaryNavLinks,
-} from "@/lib/site";
+import { primaryNavLinks } from "@/lib/site";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
       <PageContainer>
         <div className="flex min-h-16 flex-wrap items-center justify-between gap-6 py-3">
           <Link
             href="/"
-            className="text-lg font-semibold tracking-tight text-slate-900"
+            className="text-lg font-semibold tracking-tight text-slate-100"
           >
             Bubble Font Generator
           </Link>
@@ -26,51 +22,11 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-full px-3 py-2 text-slate-600 transition hover:bg-slate-50 hover:text-sky-700"
+                className="rounded-full border border-transparent px-3 py-2 text-slate-300 transition hover:border-sky-400/20 hover:bg-sky-400/10 hover:text-sky-200"
               >
                 {link.label}
               </Link>
             ))}
-
-            <details className="group relative">
-              <summary className="list-none cursor-pointer rounded-full px-3 py-2 text-slate-600 transition hover:bg-slate-50 hover:text-sky-700">
-                Tool Pages
-              </summary>
-              <div className="absolute right-0 z-20 mt-2 w-72 rounded-2xl border border-slate-200 bg-white p-3 shadow-lg">
-                <ul className="space-y-2">
-                  {headerToolLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="block rounded-xl px-3 py-3 text-sm text-slate-700 transition hover:bg-sky-50 hover:text-sky-700"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </details>
-
-            <details className="group relative">
-              <summary className="list-none cursor-pointer rounded-full px-3 py-2 text-slate-600 transition hover:bg-slate-50 hover:text-sky-700">
-                Articles
-              </summary>
-              <div className="absolute right-0 z-20 mt-2 w-72 rounded-2xl border border-slate-200 bg-white p-3 shadow-lg">
-                <ul className="space-y-2">
-                  {headerArticleLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="block rounded-xl px-3 py-3 text-sm text-slate-700 transition hover:bg-sky-50 hover:text-sky-700"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </details>
           </nav>
         </div>
       </PageContainer>

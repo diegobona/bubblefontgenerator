@@ -1,5 +1,6 @@
 export const routes = {
   home: "/",
+  articles: "/articles/",
   bubbleFontGenerator: "/bubble-font-generator/",
   bubbleLetterFontGenerator:
     "/bubble-font-generator/bubble-letter-font-generator/",

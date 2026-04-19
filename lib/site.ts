@@ -12,37 +12,10 @@ export const siteConfig = {
 export const primaryNavLinks = [
   { href: routes.home, label: "Home" },
   { href: routes.bubbleFontGenerator, label: "Bubble Font Generator" },
-];
-
-export const headerToolLinks = [
-  {
-    href: routes.bubbleLetterFontGenerator,
-    label: "Bubble Letter Font Generator",
-  },
-  {
-    href: routes.bubbleWritingFontGenerator,
-    label: "Bubble Writing Font Generator",
-  },
-  {
-    href: routes.bubbleGraffitiFontGenerator,
-    label: "Bubble Graffiti Font Generator",
-  },
-];
-
-export const headerArticleLinks = [
-  { href: routes.whatIsBubbleFont, label: "What Is Bubble Font?" },
-  {
-    href: routes.howToMakeBubbleLetters,
-    label: "How to Make Bubble Letters",
-  },
-  {
-    href: routes.bubbleFontGeneratorVsBubbleLetterFontGenerator,
-    label: "Comparison Guide",
-  },
-  {
-    href: routes.freeBubbleFontGenerator,
-    label: "Free Bubble Font Generator Guide",
-  },
+  { href: routes.bubbleLetterFontGenerator, label: "Bubble Letters" },
+  { href: routes.bubbleWritingFontGenerator, label: "Bubble Writing" },
+  { href: routes.bubbleGraffitiFontGenerator, label: "Graffiti Bubble" },
+  { href: routes.articles, label: "Articles" },
 ];
 
 export const footerToolLinks = [

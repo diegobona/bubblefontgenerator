@@ -37,42 +37,42 @@ export const pageDocuments = {
       "Create stylish bubble text online with our easy bubble font generator. Edit colors, outline, shadow, spacing, canvas size and download PNG instantly.",
     h1: "Bubble Font Generator Online",
     intro:
-      "Bubble Font Generator is a focused SEO-friendly tool site built around one job: helping people create bubble text, bubble letters, and graffiti-style bubble writing online.",
+      "Create colorful bubble text, bubble letters, and graffiti-style words in one easy online editor. Start with the main generator, adjust the look, and download a clean PNG in seconds.",
     sections: [
       {
         id: "brand-overview",
-        title: "Brand Overview",
+        title: "Make Bubble Text Fast",
         paragraphs: [
-          "This homepage introduces the product direction, the main bubble font generator tool, and the supporting pages that build topical authority around bubble text design.",
-          "The final version will highlight the best bubble font generator workflow for beginners who want fast editing and clean PNG exports.",
+          "If you want a fast way to turn plain text into playful bubble lettering, this site gives you a simple starting point. The core generator is built to help you make polished text graphics without needing design software.",
+          "It works well for names, titles, labels, social graphics, worksheet headers, and quick sticker-style text that needs a soft, rounded look.",
         ],
       },
       {
         id: "feature-highlights",
-        title: "Feature Highlights",
+        title: "Customize The Look",
         paragraphs: [
-          "The first release is planned as an online bubble text editor with editable styles, color controls, outline and shadow settings, spacing controls, and download support.",
-          "For now, this section acts as semantic placeholder copy so the homepage already returns meaningful HTML for search engines and future development.",
+          "Use the editor to change color, outline, shadow, spacing, sticker edge, and depth until the preview matches your style. The goal is to make bubble text editing feel quick, visual, and easy to control.",
+          "Whether you want a clean classroom look or a louder graffiti-inspired style, you can start with a preset and fine-tune the result before export.",
         ],
       },
       {
         id: "content-hub",
-        title: "Bubble Font Content Hub",
+        title: "Explore More Styles",
         paragraphs: [
-          "The homepage links to the core tool page, three intent-based tool variations, and four supporting articles so users and crawlers can reach every important URL from the root level.",
+          "From here, you can jump into focused pages for bubble letters, bubble writing, and graffiti bubble text, or browse the article section if you want tips, explanations, and beginner guides first.",
         ],
       },
     ],
     faqs: [
       {
-        question: "What is this site about?",
+        question: "What can I make with this bubble font generator?",
         answer:
-          "This site is a dedicated bubble font generator project focused on online text editing rather than font downloads or copy-and-paste symbols.",
+          "You can make bubble text for names, titles, stickers, classroom headings, labels, short social graphics, and graffiti-style word art.",
       },
       {
-        question: "Will the homepage link to all important pages?",
+        question: "Can I customize the style before downloading?",
         answer:
-          "Yes. The homepage is designed to distribute internal links to every tool page and every article page in the first release.",
+          "Yes. You can adjust size, spacing, colors, outline, shadow, sticker edge, highlight, and other visual settings before exporting a PNG.",
       },
     ],
     relatedLinks: [
@@ -118,6 +118,48 @@ export const pageDocuments = {
       },
     ],
   },
+  articlesHub: {
+    path: routes.articles,
+    title: "Bubble Font Articles | Guides, Tips and Bubble Letter Tutorials",
+    description:
+      "Browse bubble font articles, beginner guides, and tutorials about bubble letters, bubble writing, and free bubble font generator usage.",
+    h1: "Bubble Font Articles",
+    intro:
+      "Use this page to browse the article side of the bubble font topic cluster. Each guide answers a specific question and links naturally back to the tool pages when readers are ready to create.",
+    sections: [
+      {
+        id: "article-overview",
+        title: "Browse Bubble Font Guides",
+        paragraphs: [
+          "This article hub collects the supporting informational pages for the site, including concept explainers, tutorials, comparisons, and free-use guidance.",
+          "Instead of showing these pages in a navigation dropdown, this hub gives them a dedicated home where users can scan and choose the right article more easily.",
+        ],
+      },
+    ],
+    faqs: [],
+    relatedLinks: [
+      {
+        href: routes.whatIsBubbleFont,
+        label: "What Is Bubble Font?",
+        description: "Understand the meaning, style, and use cases of bubble font.",
+      },
+      {
+        href: routes.howToMakeBubbleLetters,
+        label: "How to Make Bubble Letters",
+        description: "Read the step-by-step beginner guide for bubble letters.",
+      },
+      {
+        href: routes.bubbleFontGeneratorVsBubbleLetterFontGenerator,
+        label: "Comparison Guide",
+        description: "See how bubble font generator and bubble letter font generator differ.",
+      },
+      {
+        href: routes.freeBubbleFontGenerator,
+        label: "Free Bubble Font Generator Guide",
+        description: "Learn what users usually expect from a free bubble text tool.",
+      },
+    ],
+  },
   bubbleFontGenerator: {
     path: routes.bubbleFontGenerator,
     title: "Bubble Font Generator Free | Best Bubble Text Font Generator Online",
@@ -125,29 +167,29 @@ export const pageDocuments = {
       "Use our free bubble font generator to create bubble text online. Customize font style, size, colors, outline, shadow, 3D depth and download PNG in seconds.",
     h1: "Free Bubble Font Generator",
     intro:
-      "This is the core landing page for the site and the future home of the main online editor. It targets the broadest commercial and informational intent around bubble font generation.",
+      "Create rounded, colorful, and export-ready bubble text in seconds with our free bubble font generator. This is the main tool page for the full topic cluster and the best place to start if you want the easiest bubble text editor with live preview and PNG download.",
     sections: [
       {
         id: "editor-area",
         title: "Online Bubble Text Editor",
         paragraphs: [
-          "This page now includes a first-version client-side bubble text editor while still exposing all key headings and descriptive content in the server-rendered HTML.",
-          "The current editor supports text input, style selection, font sizing, canvas controls, spacing, color settings, outline, sticker edge, 3D thickness, highlight strength, shadow, and PNG download, giving the page a practical starting point without overcomplicating the first release.",
+          "Use this bubble text editor to type any word or short phrase, choose a playful preset, and adjust the look before exporting a clean PNG file.",
+          "The current release supports text input, style selection, font size, canvas size, spacing, colors, outline, sticker edge, 3D thickness, highlight strength, shadow, and PNG download, which covers the main needs of most casual bubble text users.",
         ],
       },
       {
         id: "how-to-use",
         title: "How to Use This Bubble Font Generator",
         paragraphs: [
-          "Users will be able to type text, choose a bubble style, adjust the design settings, preview the output, and export the final result as an image.",
-          "This placeholder section intentionally uses real heading structure so the page can be expanded later without changing the URL or metadata strategy.",
+          "Start by entering your text, then pick the bubble style that best fits your design. After that, adjust size, spacing, outline, background, and effect controls until the preview matches the look you want.",
+          "When the design is ready, export the result as a PNG. This makes the tool useful for social posts, headers, worksheets, stickers, and quick personal graphics.",
         ],
       },
       {
         id: "why-this-page",
         title: "Why This Page Matters",
         paragraphs: [
-          "The core tool page acts as the strongest topical node in the site structure and links out to all three sub-intent pages and all supporting article pages.",
+          "This is the broadest and strongest page in the site structure, so it targets the main bubble font generator intent while naturally sending users to more specific bubble letters, bubble writing, and graffiti bubble pages when needed.",
         ],
       },
     ],
@@ -213,27 +255,27 @@ export const pageDocuments = {
       "Make bold, cute and clean bubble letters online. Our bubble letter font generator lets you edit size, spacing, outline, shadow and export PNG fast.",
     h1: "Bubble Letter Font Generator",
     intro:
-      "This intent page is dedicated to users who specifically want bubble letters for names, initials, posters, and simple decorative word art.",
+      "Make bold, rounded bubble letters for names, titles, stickers, and classroom graphics with our easy bubble letter font generator. This page is built for people who want a simple bubble letters maker instead of a broader all-style text tool.",
     sections: [
       {
         id: "editor-area",
         title: "Bubble Letters Editor",
         paragraphs: [
-          "The top of this page now includes a live bubble letters editor with outline, sticker edge, highlight, depth, and PNG export controls, while the supporting headings, paragraphs, FAQ content, and internal links remain visible in the initial HTML source.",
+          "This page gives you a focused bubble letters editor with the controls that matter most for clean, friendly lettering, including outline, sticker edge, highlight, depth, and PNG export.",
         ],
       },
       {
         id: "use-cases",
         title: "When to Use Bubble Letters",
         paragraphs: [
-          "Bubble letters are often used for school projects, kids names, custom stickers, social graphics, and playful headings that need a rounded and friendly style.",
+          "Bubble letters work especially well for kids names, classroom headings, birthday graphics, sticker-style labels, and short words that need a soft, rounded, easy-to-read look.",
         ],
       },
       {
         id: "page-purpose",
         title: "Why This Subpage Exists",
         paragraphs: [
-          "This URL isolates the bubble letter keyword family so the main bubble font generator page can stay broad while this page serves a tighter search intent.",
+          "This page exists to serve the narrower bubble letter search intent directly, so users who already know they want bubble letters can skip the broader parent page and go straight into editing.",
         ],
       },
     ],
@@ -284,27 +326,27 @@ export const pageDocuments = {
       "Create playful bubble writing online with adjustable colors, spacing, outline, highlights and canvas controls. Fast, simple and free to use.",
     h1: "Bubble Writing Font Generator",
     intro:
-      "This page targets users who describe the style as bubble writing rather than bubble letters or general bubble fonts.",
+      "Create playful bubble writing for names, captions, labels, and short phrases with a simple online editor built for rounded, hand-drawn style text. This page is tuned for users who naturally search for bubble writing instead of bubble letters.",
     sections: [
       {
         id: "editor-area",
         title: "Bubble Writing Editor",
         paragraphs: [
-          "This page now includes a working bubble writing editor with style, spacing, sticker edge, depth, highlight, and export controls, and the surrounding semantic content still ships from the server so the page can stand alone as an SEO-friendly resource.",
+          "This bubble writing editor is designed for short phrases and playful text layouts, with controls for spacing, color, outline, sticker edge, depth, highlight, and export.",
         ],
       },
       {
         id: "style-intent",
         title: "What Bubble Writing Usually Means",
         paragraphs: [
-          "Bubble writing often refers to rounded hand-drawn looking words or short phrases, especially for captions, names, signs, and cheerful display text.",
+          "Bubble writing usually means rounded, handwritten-looking words with a casual and cheerful feel. It is a common style for signs, posters, labels, and short decorative text.",
         ],
       },
       {
         id: "page-purpose",
         title: "Why This Subpage Exists",
         paragraphs: [
-          "This page helps capture a distinct wording pattern in search demand without mixing it into every other bubble font page on the site.",
+          "This page gives that wording pattern its own destination, which helps users find the closest match to their intent and keeps the broader bubble font generator page from becoming too generic.",
         ],
       },
     ],
@@ -356,27 +398,27 @@ export const pageDocuments = {
       "Design graffiti-style bubble text online with bold outlines, shadow, sticker edge and 3D depth. A fast bubble graffiti font generator for titles and art text.",
     h1: "Bubble Graffiti Font Generator",
     intro:
-      "This page focuses on graffiti-influenced bubble text for users who want a louder, street-inspired version of the core bubble style.",
+      "Design louder, thicker, and more energetic graffiti bubble text with a free editor built for outlines, depth, and street-style attitude. This page is for users who want a bubble graffiti font generator rather than a softer classroom-style bubble text tool.",
     sections: [
       {
         id: "editor-area",
         title: "Bubble Graffiti Editor",
         paragraphs: [
-          "This section now includes a working graffiti-flavored bubble text editor with stronger outline, shadow, 3D thickness, and highlight controls while preserving crawlable explanatory content and internal links in the first HTML response.",
+          "This editor is tuned for graffiti-flavored bubble text with stronger outline, shadow, 3D thickness, and highlight controls so you can push the look further than a standard bubble letters page.",
         ],
       },
       {
         id: "style-intent",
         title: "What Makes Bubble Graffiti Different",
         paragraphs: [
-          "Graffiti bubble text usually leans on stronger outlines, deeper shadows, exaggerated shapes, and more expressive visual energy than simple bubble lettering.",
+          "Bubble graffiti usually uses heavier outlines, deeper shadow, more exaggerated forms, and higher visual impact than ordinary bubble lettering. It is made for expressive display text, not quiet utility text.",
         ],
       },
       {
         id: "page-purpose",
         title: "Why This Subpage Exists",
         paragraphs: [
-          "The page gives the site a dedicated destination for graffiti-flavored queries while keeping the main tool page focused on the broad parent topic.",
+          "This page gives the site a dedicated destination for graffiti bubble queries, which helps match the right users to the right editing experience without overloading the parent tool page.",
         ],
       },
     ],

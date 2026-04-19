@@ -65,15 +65,15 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
   if (kind === "home") {
     return {
       kind,
-      heroLabel: "Bubble Font Hub",
+      heroLabel: "Create Bubble Text Online",
       sampleImage: {
         src: "/images/seo/bubble-home-preview.svg",
         alt: "Bubble font generator homepage preview with tool and article hub cards",
       },
       highlights: [
-        "Links to the main bubble font generator page and every supporting URL.",
-        "Introduces the easiest bubble letter maker workflow for new visitors.",
-        "Builds topical authority around bubble letters, bubble writing, and graffiti styles.",
+        "Start with the main editor and make bubble text in just a few steps.",
+        "Switch between bubble letters, bubble writing, and graffiti-inspired styles.",
+        "Export clean PNG graphics for names, titles, labels, and playful designs.",
       ],
       steps: [
         "Start on the homepage to understand the tool cluster and content structure.",
@@ -81,11 +81,11 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
         "Explore a sub-intent page or article depending on the exact search need.",
       ],
       callToAction: {
-        title: "Start With The Core Tool Page",
+        title: "Start With The Main Editor",
         description:
-          "The main bubble font generator page is the best starting point for both users and internal link flow.",
+          "The core bubble font generator page is the fastest place to start creating and exporting bubble text.",
         href: routes.bubbleFontGenerator,
-        label: "Open Bubble Font Generator",
+        label: "Open Main Editor",
       },
       jumpLinks: [
         { href: "#brand-overview", label: "Brand" },

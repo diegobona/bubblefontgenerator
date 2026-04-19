@@ -323,13 +323,13 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   };
 
   return (
-    <div className="mt-6 grid gap-6 rounded-2xl bg-slate-50 p-6 xl:grid-cols-[340px_minmax(0,1fr)]">
+    <div className="mt-6 grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 xl:grid-cols-[340px_minmax(0,1fr)]">
       <div className="space-y-5">
         <div>
-          <h3 className="text-lg font-semibold text-slate-900">
+          <h3 className="text-lg font-semibold text-slate-50">
             Bubble Editor Controls
           </h3>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
+          <p className="mt-2 text-sm leading-6 text-slate-400">
             This first version keeps the interaction focused: text, preset,
             canvas, color, outline, sticker edge, 3D depth, highlight,
             shadow, and PNG export.
@@ -337,23 +337,23 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
         </div>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Text</span>
+          <span className="text-sm font-medium text-slate-300">Text</span>
           <textarea
             value={state.text}
             onChange={(event) =>
               setState((current) => ({ ...current, text: event.target.value }))
             }
             rows={4}
-            className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-500"
+            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-sm text-slate-100 shadow-sm outline-none transition focus:border-cyan-400"
           />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Style</span>
+          <span className="text-sm font-medium text-slate-300">Style</span>
           <select
             value={state.preset}
             onChange={(event) => applyPreset(event.target.value as PresetKey)}
-            className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-500"
+            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-sm text-slate-100 shadow-sm outline-none transition focus:border-cyan-400"
           >
             {Object.entries(presetConfigs).map(([key, preset]) => (
               <option key={key} value={key}>
@@ -365,7 +365,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Canvas Width
             </span>
             <input
@@ -380,11 +380,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   width: clamp(Number(event.target.value) || 960, 480, 1600),
                 }))
               }
-              className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-500"
+              className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-sm text-slate-100 shadow-sm outline-none transition focus:border-cyan-400"
             />
           </label>
           <label className="block">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Canvas Height
             </span>
             <input
@@ -399,13 +399,13 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   height: clamp(Number(event.target.value) || 540, 320, 1200),
                 }))
               }
-              className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-500"
+              className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-sm text-slate-100 shadow-sm outline-none transition focus:border-cyan-400"
             />
           </label>
         </div>
 
         <label className="block">
-          <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+          <div className="flex items-center justify-between text-sm font-medium text-slate-300">
             <span>Font Size</span>
             <span>{state.fontSize}px</span>
           </div>
@@ -427,7 +427,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+          <div className="flex items-center justify-between text-sm font-medium text-slate-300">
               <span>Letter Spacing</span>
               <span>{state.letterSpacing}px</span>
             </div>
@@ -447,7 +447,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             />
           </label>
           <label className="block">
-            <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+          <div className="flex items-center justify-between text-sm font-medium text-slate-300">
               <span>Line Height</span>
               <span>{state.lineHeight.toFixed(2)}</span>
             </div>
@@ -470,7 +470,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Text Color
             </span>
             <input
@@ -482,11 +482,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   textColor: event.target.value,
                 }))
               }
-              className="mt-2 h-12 w-full rounded-xl border border-slate-300 bg-white p-2"
+              className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-slate-900 p-2"
             />
           </label>
           <label className="block">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Background
             </span>
             <input
@@ -498,14 +498,14 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   backgroundColor: event.target.value,
                 }))
               }
-              className="mt-2 h-12 w-full rounded-xl border border-slate-300 bg-white p-2"
+              className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-slate-900 p-2"
             />
           </label>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+        <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-4">
           <label className="flex items-center justify-between gap-3">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Enable Outline
             </span>
             <input
@@ -517,12 +517,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   outlineEnabled: event.target.checked,
                 }))
               }
-              className="h-4 w-4 rounded border-slate-300"
+              className="h-4 w-4 rounded border-white/20 bg-slate-950 text-cyan-400"
             />
           </label>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="text-sm font-medium text-slate-800">
+              <span className="text-sm font-medium text-slate-300">
                 Outline Color
               </span>
               <input
@@ -534,12 +534,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     outlineColor: event.target.value,
                   }))
                 }
-                className="mt-2 h-12 w-full rounded-xl border border-slate-300 bg-white p-2"
+                className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-slate-950 p-2"
                 disabled={!state.outlineEnabled}
               />
             </label>
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Outline Width</span>
                 <span>{state.outlineWidth}px</span>
               </div>
@@ -562,9 +562,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+        <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-4">
           <label className="flex items-center justify-between gap-3">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Enable Sticker Edge
             </span>
             <input
@@ -576,12 +576,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   stickerEdgeEnabled: event.target.checked,
                 }))
               }
-              className="h-4 w-4 rounded border-slate-300"
+              className="h-4 w-4 rounded border-white/20 bg-slate-950 text-cyan-400"
             />
           </label>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="text-sm font-medium text-slate-800">
+              <span className="text-sm font-medium text-slate-300">
                 Sticker Edge Color
               </span>
               <input
@@ -593,12 +593,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     stickerEdgeColor: event.target.value,
                   }))
                 }
-                className="mt-2 h-12 w-full rounded-xl border border-slate-300 bg-white p-2"
+                className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-slate-950 p-2"
                 disabled={!state.stickerEdgeEnabled}
               />
             </label>
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Sticker Edge Width</span>
                 <span>{state.stickerEdgeWidth}px</span>
               </div>
@@ -621,9 +621,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+        <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-4">
           <label className="flex items-center justify-between gap-3">
-            <span className="text-sm font-medium text-slate-800">
+            <span className="text-sm font-medium text-slate-300">
               Enable Shadow
             </span>
             <input
@@ -635,12 +635,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   shadowEnabled: event.target.checked,
                 }))
               }
-              className="h-4 w-4 rounded border-slate-300"
+              className="h-4 w-4 rounded border-white/20 bg-slate-950 text-cyan-400"
             />
           </label>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="text-sm font-medium text-slate-800">
+              <span className="text-sm font-medium text-slate-300">
                 Shadow Color
               </span>
               <input
@@ -652,12 +652,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     shadowColor: event.target.value,
                   }))
                 }
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-500"
+                className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-slate-100 shadow-sm outline-none transition focus:border-cyan-400"
                 disabled={!state.shadowEnabled}
               />
             </label>
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Shadow Blur</span>
                 <span>{state.shadowBlur}px</span>
               </div>
@@ -680,7 +680,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Shadow X</span>
                 <span>{state.shadowX}px</span>
               </div>
@@ -701,7 +701,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               />
             </label>
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Shadow Y</span>
                 <span>{state.shadowY}px</span>
               </div>
@@ -724,10 +724,10 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+        <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>3D Thickness</span>
                 <span>{state.depth}px</span>
               </div>
@@ -747,7 +747,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               />
             </label>
             <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Highlight Strength</span>
                 <span>{state.highlightStrength}%</span>
               </div>
@@ -773,41 +773,41 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           <button
             type="button"
             onClick={downloadPng}
-            className="inline-flex items-center rounded-full bg-sky-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+            className="inline-flex items-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
           >
             Download PNG
           </button>
           <button
             type="button"
             onClick={() => setState(getInitialState(variant))}
-            className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-300 hover:text-sky-700"
+            className="inline-flex items-center rounded-full border border-white/10 bg-slate-900 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/30 hover:text-cyan-200"
           >
             Reset
           </button>
         </div>
 
         {downloadMessage ? (
-          <p className="text-sm leading-6 text-slate-600">{downloadMessage}</p>
+          <p className="text-sm leading-6 text-slate-400">{downloadMessage}</p>
         ) : null}
       </div>
 
-      <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="rounded-3xl border border-white/10 bg-slate-900/85 p-4 shadow-2xl shadow-black/20">
         <div className="mb-4 flex items-center justify-between gap-4">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">
+            <h3 className="text-lg font-semibold text-slate-50">
               Live SVG Preview
             </h3>
-            <p className="mt-1 text-sm leading-6 text-slate-600">
+            <p className="mt-1 text-sm leading-6 text-slate-400">
               The preview uses inline SVG so the first tool version stays crisp
               and export-friendly.
             </p>
           </div>
-          <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-sky-800">
+          <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">
             {presetConfigs[state.preset].label}
           </span>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950">
           <svg
             ref={svgRef}
             xmlns="http://www.w3.org/2000/svg"
