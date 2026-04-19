@@ -1,0 +1,20 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="48" fill="#F8FAFC"/>
+  <rect x="70" y="70" width="1060" height="760" rx="36" fill="white" stroke="#E2E8F0" stroke-width="4"/>
+  <rect x="120" y="120" width="300" height="52" rx="20" fill="#E0F2FE"/>
+  <rect x="120" y="205" width="500" height="200" rx="32" fill="#EFF6FF"/>
+  <rect x="660" y="205" width="410" height="200" rx="32" fill="#F5F3FF"/>
+  <rect x="120" y="445" width="292" height="140" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+  <rect x="454" y="445" width="292" height="140" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+  <rect x="788" y="445" width="282" height="140" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+  <rect x="120" y="625" width="950" height="140" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+  <circle cx="282" cy="294" r="78" fill="#7DD3FC"/>
+  <circle cx="362" cy="276" r="88" fill="#C4B5FD"/>
+  <circle cx="449" cy="301" r="76" fill="#F9A8D4"/>
+  <path d="M263 300C263 260.235 295.235 228 335 228H414C453.765 228 486 260.235 486 300C486 339.765 453.765 372 414 372H335C295.235 372 263 339.765 263 300Z" fill="white" fill-opacity="0.65"/>
+  <text x="190" y="165" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Bubble Font Generator</text>
+  <text x="190" y="495" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Core Tool</text>
+  <text x="524" y="495" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Subpages</text>
+  <text x="858" y="495" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Articles</text>
+  <text x="187" y="696" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="24">A homepage preview that distributes links to the full bubble font topic cluster.</text>
+</svg>

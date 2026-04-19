@@ -1,0 +1,19 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="48" fill="#F8FAFC"/>
+  <rect x="74" y="74" width="1052" height="752" rx="36" fill="white" stroke="#E2E8F0" stroke-width="4"/>
+  <rect x="120" y="138" width="320" height="560" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+  <rect x="486" y="138" width="584" height="560" rx="28" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="3"/>
+  <circle cx="676" cy="370" r="102" fill="#7DD3FC"/>
+  <circle cx="790" cy="338" r="120" fill="#C4B5FD"/>
+  <circle cx="908" cy="376" r="98" fill="#F9A8D4"/>
+  <path d="M624 386C624 338.503 662.503 300 710 300H885C932.497 300 971 338.503 971 386C971 433.497 932.497 472 885 472H710C662.503 472 624 433.497 624 386Z" fill="white" fill-opacity="0.72"/>
+  <rect x="152" y="184" width="180" height="18" rx="9" fill="#CBD5E1"/>
+  <rect x="152" y="234" width="236" height="52" rx="16" fill="#E2E8F0"/>
+  <rect x="152" y="316" width="236" height="52" rx="16" fill="#E2E8F0"/>
+  <rect x="152" y="398" width="236" height="52" rx="16" fill="#E2E8F0"/>
+  <rect x="152" y="480" width="236" height="52" rx="16" fill="#E2E8F0"/>
+  <rect x="152" y="562" width="190" height="58" rx="18" fill="#0EA5E9"/>
+  <text x="532" y="186" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Bubble Tool Preview</text>
+  <text x="188" y="597" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Export PNG</text>
+  <text x="524" y="748" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="24">Static SEO-friendly preview area for the future bubble editor.</text>
+</svg>

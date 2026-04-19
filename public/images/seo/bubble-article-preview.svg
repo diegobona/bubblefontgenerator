@@ -1,0 +1,19 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="48" fill="#F8FAFC"/>
+  <rect x="74" y="74" width="1052" height="752" rx="36" fill="white" stroke="#E2E8F0" stroke-width="4"/>
+  <rect x="132" y="138" width="936" height="72" rx="24" fill="#EFF6FF"/>
+  <rect x="132" y="250" width="936" height="400" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+  <rect x="132" y="692" width="440" height="74" rx="24" fill="#E0F2FE"/>
+  <circle cx="884" cy="396" r="92" fill="#7DD3FC"/>
+  <circle cx="966" cy="366" r="102" fill="#C4B5FD"/>
+  <circle cx="1028" cy="412" r="84" fill="#F9A8D4"/>
+  <path d="M828 408C828 371.549 857.549 342 894 342H1004C1040.45 342 1070 371.549 1070 408C1070 444.451 1040.45 474 1004 474H894C857.549 474 828 444.451 828 408Z" fill="white" fill-opacity="0.72"/>
+  <rect x="176" y="294" width="420" height="18" rx="9" fill="#CBD5E1"/>
+  <rect x="176" y="344" width="544" height="18" rx="9" fill="#CBD5E1"/>
+  <rect x="176" y="394" width="580" height="18" rx="9" fill="#CBD5E1"/>
+  <rect x="176" y="444" width="500" height="18" rx="9" fill="#CBD5E1"/>
+  <rect x="176" y="494" width="560" height="18" rx="9" fill="#CBD5E1"/>
+  <rect x="176" y="544" width="470" height="18" rx="9" fill="#CBD5E1"/>
+  <text x="178" y="184" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Bubble Font Article Layout</text>
+  <text x="176" y="739" fill="#0369A1" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Read guide and jump to the tool</text>
+</svg>
