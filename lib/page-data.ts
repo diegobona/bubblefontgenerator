@@ -37,29 +37,27 @@ export const pageDocuments = {
       "Create stylish bubble text online with our easy bubble font generator. Edit colors, outline, shadow, spacing, canvas size and download PNG instantly.",
     h1: "Bubble Font Generator Online",
     intro:
-      "Create colorful bubble text, bubble letters, and graffiti-style words in one easy online editor. Start with the main generator, adjust the look, and download a clean PNG in seconds.",
+      "Create bubble text, tweak the style, and download a clean PNG in seconds.",
     sections: [
       {
         id: "brand-overview",
         title: "Make Bubble Text Fast",
         paragraphs: [
-          "If you want a fast way to turn plain text into playful bubble lettering, this site gives you a simple starting point. The core generator is built to help you make polished text graphics without needing design software.",
-          "It works well for names, titles, labels, social graphics, worksheet headers, and quick sticker-style text that needs a soft, rounded look.",
+          "Turn plain words into playful bubble lettering without opening design software.",
         ],
       },
       {
         id: "feature-highlights",
         title: "Customize The Look",
         paragraphs: [
-          "Use the editor to change color, outline, shadow, spacing, sticker edge, and depth until the preview matches your style. The goal is to make bubble text editing feel quick, visual, and easy to control.",
-          "Whether you want a clean classroom look or a louder graffiti-inspired style, you can start with a preset and fine-tune the result before export.",
+          "Change color, outline, shadow, spacing, sticker edge, and depth with a live preview.",
         ],
       },
       {
         id: "content-hub",
         title: "Explore More Styles",
         paragraphs: [
-          "From here, you can jump into focused pages for bubble letters, bubble writing, and graffiti bubble text, or browse the article section if you want tips, explanations, and beginner guides first.",
+          "Jump into Bubble Letters, Bubble Writing, Graffiti Bubble, or browse articles for tips and ideas.",
         ],
       },
     ],

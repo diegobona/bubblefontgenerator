@@ -68,83 +68,101 @@ export function SeoPage({ page }: SeoPageProps) {
             </nav>
           ) : null}
 
-          <header className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-950/80 p-8 shadow-2xl shadow-black/20 sm:p-12">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
-                  {presentation.heroLabel}
-                </p>
-                <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                  {page.h1}
-                </h1>
-                <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
-                  {page.intro}
-                </p>
-                {isHomePage ? (
-                  <ul className="mt-8 space-y-3 text-sm leading-6 text-slate-300">
-                    {presentation.highlights.map((highlight) => (
-                      <li key={highlight} className="flex gap-3">
-                        <span
-                          aria-hidden="true"
-                          className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-cyan-400"
-                        />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-                {isHomePage ? (
-                  <div className="mt-8 flex flex-wrap items-center gap-4">
-                    <Link
-                      href={presentation.callToAction.href}
-                      className="inline-flex items-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
-                    >
-                      {presentation.callToAction.label}
-                    </Link>
-                    <p className="text-sm leading-6 text-slate-400">
-                      {presentation.callToAction.description}
-                    </p>
-                  </div>
-                ) : null}
+          {isToolPage ? (
+            <header className="mb-8">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                {page.h1}
+              </h1>
+            </header>
+          ) : (
+            <header className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-950/80 p-8 shadow-2xl shadow-black/20 sm:p-12">
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
+                    {presentation.heroLabel}
+                  </p>
+                  <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                    {page.h1}
+                  </h1>
+                  <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+                    {page.intro}
+                  </p>
+                  {isHomePage ? (
+                    <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                      {presentation.highlights.map((highlight) => (
+                        <div
+                          key={highlight}
+                          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-6 text-slate-200"
+                        >
+                          {highlight}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  {isHomePage ? (
+                    <div className="mt-8">
+                      <Link
+                        href={presentation.callToAction.href}
+                        className="inline-flex items-center rounded-full bg-cyan-400 px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+                      >
+                        {presentation.callToAction.label}
+                      </Link>
+                    </div>
+                  ) : null}
+                </div>
+
+                <figure className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-2xl shadow-black/30">
+                  <Image
+                    src={presentation.sampleImage.src}
+                    alt={presentation.sampleImage.alt}
+                    width={1200}
+                    height={900}
+                    className="block h-auto w-full"
+                    unoptimized
+                  />
+                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm leading-6 text-slate-400">
+                    A quick preview of the bubble text editor and style options
+                    available across the site.
+                  </figcaption>
+                </figure>
               </div>
+            </header>
+          )}
 
-              <figure className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-2xl shadow-black/30">
-                <Image
-                  src={presentation.sampleImage.src}
-                  alt={presentation.sampleImage.alt}
-                  width={1200}
-                  height={900}
-                  className="block h-auto w-full"
-                  unoptimized
-                />
-                <figcaption className="border-t border-white/10 px-5 py-4 text-sm leading-6 text-slate-400">
-                  A quick preview of the bubble text editor and style options
-                  available across the site.
-                </figcaption>
-              </figure>
-            </div>
-          </header>
-
-          <div className="mt-12">
+          <div className={isToolPage ? "" : "mt-12"}>
             <div className="space-y-12">
               {isToolPage ? (
-                <section
-                  aria-labelledby="editor-preview"
-                  className="rounded-2xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10"
-                >
-                  <h2
-                    id="editor-preview"
-                    className="text-2xl font-semibold tracking-tight text-slate-50"
-                  >
-                    Online Editor Preview
-                  </h2>
-                  <div className="mt-6">
-                    <BubbleEditor pagePath={page.path} heading={page.h1} />
-                  </div>
+                <section aria-label="Bubble editor">
+                  <BubbleEditor pagePath={page.path} heading={page.h1} />
                 </section>
               ) : null}
 
-              {(isHomePage || isArticlePage) ? page.sections.map((section, index) => (
+              {isHomePage ? (
+                <section className="grid gap-5 lg:grid-cols-3">
+                  {page.sections.map((section) => (
+                    <section
+                      key={section.id}
+                      id={section.id}
+                      aria-labelledby={section.id}
+                      className="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-xl shadow-black/10"
+                    >
+                      <h2
+                        id={section.id}
+                        className="text-xl font-semibold tracking-tight text-slate-50"
+                      >
+                        {section.title}
+                      </h2>
+                      <div className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </section>
+              ) : null}
+
+              {isArticlePage ? page.sections.map((section, index) => (
                 <section
                   key={section.id}
                   id={section.id}

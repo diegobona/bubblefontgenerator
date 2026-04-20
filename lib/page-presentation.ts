@@ -71,9 +71,9 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
         alt: "Bubble font generator homepage preview with tool and article hub cards",
       },
       highlights: [
-        "Start with the main editor and make bubble text in just a few steps.",
-        "Switch between bubble letters, bubble writing, and graffiti-inspired styles.",
-        "Export clean PNG graphics for names, titles, labels, and playful designs.",
+        "Fast text-to-bubble workflow",
+        "Three style directions to start from",
+        "Clean PNG export in one click",
       ],
       steps: [
         "Start on the homepage to understand the tool cluster and content structure.",
@@ -83,7 +83,7 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
       callToAction: {
         title: "Start With The Main Editor",
         description:
-          "The core bubble font generator page is the fastest place to start creating and exporting bubble text.",
+          "Go straight to the core editor and start designing.",
         href: routes.bubbleFontGenerator,
         label: "Open Main Editor",
       },
