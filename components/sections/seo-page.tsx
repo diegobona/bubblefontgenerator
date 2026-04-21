@@ -14,6 +14,65 @@ type SeoPageProps = {
   page: PageDocument;
 };
 
+const homeToolPicks = [
+  {
+    href: routes.bubbleFontGenerator,
+    title: "Bubble Font Generator",
+    description: "All-purpose editor",
+  },
+  {
+    href: routes.bubbleLetterFontGenerator,
+    title: "Bubble Letters",
+    description: "Names and titles",
+  },
+  {
+    href: routes.bubbleWritingFontGenerator,
+    title: "Bubble Writing",
+    description: "Soft handwritten look",
+  },
+  {
+    href: routes.bubbleGraffitiFontGenerator,
+    title: "Graffiti Bubble",
+    description: "Bold street style",
+  },
+];
+
+const homeUseCases = [
+  {
+    href: routes.bubbleLetterFontGenerator,
+    label: "Names",
+  },
+  {
+    href: routes.bubbleFontGenerator,
+    label: "Titles",
+  },
+  {
+    href: routes.bubbleFontGenerator,
+    label: "Stickers",
+  },
+  {
+    href: routes.bubbleGraffitiFontGenerator,
+    label: "Posters",
+  },
+];
+
+const homeGuideLinks = [
+  {
+    href: routes.whatIsBubbleFont,
+    title: "What Is Bubble Font?",
+  },
+  {
+    href: routes.howToMakeBubbleLetters,
+    title: "How to Make Bubble Letters",
+  },
+  {
+    href: routes.freeBubbleFontGenerator,
+    title: "Free Bubble Font Generator Guide",
+  },
+];
+
+const homeTrustItems = ["Free to use", "PNG export", "Fast preview"];
+
 export function SeoPage({ page }: SeoPageProps) {
   const isHomePage = page.path === routes.home;
   const presentation = getPagePresentation(page.path, page.h1);
@@ -143,26 +202,110 @@ export function SeoPage({ page }: SeoPageProps) {
               ) : null}
 
               {isHomePage ? (
-                <section className="sr-only">
-                  {page.sections.map((section) => (
-                    <section
-                      key={section.id}
-                      id={section.id}
-                      aria-labelledby={section.id}
-                      className="rounded-3xl border border-white/10 bg-slate-950/45 p-5 shadow-xl shadow-black/10"
-                    >
+                <>
+                  <section
+                    aria-labelledby="home-tools"
+                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-xl shadow-black/10"
+                  >
+                    <div className="mb-4 flex items-center justify-between gap-4">
                       <h2
-                        id={section.id}
-                        className="text-lg font-semibold tracking-tight text-slate-50"
+                        id="home-tools"
+                        className="text-xl font-semibold tracking-tight text-slate-50"
                       >
-                        {section.title}
+                        Pick A Style
                       </h2>
-                      <div className="mt-3 text-sm leading-6 text-slate-300">
-                        <p>{section.paragraphs[0]}</p>
-                      </div>
-                    </section>
-                  ))}
-                </section>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                      {homeToolPicks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="rounded-2xl border border-white/10 bg-slate-900/55 p-5 transition hover:border-cyan-400/30 hover:bg-slate-900/80"
+                        >
+                          <h3 className="text-base font-semibold tracking-tight text-slate-50">
+                            {item.title}
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-slate-300">
+                            {item.description}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section
+                    aria-labelledby="home-uses"
+                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-xl shadow-black/10"
+                  >
+                    <h2
+                      id="home-uses"
+                      className="text-xl font-semibold tracking-tight text-slate-50"
+                    >
+                      Popular Uses
+                    </h2>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      {homeUseCases.map((item) => (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          className="inline-flex items-center rounded-full border border-white/10 bg-slate-900/55 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-slate-900/80 hover:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section
+                    aria-labelledby="home-guides"
+                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-xl shadow-black/10"
+                  >
+                    <h2
+                      id="home-guides"
+                      className="text-xl font-semibold tracking-tight text-slate-50"
+                    >
+                      Quick Guides
+                    </h2>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      {homeGuideLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="inline-flex items-center rounded-full border border-white/10 bg-slate-900/55 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-slate-900/80 hover:text-white"
+                        >
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section
+                    aria-label="Trust"
+                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-5 shadow-xl shadow-black/10"
+                  >
+                    <div className="flex flex-wrap gap-3">
+                      {homeTrustItems.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-200"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section className="sr-only">
+                    {page.sections.map((section) => (
+                      <section key={section.id} id={section.id} aria-labelledby={section.id}>
+                        <h2 id={section.id}>{section.title}</h2>
+                        <div>
+                          <p>{section.paragraphs[0]}</p>
+                        </div>
+                      </section>
+                    ))}
+                  </section>
+                </>
               ) : null}
 
               {isArticlePage ? (
