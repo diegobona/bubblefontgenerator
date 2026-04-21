@@ -73,6 +73,9 @@ export function SeoPage({ page }: SeoPageProps) {
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 {page.h1}
               </h1>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+                {page.intro}
+              </p>
             </header>
           ) : (
             <header className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-950/80 p-8 shadow-2xl shadow-black/20 sm:p-12">

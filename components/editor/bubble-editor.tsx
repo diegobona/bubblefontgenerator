@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { routes } from "@/lib/routes";
 
@@ -64,6 +64,12 @@ type ResultPreset = {
   shadowBoost: number;
   shadowXBoost: number;
   shadowYBoost: number;
+};
+
+type VariantConfig = {
+  defaultText: string;
+  presetKeys: ResultPresetKey[];
+  defaultState: Omit<EditorState, "text">;
 };
 
 const resultPresets: Record<ResultPresetKey, ResultPreset> = {
@@ -230,47 +236,111 @@ const resultPresets: Record<ResultPresetKey, ResultPreset> = {
   },
 };
 
-const presetOrders: Record<EditorVariant, ResultPresetKey[]> = {
-  core: [
-    "classic",
-    "soft",
-    "outline",
-    "sticker",
-    "chunky",
-    "kid",
-    "writing",
-    "graffiti",
-  ],
-  letters: [
-    "classic",
-    "soft",
-    "sticker",
-    "kid",
-    "outline",
-    "chunky",
-    "writing",
-    "graffiti",
-  ],
-  writing: [
-    "writing",
-    "soft",
-    "classic",
-    "kid",
-    "outline",
-    "sticker",
-    "chunky",
-    "graffiti",
-  ],
-  graffiti: [
-    "graffiti",
-    "chunky",
-    "outline",
-    "sticker",
-    "classic",
-    "soft",
-    "writing",
-    "kid",
-  ],
+const variantConfigs: Record<EditorVariant, VariantConfig> = {
+  core: {
+    defaultText: "Bubble\nMagic",
+    presetKeys: ["classic", "soft", "outline", "sticker", "chunky", "writing"],
+    defaultState: {
+      width: 1120,
+      height: 160,
+      fontSize: 88,
+      lineHeight: 1.02,
+      letterSpacing: 2,
+      textColor: "#ff3b30",
+      backgroundColor: "#9b82c8",
+      outlineEnabled: true,
+      outlineColor: "#f8fafc",
+      outlineWidth: 8,
+      stickerEdgeEnabled: true,
+      stickerEdgeColor: "#f8fafc",
+      stickerEdgeWidth: 10,
+      shadowEnabled: true,
+      shadowColor: "rgba(15,23,42,0.28)",
+      shadowX: 8,
+      shadowY: 8,
+      shadowBlur: 10,
+      depth: 8,
+      highlightStrength: 34,
+    },
+  },
+  letters: {
+    defaultText: "Luna\nName",
+    presetKeys: ["classic", "soft", "kid", "sticker", "outline"],
+    defaultState: {
+      width: 1120,
+      height: 160,
+      fontSize: 84,
+      lineHeight: 1.04,
+      letterSpacing: 1,
+      textColor: "#ff5a5f",
+      backgroundColor: "#f0a8d8",
+      outlineEnabled: true,
+      outlineColor: "#fff7fb",
+      outlineWidth: 10,
+      stickerEdgeEnabled: true,
+      stickerEdgeColor: "#fff7fb",
+      stickerEdgeWidth: 14,
+      shadowEnabled: true,
+      shadowColor: "rgba(15,23,42,0.16)",
+      shadowX: 4,
+      shadowY: 5,
+      shadowBlur: 8,
+      depth: 4,
+      highlightStrength: 44,
+    },
+  },
+  writing: {
+    defaultText: "Sweet\nNotes",
+    presetKeys: ["writing", "soft", "classic", "kid"],
+    defaultState: {
+      width: 1120,
+      height: 160,
+      fontSize: 78,
+      lineHeight: 1.14,
+      letterSpacing: 3,
+      textColor: "#ff6f61",
+      backgroundColor: "#e8b7c8",
+      outlineEnabled: true,
+      outlineColor: "#fff8fb",
+      outlineWidth: 6,
+      stickerEdgeEnabled: false,
+      stickerEdgeColor: "#fff8fb",
+      stickerEdgeWidth: 8,
+      shadowEnabled: true,
+      shadowColor: "rgba(15,23,42,0.16)",
+      shadowX: 3,
+      shadowY: 4,
+      shadowBlur: 8,
+      depth: 2,
+      highlightStrength: 28,
+    },
+  },
+  graffiti: {
+    defaultText: "Urban\nBlast",
+    presetKeys: ["graffiti", "chunky", "outline", "sticker"],
+    defaultState: {
+      width: 1120,
+      height: 160,
+      fontSize: 94,
+      lineHeight: 1,
+      letterSpacing: 4,
+      textColor: "#ffb703",
+      backgroundColor: "#6b5bd2",
+      outlineEnabled: true,
+      outlineColor: "#f8fafc",
+      outlineWidth: 12,
+      stickerEdgeEnabled: false,
+      stickerEdgeColor: "#f8fafc",
+      stickerEdgeWidth: 6,
+      shadowEnabled: true,
+      shadowColor: "rgba(59,130,246,0.42)",
+      shadowX: 14,
+      shadowY: 16,
+      shadowBlur: 20,
+      depth: 18,
+      highlightStrength: 18,
+    },
+  },
 };
 
 function getVariantForPath(path: string): EditorVariant {
@@ -290,40 +360,11 @@ function getVariantForPath(path: string): EditorVariant {
 }
 
 function getInitialState(variant: EditorVariant): EditorState {
-  const defaultText =
-    variant === "letters"
-      ? "Bubble\nLetters"
-      : variant === "writing"
-        ? "Bubble\nWriting"
-        : variant === "graffiti"
-          ? "Bubble\nBlast"
-          : "Bubble\nMagic";
+  const config = variantConfigs[variant];
 
   return {
-    text: defaultText,
-    width: 1120,
-    height: 260,
-    fontSize: variant === "writing" ? 82 : variant === "graffiti" ? 92 : 88,
-    lineHeight: 1.02,
-    letterSpacing: 2,
-    textColor: "#ff3b30",
-    backgroundColor: "#726968",
-    outlineEnabled: true,
-    outlineColor: "#f8fafc",
-    outlineWidth: variant === "graffiti" ? 10 : 8,
-    stickerEdgeEnabled: variant !== "graffiti",
-    stickerEdgeColor: "#f8fafc",
-    stickerEdgeWidth: variant === "letters" ? 12 : 10,
-    shadowEnabled: true,
-    shadowColor:
-      variant === "graffiti"
-        ? "rgba(59,130,246,0.35)"
-        : "rgba(15,23,42,0.28)",
-    shadowX: variant === "graffiti" ? 12 : 8,
-    shadowY: variant === "graffiti" ? 14 : 8,
-    shadowBlur: variant === "graffiti" ? 18 : 10,
-    depth: variant === "graffiti" ? 16 : 8,
-    highlightStrength: variant === "graffiti" ? 22 : 34,
+    text: config.defaultText,
+    ...config.defaultState,
   };
 }
 
@@ -404,25 +445,36 @@ function ResultSvg({
   svgRef,
   ariaLabel,
 }: ResultSvgProps) {
-  const fontSize = clamp(state.fontSize * preset.fontScale, 46, 180);
   const lineHeight = clamp(state.lineHeight + preset.lineHeightAdjust, 0.9, 1.6);
+  const baseFontSize = state.fontSize * preset.fontScale;
+  const outlineWidth = Math.max(0, state.outlineWidth + preset.outlineBoost);
+  const stickerWidth = Math.max(0, state.stickerEdgeWidth + preset.stickerBoost);
+  const shadowBlur = Math.max(0, state.shadowBlur + preset.shadowBoost);
+  const shadowX = state.shadowX + preset.shadowXBoost;
+  const shadowY = state.shadowY + preset.shadowYBoost;
+  const depthSteps = Math.max(0, Math.round(state.depth + preset.depthBoost));
+  const verticalPadding = Math.max(
+    18,
+    outlineWidth,
+    stickerWidth,
+    shadowBlur + Math.abs(shadowY),
+    depthSteps * 1.05 + 10,
+  );
+  const maxFontSizeByHeight =
+    (state.height - verticalPadding * 2) /
+    (1 + Math.max(0, lines.length - 1) * lineHeight);
+  const fontSize = clamp(Math.min(baseFontSize, maxFontSizeByHeight), 28, 180);
   const letterSpacing = clamp(
     state.letterSpacing + preset.letterSpacingOffset,
     0,
     24,
   );
   const lineAdvance = fontSize * lineHeight;
-  const totalHeight = lineAdvance * (lines.length - 1);
-  const startY = state.height / 2 - totalHeight / 2;
+  const totalHeight = fontSize + lineAdvance * (lines.length - 1);
+  const startY = (state.height - totalHeight) / 2 + fontSize / 2;
   const shadowValues = rgbaToFeColor(state.shadowColor);
   const highlightOpacity =
     clamp((state.highlightStrength + preset.highlightBoost) / 100, 0, 1) * 0.55;
-  const depthSteps = Math.max(0, Math.round(state.depth + preset.depthBoost));
-  const outlineWidth = Math.max(0, state.outlineWidth + preset.outlineBoost);
-  const stickerWidth = Math.max(0, state.stickerEdgeWidth + preset.stickerBoost);
-  const shadowBlur = Math.max(0, state.shadowBlur + preset.shadowBoost);
-  const shadowX = state.shadowX + preset.shadowXBoost;
-  const shadowY = state.shadowY + preset.shadowYBoost;
   const depthColor = colorWithOpacity(
     preset.id === "graffiti" ? "#020617" : state.outlineColor,
     preset.id === "graffiti" ? 0.75 : 0.28,
@@ -574,7 +626,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
   const lines = useMemo(() => buildLines(state.text), [state.text]);
-  const presets = presetOrders[variant].map((key) => resultPresets[key]);
+  const presets = variantConfigs[variant].presetKeys.map((key) => resultPresets[key]);
+
+  useEffect(() => {
+    setState(getInitialState(variant));
+    setDownloadMessage(null);
+  }, [variant]);
 
   const downloadPresetPng = async (preset: ResultPreset) => {
     const svgElement = svgRefs.current[preset.id];
@@ -631,6 +688,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     <div className="mt-4 grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
       <aside className="rounded-3xl bg-slate-950/55 p-5 shadow-xl shadow-black/10">
         <label className="block">
+          <span className="text-sm font-medium text-slate-300">Text</span>
           <textarea
             value={state.text}
             onChange={(event) =>
@@ -733,7 +791,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   onChange={(event) =>
                     setState((current) => ({
                       ...current,
-                      height: clamp(Number(event.target.value) || 260, 180, 520),
+                      height: clamp(Number(event.target.value) || 160, 140, 360),
                     }))
                   }
                   className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-400"
@@ -1053,18 +1111,22 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
         ) : null}
       </aside>
 
-      <section className="rounded-3xl bg-slate-900/70 p-4 shadow-2xl shadow-black/20">
+      <section
+        className="rounded-3xl p-4 shadow-2xl shadow-black/20"
+        style={{ backgroundColor: colorWithOpacity(state.backgroundColor, 0.3) }}
+      >
         <div className="mb-4 flex items-center justify-end gap-4 pb-2">
           <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">
             {presets.length} styles
           </span>
         </div>
 
-        <div className="space-y-4">
+        <div className="editor-scrollbar max-h-[76vh] space-y-4 overflow-y-auto pr-1">
           {presets.map((preset) => (
             <article
               key={preset.id}
-              className="rounded-3xl bg-gradient-to-r from-[#74639a] via-[#7c688f] to-[#8b6f8f] p-4 shadow-xl shadow-black/20"
+              className="rounded-3xl p-4 shadow-xl shadow-black/20"
+              style={{ backgroundColor: state.backgroundColor }}
             >
               <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
@@ -1085,7 +1147,10 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 </button>
               </div>
 
-              <div className="overflow-hidden rounded-2xl bg-[#1d131b]">
+              <div
+                className="overflow-hidden rounded-2xl"
+                style={{ backgroundColor: state.backgroundColor }}
+              >
                 <ResultSvg
                   state={state}
                   preset={preset}
