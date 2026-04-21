@@ -32,12 +32,12 @@ export const pageDocuments = {
   home: {
     path: routes.home,
     title:
-      "Bubble Font Generator Online | Create Bubble Text, Letters and Graffiti",
+      "Best Bubble Font Generator Online | Bubble Text, Letters and Graffiti",
     description:
-      "Create stylish bubble text online with our easy bubble font generator. Edit colors, outline, shadow, spacing, canvas size and download PNG instantly.",
+      "Create bubble text, bubble letters, and graffiti styles online with a fast bubble font generator. Edit colors, outline, shadow, spacing, and download PNG instantly.",
     h1: "Bubble Font Generator Online",
     intro:
-      "Create bubble text, tweak the style, and download a clean PNG in seconds.",
+      "Create bubble text, tweak the style, and download a clean PNG in seconds with a fast, easy, and focused editor.",
     sections: [
       {
         id: "brand-overview",
@@ -118,9 +118,9 @@ export const pageDocuments = {
   },
   articlesHub: {
     path: routes.articles,
-    title: "Bubble Font Articles | Guides, Tips and Bubble Letter Tutorials",
+    title: "Bubble Font Articles | Guides, Comparisons and Tutorials",
     description:
-      "Browse bubble font articles, beginner guides, and tutorials about bubble letters, bubble writing, and free bubble font generator usage.",
+      "Browse bubble font guides, comparisons, and tutorials about bubble letters, bubble writing, and free bubble font generator usage.",
     h1: "Bubble Font Articles",
     intro:
       "Use this page to browse the article side of the bubble font topic cluster. Each guide answers a specific question and links naturally back to the tool pages when readers are ready to create.",
@@ -160,12 +160,12 @@ export const pageDocuments = {
   },
   bubbleFontGenerator: {
     path: routes.bubbleFontGenerator,
-    title: "Bubble Font Generator Free | Best Bubble Text Font Generator Online",
+    title: "Free Bubble Font Generator | Best Bubble Text Tool Online",
     description:
-      "Use our free bubble font generator to create bubble text online. Customize font style, size, colors, outline, shadow, 3D depth and download PNG in seconds.",
+      "Use our free bubble font generator to create bubble text online. Customize colors, outline, shadow, spacing, and export PNG with a fast editor.",
     h1: "Free Bubble Font Generator",
     intro:
-      "The all-purpose editor for rounded bubble text, quick previews, and PNG export.",
+      "The best all-purpose editor for rounded bubble text, quick previews, and clean PNG export.",
     sections: [
       {
         id: "editor-area",
@@ -248,12 +248,12 @@ export const pageDocuments = {
   },
   bubbleLetterFontGenerator: {
     path: routes.bubbleLetterFontGenerator,
-    title: "Bubble Letter Font Generator | Easy Bubble Letters Maker",
+    title: "Bubble Letter Font Generator | Cute Bubble Letters Maker",
     description:
-      "Make bold, cute and clean bubble letters online. Our bubble letter font generator lets you edit size, spacing, outline, shadow and export PNG fast.",
+      "Make cute, clean bubble letters online for names, titles, and classroom graphics with an easy bubble letters maker and PNG export.",
     h1: "Bubble Letter Font Generator",
     intro:
-      "Best for names, classroom titles, and cute single-word bubble letters.",
+      "The best page for names, classroom titles, and cute single-word bubble letters.",
     sections: [
       {
         id: "editor-area",
@@ -319,12 +319,12 @@ export const pageDocuments = {
   },
   bubbleWritingFontGenerator: {
     path: routes.bubbleWritingFontGenerator,
-    title: "Bubble Writing Font Generator | Create Bubble Writing Online",
+    title: "Bubble Writing Font Generator | Handwritten Bubble Text Maker",
     description:
-      "Create playful bubble writing online with adjustable colors, spacing, outline, highlights and canvas controls. Fast, simple and free to use.",
+      "Create playful bubble writing online with a soft handwritten-style bubble text maker. Adjust colors, spacing, outline, and export PNG fast.",
     h1: "Bubble Writing Font Generator",
     intro:
-      "Best for softer handwritten bubble words and short playful phrases.",
+      "The best page for softer handwritten bubble words and short playful phrases.",
     sections: [
       {
         id: "editor-area",
@@ -391,12 +391,12 @@ export const pageDocuments = {
   bubbleGraffitiFontGenerator: {
     path: routes.bubbleGraffitiFontGenerator,
     title:
-      "Bubble Graffiti Font Generator | Make Graffiti Bubble Text Online",
+      "Bubble Graffiti Font Generator | Graffiti Bubble Text Maker",
     description:
-      "Design graffiti-style bubble text online with bold outlines, shadow, sticker edge and 3D depth. A fast bubble graffiti font generator for titles and art text.",
+      "Design graffiti-style bubble text online with bold outline, shadow, depth, and high-impact styling in a focused graffiti bubble text maker.",
     h1: "Bubble Graffiti Font Generator",
     intro:
-      "Best for bold graffiti-style bubble text with heavier outline, depth, and impact.",
+      "The best page for bold graffiti-style bubble text with heavier outline, depth, and impact.",
     sections: [
       {
         id: "editor-area",
@@ -462,7 +462,7 @@ export const pageDocuments = {
   },
   whatIsBubbleFont: {
     path: routes.whatIsBubbleFont,
-    title: "What Is Bubble Font? Meaning, Style and Uses Explained",
+    title: "What Is Bubble Font? Meaning, Style and Use Cases",
     description:
       "Learn what bubble font is, what makes bubble letters unique, and where this playful text style is commonly used in design, art and online graphics.",
     h1: "What Is Bubble Font?",
@@ -528,7 +528,7 @@ export const pageDocuments = {
   },
   howToMakeBubbleLetters: {
     path: routes.howToMakeBubbleLetters,
-    title: "How to Make Bubble Letters | Step-by-Step Guide for Beginners",
+    title: "How to Make Bubble Letters | Step-by-Step Beginner Guide",
     description:
       "Learn how to make bubble letters step by step. See simple drawing and digital editing tips, then use our bubble font generator to create your own version online.",
     h1: "How to Make Bubble Letters",
@@ -595,7 +595,7 @@ export const pageDocuments = {
   bubbleFontGeneratorVsBubbleLetterFontGenerator: {
     path: routes.bubbleFontGeneratorVsBubbleLetterFontGenerator,
     title:
-      "Bubble Font Generator vs Bubble Letter Font Generator | What’s the Difference?",
+      "Bubble Font Generator vs Bubble Letter Font Generator | Differences Explained",
     description:
       "Understand the difference between a bubble font generator and a bubble letter font generator so you can choose the right tool and page for your design needs.",
     h1: "Bubble Font Generator vs Bubble Letter Font Generator",
@@ -662,7 +662,7 @@ export const pageDocuments = {
   freeBubbleFontGenerator: {
     path: routes.freeBubbleFontGenerator,
     title:
-      "Free Bubble Font Generator Guide | Best Free Ways to Create Bubble Text",
+      "Free Bubble Font Generator Guide | How to Create Bubble Text Free",
     description:
       "Looking for a free bubble font generator? This guide explains what free features to expect, how to use them well, and where to create bubble text online.",
     h1: "Free Bubble Font Generator Guide",
