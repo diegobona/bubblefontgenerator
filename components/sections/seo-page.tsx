@@ -21,6 +21,8 @@ export function SeoPage({ page }: SeoPageProps) {
   const isArticlePage = presentation.kind === "article";
   const hasFaqs = page.faqs.length > 0;
   const hasRelatedLinks = page.relatedLinks.length > 0;
+  const visibleToolSections = page.sections.slice(0, 2);
+  const visibleRelatedLinks = page.relatedLinks.slice(0, isHomePage ? 4 : 3);
   const breadcrumbItems = isHomePage
     ? [{ name: "Home", item: getCanonicalUrl(routes.home) }]
     : [
@@ -70,12 +72,12 @@ export function SeoPage({ page }: SeoPageProps) {
             </nav>
           ) : null}
 
-          {isToolPage ? (
+          {isToolPage || isArticlePage ? (
             <header className="mb-8">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 {page.h1}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+              <p className={isToolPage ? "sr-only" : "mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base"}>
                 {page.intro}
               </p>
             </header>
@@ -83,27 +85,12 @@ export function SeoPage({ page }: SeoPageProps) {
             <header className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-950/80 p-8 shadow-2xl shadow-black/20 sm:p-12">
               <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
-                    {presentation.heroLabel}
-                  </p>
-                  <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                  <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
                     {page.h1}
                   </h1>
                   <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
                     {page.intro}
                   </p>
-                  {isHomePage ? (
-                    <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                      {presentation.highlights.map((highlight) => (
-                        <div
-                          key={highlight}
-                          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-6 text-slate-200"
-                        >
-                          {highlight}
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
                   {isHomePage ? (
                     <div className="mt-8">
                       <Link
@@ -125,10 +112,6 @@ export function SeoPage({ page }: SeoPageProps) {
                     className="block h-auto w-full"
                     unoptimized
                   />
-                  <figcaption className="border-t border-white/10 px-5 py-4 text-sm leading-6 text-slate-400">
-                    A quick preview of the bubble text editor and style options
-                    available across the site.
-                  </figcaption>
                 </figure>
               </div>
             </header>
@@ -143,136 +126,108 @@ export function SeoPage({ page }: SeoPageProps) {
               ) : null}
 
               {isToolPage ? (
-                <section className="grid gap-5 lg:grid-cols-3">
-                  {page.sections.map((section) => (
+                <section className="sr-only">
+                  {visibleToolSections.map((section) => (
                     <section
                       key={section.id}
                       id={section.id}
                       aria-labelledby={section.id}
-                      className="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-xl shadow-black/10"
                     >
-                      <h2
-                        id={section.id}
-                        className="text-xl font-semibold tracking-tight text-slate-50"
-                      >
-                        {section.title}
-                      </h2>
-                      <div className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
-                        {section.paragraphs.map((paragraph) => (
-                          <p key={paragraph}>{paragraph}</p>
-                        ))}
+                      <h2 id={section.id}>{section.title}</h2>
+                      <div>
+                        <p>{section.paragraphs[0]}</p>
                       </div>
                     </section>
                   ))}
-                </section>
-              ) : null}
-
-              {isToolPage ? (
-                <section className="rounded-3xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10">
-                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
-                    <figure className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 shadow-2xl shadow-black/20">
-                      <Image
-                        src={presentation.sampleImage.src}
-                        alt={presentation.sampleImage.alt}
-                        width={1200}
-                        height={900}
-                        className="block h-auto w-full"
-                        unoptimized
-                      />
-                      <figcaption className="border-t border-white/10 px-5 py-4 text-sm leading-6 text-slate-400">
-                        Preview image for {page.h1}, showing the style direction and editable bubble text output.
-                      </figcaption>
-                    </figure>
-                    <div>
-                      <h2 className="text-2xl font-semibold tracking-tight text-slate-50">
-                        Example Preview
-                      </h2>
-                      <p className="mt-4 text-base leading-7 text-slate-300">
-                        This image gives search engines and users a quick visual reference for the style focus of this page.
-                      </p>
-                      <div className="mt-5 space-y-3">
-                        {presentation.highlights.map((highlight) => (
-                          <p
-                            key={highlight}
-                            className="rounded-2xl border border-white/10 bg-slate-900/55 px-4 py-3 text-sm leading-6 text-slate-300"
-                          >
-                            {highlight}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
                 </section>
               ) : null}
 
               {isHomePage ? (
-                <section className="grid gap-5 lg:grid-cols-3">
+                <section className="sr-only">
                   {page.sections.map((section) => (
                     <section
                       key={section.id}
                       id={section.id}
                       aria-labelledby={section.id}
-                      className="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-xl shadow-black/10"
+                      className="rounded-3xl border border-white/10 bg-slate-950/45 p-5 shadow-xl shadow-black/10"
                     >
                       <h2
                         id={section.id}
-                        className="text-xl font-semibold tracking-tight text-slate-50"
+                        className="text-lg font-semibold tracking-tight text-slate-50"
                       >
                         {section.title}
                       </h2>
-                      <div className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
-                        {section.paragraphs.map((paragraph) => (
-                          <p key={paragraph}>{paragraph}</p>
-                        ))}
+                      <div className="mt-3 text-sm leading-6 text-slate-300">
+                        <p>{section.paragraphs[0]}</p>
                       </div>
                     </section>
                   ))}
                 </section>
               ) : null}
 
-              {isArticlePage ? page.sections.map((section, index) => (
-                <section
-                  key={section.id}
-                  id={section.id}
-                  aria-labelledby={section.id}
-                  className={`rounded-2xl border p-8 ${
-                    index % 2 === 0
-                      ? "border-white/10 bg-slate-950/55"
-                      : "border-cyan-400/10 bg-slate-900/45"
-                  }`}
-                >
-                  <h2
-                    id={section.id}
-                    className="text-2xl font-semibold tracking-tight text-slate-50"
-                  >
-                    {section.title}
-                  </h2>
-                  <div className="mt-4 space-y-4 text-base leading-7 text-slate-300">
-                    {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                </section>
-              )) : null}
+              {isArticlePage ? (
+                <article className="max-w-4xl space-y-10">
+                  {page.sections.map((section) => (
+                    <section
+                      key={section.id}
+                      id={section.id}
+                      aria-labelledby={section.id}
+                      className="space-y-3"
+                    >
+                      <h2
+                        id={section.id}
+                        className="text-2xl font-semibold tracking-tight text-slate-50"
+                      >
+                        {section.title}
+                      </h2>
+                      <div className="space-y-3 text-base leading-7 text-slate-300">
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </article>
+              ) : null}
 
               {hasFaqs && !isHomePage ? (
                 <section
                   aria-labelledby="page-faq"
-                  className="rounded-2xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10"
+                  className={
+                    isToolPage || isArticlePage
+                      ? "sr-only"
+                      : "max-w-4xl border-t border-white/10 pt-8"
+                  }
                 >
                   <h2
                     id="page-faq"
-                    className="text-2xl font-semibold tracking-tight text-slate-50"
+                    className={
+                      isToolPage || isArticlePage
+                        ? ""
+                        : "text-2xl font-semibold tracking-tight text-slate-50"
+                    }
                   >
                     Frequently Asked Questions
                   </h2>
-                  <div className="mt-6 space-y-6">
+                  <div className={isToolPage || isArticlePage ? "" : "mt-5 space-y-5"}>
                     {page.faqs.map((faq) => (
                       <div key={faq.question}>
-                        <h3 className="text-lg font-semibold text-slate-100">
+                        <h3
+                          className={
+                            isToolPage || isArticlePage
+                              ? ""
+                              : "text-lg font-semibold text-slate-100"
+                          }
+                        >
                           {faq.question}
                         </h3>
-                        <p className="mt-2 text-base leading-7 text-slate-300">
+                        <p
+                          className={
+                            isToolPage || isArticlePage
+                              ? ""
+                              : "mt-2 text-base leading-7 text-slate-300"
+                          }
+                        >
                           {faq.answer}
                         </p>
                       </div>
@@ -284,32 +239,38 @@ export function SeoPage({ page }: SeoPageProps) {
               {hasRelatedLinks ? (
                 <section
                   aria-labelledby="related-pages"
-                  className="rounded-3xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10"
+                  className={
+                    isHomePage || isToolPage
+                      ? "sr-only"
+                      : "max-w-4xl border-t border-white/10 pt-8"
+                  }
                 >
                   <div className="flex items-center justify-between gap-4">
                     <h2
                       id="related-pages"
-                      className="text-2xl font-semibold tracking-tight text-slate-50"
+                      className={
+                        isHomePage || isToolPage
+                          ? ""
+                          : "text-lg font-semibold tracking-tight text-slate-50"
+                      }
                     >
-                      Related Pages
+                      Explore More
                     </h2>
-                    <span className="text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
-                      Internal Links
-                    </span>
                   </div>
-                  <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                    {page.relatedLinks.map((link) => (
+                  <div
+                    className={
+                      isHomePage || isToolPage
+                        ? ""
+                        : "mt-4 flex flex-wrap gap-3"
+                    }
+                  >
+                    {visibleRelatedLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="rounded-2xl border border-white/10 bg-slate-900/55 p-5 transition hover:border-cyan-400/30 hover:bg-slate-900/80"
+                        className={isHomePage || isToolPage ? "" : "inline-flex items-center rounded-full border border-white/10 bg-slate-900/55 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-slate-900/80 hover:text-white"}
                       >
-                        <h3 className="text-lg font-semibold tracking-tight text-slate-50">
-                          {link.label}
-                        </h3>
-                        <p className="mt-2 text-sm leading-6 text-slate-300">
-                          {link.description}
-                        </p>
+                        {link.label}
                       </Link>
                     ))}
                   </div>
@@ -319,21 +280,20 @@ export function SeoPage({ page }: SeoPageProps) {
               {isHomePage ? (
                 <section
                   aria-labelledby="page-faq"
-                  className="rounded-2xl border border-white/10 bg-slate-950/55 p-8 shadow-xl shadow-black/10"
+                  className="sr-only"
                 >
                   <h2
                     id="page-faq"
-                    className="text-2xl font-semibold tracking-tight text-slate-50"
                   >
                     Frequently Asked Questions
                   </h2>
-                  <div className="mt-6 space-y-6">
+                  <div>
                     {page.faqs.map((faq) => (
                       <div key={faq.question}>
-                        <h3 className="text-lg font-semibold text-slate-100">
+                        <h3>
                           {faq.question}
                         </h3>
-                        <p className="mt-2 text-base leading-7 text-slate-300">
+                        <p>
                           {faq.answer}
                         </p>
                       </div>
