@@ -42,10 +42,16 @@ export function SeoPage({ page }: SeoPageProps) {
   const visibleRelatedLinks = page.relatedLinks.slice(0, isHomePage ? 4 : 3);
   const breadcrumbItems = isHomePage
     ? [{ name: "Home", item: getCanonicalUrl(routes.home) }]
-    : [
-        { name: "Home", item: getCanonicalUrl(routes.home) },
-        { name: page.h1, item: getCanonicalUrl(page.path) },
-      ];
+    : isArticlePage
+      ? [
+          { name: "Home", item: getCanonicalUrl(routes.home) },
+          { name: "Articles", item: getCanonicalUrl(routes.articles) },
+          { name: page.h1, item: getCanonicalUrl(page.path) },
+        ]
+      : [
+          { name: "Home", item: getCanonicalUrl(routes.home) },
+          { name: page.h1, item: getCanonicalUrl(page.path) },
+        ];
 
   return (
     <main className="flex-1 bg-transparent">

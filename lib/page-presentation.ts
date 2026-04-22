@@ -30,7 +30,6 @@ export type PagePresentation = {
 };
 
 const toolPaths = new Set<string>([
-  routes.bubbleFontGenerator,
   routes.bubbleLetterFontGenerator,
   routes.bubbleWritingFontGenerator,
   routes.bubbleGraffitiFontGenerator,
@@ -97,56 +96,39 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
   }
 
   if (kind === "tool") {
-    const isCoreTool = path === routes.bubbleFontGenerator;
     const isLetters = path === routes.bubbleLetterFontGenerator;
     const isWriting = path === routes.bubbleWritingFontGenerator;
-    const heroLabel = isCoreTool
-      ? "Core Bubble Font Tool"
-      : isLetters
-        ? "Bubble Letters Tool"
-        : isWriting
-          ? "Bubble Writing Tool"
-          : "Bubble Graffiti Tool";
+    const heroLabel = isLetters
+      ? "Bubble Letters Tool"
+      : isWriting
+        ? "Bubble Writing Tool"
+        : "Bubble Graffiti Tool";
 
-    const highlights = isCoreTool
+    const highlights = isLetters
       ? [
-          "Acts as the main money page for the full bubble font generator cluster.",
-          "Keeps the editor above the fold while preserving full SEO copy below.",
-          "Distributes authority to all sub-intent pages and supporting articles.",
+          "Targets bubble letter searches without diluting the broader homepage intent.",
+          "Keeps letter-focused examples, guidance, and tool usage on one URL.",
+          "Links clearly back to the main Bubble Font Generator page and nearby guides.",
         ]
-      : isLetters
+      : isWriting
         ? [
-            "Targets bubble letter searches without diluting the broader parent page.",
-            "Keeps letter-focused examples, guidance, and tool usage on one URL.",
-            "Links clearly back to the core tool page and nearby educational content.",
+            "Matches users who think in terms of bubble writing instead of bubble letters.",
+            "Keeps the editor above the fold while preserving SEO structure below.",
+            "Supports internal linking back to the homepage tool and related guides.",
           ]
-        : isWriting
-          ? [
-              "Matches users who think in terms of bubble writing instead of bubble letters.",
-              "Keeps the editor above the fold while preserving full SEO copy below.",
-              "Supports internal linking back to the main tool page and related guides.",
-            ]
-          : [
-              "Covers the graffiti-flavored edge of the bubble font topic cluster.",
-              "Keeps style-specific examples and guidance separate from the parent page.",
-              "Uses semantic HTML so headings, FAQs, and supporting copy appear in source HTML.",
-            ];
+        : [
+            "Covers the graffiti-flavored edge of the bubble font topic cluster.",
+            "Keeps style-specific examples and guidance separate from the homepage.",
+            "Uses semantic HTML so headings, FAQs, and supporting copy appear in source HTML.",
+          ];
 
-    const callToAction = isCoreTool
-      ? {
-          title: "Explore Intent-Based Tool Pages",
-          description:
-            "Use the core generator first, then move into a narrower bubble letters, bubble writing, or bubble graffiti page when you want a more specific angle.",
-          href: routes.bubbleLetterFontGenerator,
-          label: "Open Bubble Letter Tool",
-        }
-      : {
-          title: "Return To The Core Generator",
-          description:
-            "This page serves a narrower search intent. The homepage remains the main Bubble Font Generator destination for the topic cluster.",
-          href: routes.home,
-          label: "See Main Tool Page",
-        };
+    const callToAction = {
+      title: "Return To The Main Generator",
+      description:
+        "This page serves a narrower search intent. The homepage remains the main Bubble Font Generator destination for the topic cluster.",
+      href: routes.home,
+      label: "See Main Tool Page",
+    };
 
     return {
       kind,

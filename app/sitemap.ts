@@ -2,12 +2,9 @@ import type { MetadataRoute } from "next";
 
 import { pageDocuments } from "@/lib/page-data";
 import { getCanonicalUrl } from "@/lib/metadata";
-import { routes } from "@/lib/routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return Object.values(pageDocuments)
-    .filter((page) => page.path !== routes.bubbleFontGenerator)
-    .map((page) => ({
+  return Object.values(pageDocuments).map((page) => ({
       url: getCanonicalUrl(page.path),
       lastModified: new Date(),
       changeFrequency: page.path === "/" ? "weekly" : "monthly",

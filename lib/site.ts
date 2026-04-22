@@ -3,7 +3,7 @@ import { routes } from "./routes";
 export const siteConfig = {
   name: "Bubble Font Generator",
   siteName: "Bubble Font Generator",
-  url: "https://www.bubblefontgenerator.com",
+  url: "https://bubblefontgenerator.net",
   description:
     "Use the Bubble Font Generator to create rounded bubble text online, customize colors and effects, and export a clean PNG in seconds.",
   locale: "en_US",

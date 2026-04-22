@@ -1,11 +1,7 @@
-import { SeoPage } from "@/components/sections/seo-page";
-import { buildMetadata } from "@/lib/metadata";
-import { pageDocuments } from "@/lib/page-data";
+import { permanentRedirect } from "next/navigation";
 
-const page = pageDocuments.freeBubbleFontGenerator;
-
-export const metadata = buildMetadata(page);
+import { routes } from "@/lib/routes";
 
 export default function FreeBubbleFontGeneratorPage() {
-  return <SeoPage page={page} />;
+  permanentRedirect(routes.freeBubbleFontGenerator);
 }
