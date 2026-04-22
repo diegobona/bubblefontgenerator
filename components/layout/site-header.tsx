@@ -52,7 +52,7 @@ export function SiteHeader() {
             href="/"
             className="text-lg font-semibold tracking-tight text-slate-50"
           >
-            Bubble Font Generator
+            BubbleFont
           </Link>
           <nav
             aria-label="Primary"
