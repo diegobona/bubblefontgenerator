@@ -5,13 +5,12 @@ export const siteConfig = {
   siteName: "Bubble Font Generator",
   url: "https://www.bubblefontgenerator.com",
   description:
-    "Create bubble text online with a focused bubble font generator built for letters, bubble writing, and bubble graffiti styles.",
+    "Use the Bubble Font Generator to create rounded bubble text online, customize colors and effects, and export a clean PNG in seconds.",
   locale: "en_US",
 } as const;
 
 export const primaryNavLinks = [
-  { href: routes.home, label: "Home" },
-  { href: routes.bubbleFontGenerator, label: "Bubble Font Generator" },
+  { href: routes.home, label: "Bubble Font Generator" },
   { href: routes.bubbleLetterFontGenerator, label: "Bubble Letters" },
   { href: routes.bubbleWritingFontGenerator, label: "Bubble Writing" },
   { href: routes.bubbleGraffitiFontGenerator, label: "Graffiti Bubble" },

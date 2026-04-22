@@ -14,48 +14,6 @@ type SeoPageProps = {
   page: PageDocument;
 };
 
-const homeToolPicks = [
-  {
-    href: routes.bubbleFontGenerator,
-    title: "Bubble Font Generator",
-    description: "All-purpose editor",
-  },
-  {
-    href: routes.bubbleLetterFontGenerator,
-    title: "Bubble Letters",
-    description: "Names and titles",
-  },
-  {
-    href: routes.bubbleWritingFontGenerator,
-    title: "Bubble Writing",
-    description: "Soft handwritten look",
-  },
-  {
-    href: routes.bubbleGraffitiFontGenerator,
-    title: "Graffiti Bubble",
-    description: "Bold street style",
-  },
-];
-
-const homeUseCases = [
-  {
-    href: routes.bubbleLetterFontGenerator,
-    label: "Names",
-  },
-  {
-    href: routes.bubbleFontGenerator,
-    label: "Titles",
-  },
-  {
-    href: routes.bubbleFontGenerator,
-    label: "Stickers",
-  },
-  {
-    href: routes.bubbleGraffitiFontGenerator,
-    label: "Posters",
-  },
-];
-
 const homeGuideLinks = [
   {
     href: routes.whatIsBubbleFont,
@@ -86,13 +44,7 @@ export function SeoPage({ page }: SeoPageProps) {
     ? [{ name: "Home", item: getCanonicalUrl(routes.home) }]
     : [
         { name: "Home", item: getCanonicalUrl(routes.home) },
-        {
-          name: "Bubble Font Generator",
-          item: getCanonicalUrl(routes.bubbleFontGenerator),
-        },
-        ...(page.path !== routes.bubbleFontGenerator
-          ? [{ name: page.h1, item: getCanonicalUrl(page.path) }]
-          : []),
+        { name: page.h1, item: getCanonicalUrl(page.path) },
       ];
 
   return (
@@ -101,37 +53,23 @@ export function SeoPage({ page }: SeoPageProps) {
       <BreadcrumbJsonLd items={breadcrumbItems} />
       <PageContainer>
         <article className="py-12 sm:py-16">
-          {!isHomePage ? (
-            <nav
-              aria-label="Breadcrumb"
-              className="mb-6 text-sm text-slate-500"
-            >
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href={routes.home} className="hover:text-sky-300">
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li>
-                  <Link
-                    href={routes.bubbleFontGenerator}
-                    className="hover:text-sky-300"
+          {isHomePage ? (
+            <header className="mb-8">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                {page.h1}
+              </h1>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {homeTrustItems.map((item) => (
+                  <span
+                    key={item}
+                    className="inline-flex items-center rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100"
                   >
-                    Bubble Font Generator
-                  </Link>
-                </li>
-                {page.path !== routes.bubbleFontGenerator ? (
-                  <>
-                    <li aria-hidden="true">/</li>
-                    <li className="text-slate-300">{page.h1}</li>
-                  </>
-                ) : null}
-              </ol>
-            </nav>
-          ) : null}
-
-          {isToolPage || isArticlePage ? (
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </header>
+          ) : isToolPage || isArticlePage ? (
             <header className="mb-8">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 {page.h1}
@@ -140,47 +78,13 @@ export function SeoPage({ page }: SeoPageProps) {
                 {page.intro}
               </p>
             </header>
-          ) : (
-            <header className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-950/80 p-8 shadow-2xl shadow-black/20 sm:p-12">
-              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
-                <div>
-                  <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                    {page.h1}
-                  </h1>
-                  <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
-                    {page.intro}
-                  </p>
-                  {isHomePage ? (
-                    <div className="mt-8">
-                      <Link
-                        href={presentation.callToAction.href}
-                        className="inline-flex items-center rounded-full bg-cyan-400 px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
-                      >
-                        {presentation.callToAction.label}
-                      </Link>
-                    </div>
-                  ) : null}
-                </div>
+          ) : null}
 
-                <figure className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-2xl shadow-black/30">
-                  <Image
-                    src={presentation.sampleImage.src}
-                    alt={presentation.sampleImage.alt}
-                    width={1200}
-                    height={900}
-                    className="block h-auto w-full"
-                    unoptimized
-                  />
-                </figure>
-              </div>
-            </header>
-          )}
-
-          <div className={isToolPage ? "" : "mt-12"}>
+          <div className={isToolPage || isHomePage ? "mt-8" : "mt-12"}>
             <div className="space-y-12">
-              {isToolPage ? (
-                <section aria-label="Bubble editor">
-                  <BubbleEditor pagePath={page.path} heading={page.h1} />
+              {isToolPage || isHomePage ? (
+                <section id={isHomePage ? "main-editor" : undefined} aria-label="Bubble editor">
+                  <BubbleEditor pagePath={isHomePage ? routes.home : page.path} heading={page.h1} />
                 </section>
               ) : null}
 
@@ -204,61 +108,8 @@ export function SeoPage({ page }: SeoPageProps) {
               {isHomePage ? (
                 <>
                   <section
-                    aria-labelledby="home-tools"
-                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-xl shadow-black/10"
-                  >
-                    <div className="mb-4 flex items-center justify-between gap-4">
-                      <h2
-                        id="home-tools"
-                        className="text-xl font-semibold tracking-tight text-slate-50"
-                      >
-                        Pick A Style
-                      </h2>
-                    </div>
-                    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                      {homeToolPicks.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="rounded-2xl border border-white/10 bg-slate-900/55 p-5 transition hover:border-cyan-400/30 hover:bg-slate-900/80"
-                        >
-                          <h3 className="text-base font-semibold tracking-tight text-slate-50">
-                            {item.title}
-                          </h3>
-                          <p className="mt-2 text-sm leading-6 text-slate-300">
-                            {item.description}
-                          </p>
-                        </Link>
-                      ))}
-                    </div>
-                  </section>
-
-                  <section
-                    aria-labelledby="home-uses"
-                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-xl shadow-black/10"
-                  >
-                    <h2
-                      id="home-uses"
-                      className="text-xl font-semibold tracking-tight text-slate-50"
-                    >
-                      Popular Uses
-                    </h2>
-                    <div className="mt-4 flex flex-wrap gap-3">
-                      {homeUseCases.map((item) => (
-                        <Link
-                          key={item.label}
-                          href={item.href}
-                          className="inline-flex items-center rounded-full border border-white/10 bg-slate-900/55 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-slate-900/80 hover:text-white"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </section>
-
-                  <section
                     aria-labelledby="home-guides"
-                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-xl shadow-black/10"
+                    className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.76)] p-6 shadow-xl shadow-[#080812]/20"
                   >
                     <h2
                       id="home-guides"
@@ -271,26 +122,10 @@ export function SeoPage({ page }: SeoPageProps) {
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="inline-flex items-center rounded-full border border-white/10 bg-slate-900/55 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-slate-900/80 hover:text-white"
+                          className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(34,27,63,0.78)] px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-300/25 hover:bg-[rgba(43,34,79,0.92)] hover:text-white"
                         >
                           {item.title}
                         </Link>
-                      ))}
-                    </div>
-                  </section>
-
-                  <section
-                    aria-label="Trust"
-                    className="rounded-3xl border border-white/10 bg-slate-950/40 p-5 shadow-xl shadow-black/10"
-                  >
-                    <div className="flex flex-wrap gap-3">
-                      {homeTrustItems.map((item) => (
-                        <span
-                          key={item}
-                          className="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-200"
-                        >
-                          {item}
-                        </span>
                       ))}
                     </div>
                   </section>
@@ -411,7 +246,7 @@ export function SeoPage({ page }: SeoPageProps) {
                       <Link
                         key={link.href}
                         href={link.href}
-                        className={isHomePage || isToolPage ? "" : "inline-flex items-center rounded-full border border-white/10 bg-slate-900/55 px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-400/30 hover:bg-slate-900/80 hover:text-white"}
+                        className={isHomePage || isToolPage ? "" : "inline-flex items-center rounded-full border border-white/10 bg-[rgba(34,27,63,0.78)] px-4 py-2 text-sm text-slate-200 transition hover:border-cyan-300/25 hover:bg-[rgba(43,34,79,0.92)] hover:text-white"}
                       >
                         {link.label}
                       </Link>

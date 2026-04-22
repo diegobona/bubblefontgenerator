@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #090f1f;
-  --foreground: #e5eefc;
+  --background: #0f1021;
+  --foreground: #eef2ff;
 }
 
 @theme inline {
@@ -22,16 +22,14 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 32%),
-    radial-gradient(circle at top right, rgba(139, 92, 246, 0.14), transparent 28%),
-    linear-gradient(180deg, #0b1120 0%, #0a1020 45%, #070c18 100%);
+  background-color: #12142c;
+  background: #12142c;
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.3);
+  background: rgba(192, 132, 252, 0.35);
   color: #f8fafc;
 }
 
@@ -60,7 +58,7 @@ textarea {
 
 .editor-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  scrollbar-color: rgba(233, 213, 255, 0.3) transparent;
 }
 
 .editor-scrollbar::-webkit-scrollbar {
@@ -73,9 +71,9 @@ textarea {
 
 .editor-scrollbar::-webkit-scrollbar-thumb {
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(233, 213, 255, 0.24);
 }
 
 .editor-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(103, 232, 249, 0.3);
 }

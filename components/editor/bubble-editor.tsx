@@ -686,7 +686,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
   return (
     <div className="mt-4 grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
-      <aside className="rounded-3xl bg-slate-950/55 p-5 shadow-xl shadow-black/10">
+      <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
         <label className="block">
           <span className="text-sm font-medium text-slate-300">Text</span>
           <textarea
@@ -696,14 +696,14 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             }
             rows={4}
             aria-label="Text"
-            className="mt-2 w-full rounded-2xl border border-cyan-400/60 bg-slate-900 px-4 py-4 text-xl text-slate-50 shadow-sm outline-none transition focus:border-cyan-300"
+            className="mt-2 w-full rounded-2xl border border-cyan-300/45 bg-[rgba(18,17,40,0.92)] px-4 py-4 text-xl text-slate-50 shadow-sm outline-none transition focus:border-cyan-200"
           />
         </label>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
           <label className="block">
             <span className="text-sm font-medium text-slate-300">Text Color</span>
-            <div className="mt-2 rounded-2xl border border-white/10 bg-slate-900 p-3">
+            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-3">
               <input
                 type="color"
                 value={state.textColor}
@@ -713,14 +713,14 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     textColor: event.target.value,
                   }))
                 }
-                className="h-12 w-full rounded-xl border border-white/10 bg-slate-950 p-1"
+                className="h-12 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
               />
             </div>
           </label>
 
           <label className="block">
             <span className="text-sm font-medium text-slate-300">Background</span>
-            <div className="mt-2 rounded-2xl border border-white/10 bg-slate-900 p-3">
+            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-3">
               <input
                 type="color"
                 value={state.backgroundColor}
@@ -730,13 +730,13 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     backgroundColor: event.target.value,
                   }))
                 }
-                className="h-12 w-full rounded-xl border border-white/10 bg-slate-950 p-1"
+                className="h-12 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
               />
             </div>
           </label>
         </div>
 
-        <details className="mt-8 rounded-3xl border border-white/10 bg-slate-900/70 p-5">
+        <details className="mt-8 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
           <summary className="cursor-pointer list-none text-xl font-semibold text-slate-100">
             Advance Options
           </summary>
@@ -777,7 +777,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                       width: clamp(Number(event.target.value) || 1120, 720, 1600),
                     }))
                   }
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-400"
+                  className="mt-2 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
                 />
               </label>
               <label className="block">
@@ -794,7 +794,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                       height: clamp(Number(event.target.value) || 160, 140, 360),
                     }))
                   }
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-400"
+                  className="mt-2 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
                 />
               </label>
             </div>
@@ -842,7 +842,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </label>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+            <div className="rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.76)] p-4">
               <label className="flex items-center justify-between gap-3">
                 <span className="text-sm font-medium text-slate-300">Enable Outline</span>
                 <input
@@ -854,7 +854,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                       outlineEnabled: event.target.checked,
                     }))
                   }
-                  className="h-4 w-4 rounded border-white/20 bg-slate-950 text-cyan-400"
+                  className="h-4 w-4 rounded border-white/20 bg-[rgba(18,17,40,0.96)] text-cyan-300"
                 />
               </label>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -869,7 +869,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                         outlineColor: event.target.value,
                       }))
                     }
-                    className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-slate-950 p-2"
+                    className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-2"
                     disabled={!state.outlineEnabled}
                   />
                 </label>
@@ -897,7 +897,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+            <div className="rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.76)] p-4">
               <label className="flex items-center justify-between gap-3">
                 <span className="text-sm font-medium text-slate-300">Enable Sticker Edge</span>
                 <input
@@ -909,7 +909,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                       stickerEdgeEnabled: event.target.checked,
                     }))
                   }
-                  className="h-4 w-4 rounded border-white/20 bg-slate-950 text-cyan-400"
+                  className="h-4 w-4 rounded border-white/20 bg-[rgba(18,17,40,0.96)] text-cyan-300"
                 />
               </label>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -924,7 +924,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                         stickerEdgeColor: event.target.value,
                       }))
                     }
-                    className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-slate-950 p-2"
+                    className="mt-2 h-12 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-2"
                     disabled={!state.stickerEdgeEnabled}
                   />
                 </label>
@@ -952,7 +952,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+            <div className="rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.76)] p-4">
               <label className="flex items-center justify-between gap-3">
                 <span className="text-sm font-medium text-slate-300">Enable Shadow</span>
                 <input
@@ -964,7 +964,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                       shadowEnabled: event.target.checked,
                     }))
                   }
-                  className="h-4 w-4 rounded border-white/20 bg-slate-950 text-cyan-400"
+                  className="h-4 w-4 rounded border-white/20 bg-[rgba(18,17,40,0.96)] text-cyan-300"
                 />
               </label>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -1100,7 +1100,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           <button
             type="button"
             onClick={() => setState(getInitialState(variant))}
-            className="inline-flex items-center rounded-full border border-white/10 bg-slate-900 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/30 hover:text-cyan-200"
+            className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
           >
             Reset
           </button>
@@ -1112,11 +1112,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       </aside>
 
       <section
-        className="rounded-3xl p-4 shadow-2xl shadow-black/20"
-        style={{ backgroundColor: colorWithOpacity(state.backgroundColor, 0.3) }}
+        className="rounded-3xl border border-white/10 p-4 shadow-2xl shadow-[#080812]/25"
+        style={{ backgroundColor: colorWithOpacity(state.backgroundColor, 0.24) }}
       >
         <div className="mb-4 flex items-center justify-end gap-4 pb-2">
-          <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">
+          <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
             {presets.length} styles
           </span>
         </div>

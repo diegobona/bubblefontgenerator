@@ -76,15 +76,15 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
         "Clean PNG export in one click",
       ],
       steps: [
-        "Start on the homepage to understand the tool cluster and content structure.",
-        "Open the core bubble font generator page for the main editing workflow.",
-        "Explore a sub-intent page or article depending on the exact search need.",
+        "Start on the homepage and type your text directly into the main editor.",
+        "Adjust the bubble style, color, and effects for the look you want.",
+        "Open a sub-intent page or guide only when you need a narrower style or answer.",
       ],
       callToAction: {
-        title: "Start With The Main Editor",
+        title: "Jump Into The Editor",
         description:
-          "Go straight to the core editor and start designing.",
-        href: routes.bubbleFontGenerator,
+          "Use the homepage editor right away and start designing.",
+        href: `${routes.home}#main-editor`,
         label: "Open Main Editor",
       },
       jumpLinks: [
@@ -143,8 +143,8 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
       : {
           title: "Return To The Core Generator",
           description:
-            "This page serves a narrower search intent. The broader bubble font generator page remains the main destination for the topic cluster.",
-          href: routes.bubbleFontGenerator,
+            "This page serves a narrower search intent. The homepage remains the main Bubble Font Generator destination for the topic cluster.",
+          href: routes.home,
           label: "See Main Tool Page",
         };
 
@@ -193,7 +193,7 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
       title: "Move From Reading To Creating",
       description:
         "Once the article answers the question, the next step should be a practical tool page that lets users generate bubble text online.",
-      href: routes.bubbleFontGenerator,
+      href: routes.home,
       label: "Try The Bubble Font Generator",
     },
     jumpLinks: [

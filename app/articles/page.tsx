@@ -38,18 +38,6 @@ export default function ArticlesPage() {
     <main className="flex-1 bg-transparent">
       <PageContainer>
         <article className="py-12 sm:py-16">
-          <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-500">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href={routes.home} className="hover:text-sky-300">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-slate-300">Articles</li>
-            </ol>
-          </nav>
-
           <header className="sr-only">
             <h1>{page.h1}</h1>
             <p>{page.intro}</p>
@@ -83,7 +71,7 @@ export default function ArticlesPage() {
 
           <div className="mt-8">
             <Link
-              href={routes.bubbleFontGenerator}
+              href={`${routes.home}#main-editor`}
               className="inline-flex items-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
             >
               Open Bubble Font Generator
