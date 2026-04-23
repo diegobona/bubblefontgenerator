@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 
 import { routes } from "@/lib/routes";
 
@@ -628,11 +628,6 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const lines = useMemo(() => buildLines(state.text), [state.text]);
   const presets = variantConfigs[variant].presetKeys.map((key) => resultPresets[key]);
 
-  useEffect(() => {
-    setState(getInitialState(variant));
-    setDownloadMessage(null);
-  }, [variant]);
-
   const downloadPresetPng = async (preset: ResultPreset) => {
     const svgElement = svgRefs.current[preset.id];
 
@@ -685,17 +680,18 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   };
 
   return (
-    <div className="mt-4 grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
+    <div className="grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
       <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
         <label className="block">
-          <span className="text-sm font-medium text-slate-300">Text</span>
+          <span className="text-sm font-medium text-slate-300">Enter Your Text</span>
           <textarea
             value={state.text}
             onChange={(event) =>
               setState((current) => ({ ...current, text: event.target.value }))
             }
             rows={4}
-            aria-label="Text"
+            aria-label="Enter your text"
+            placeholder="Type your words here"
             className="mt-2 w-full rounded-2xl border border-cyan-300/45 bg-[rgba(18,17,40,0.92)] px-4 py-4 text-xl text-slate-50 shadow-sm outline-none transition focus:border-cyan-200"
           />
         </label>
@@ -738,7 +734,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
         <details className="mt-8 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
           <summary className="cursor-pointer list-none text-xl font-semibold text-slate-100">
-            Advance Options
+            Advanced Options
           </summary>
           <div className="mt-6 space-y-5">
             <label className="block">
@@ -1102,7 +1098,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             onClick={() => setState(getInitialState(variant))}
             className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
           >
-            Reset
+            Reset All
           </button>
         </div>
 
@@ -1115,7 +1111,15 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
         className="rounded-3xl border border-white/10 p-4 shadow-2xl shadow-[#080812]/25"
         style={{ backgroundColor: colorWithOpacity(state.backgroundColor, 0.24) }}
       >
-        <div className="mb-4 flex items-center justify-end gap-4 pb-2">
+        <div className="mb-4 flex flex-wrap items-start justify-between gap-4 pb-2">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight text-slate-50">
+              Bubble Font Generator Results
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-slate-300">
+              Compare multiple bubble font styles, pick your favorite result, and download a PNG.
+            </p>
+          </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
             {presets.length} styles
           </span>

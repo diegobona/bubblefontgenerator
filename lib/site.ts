@@ -5,7 +5,7 @@ export const siteConfig = {
   siteName: "Bubble Font Generator",
   url: "https://bubblefontgenerator.net",
   description:
-    "Use the Bubble Font Generator to create rounded bubble text online, customize colors and effects, and export a clean PNG in seconds.",
+    "Use the Bubble Font Generator to generate bubble text online, compare multiple rounded styles, customize colors and effects, and download a PNG in seconds.",
   locale: "en_US",
 } as const;
 

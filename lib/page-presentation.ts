@@ -75,16 +75,16 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
         "Clean PNG export in one click",
       ],
       steps: [
-        "Start on the homepage and type your text directly into the main editor.",
+        "Start with the main Bubble Font Generator and type your text directly into the editor.",
         "Adjust the bubble style, color, and effects for the look you want.",
         "Open a sub-intent page or guide only when you need a narrower style or answer.",
       ],
       callToAction: {
-        title: "Jump Into The Editor",
+        title: "Open The Bubble Font Generator",
         description:
-          "Use the homepage editor right away and start designing.",
+          "Use the main Bubble Font Generator right away and start designing.",
         href: `${routes.home}#main-editor`,
-        label: "Open Main Editor",
+        label: "Open Bubble Font Generator",
       },
       jumpLinks: [
         { href: "#brand-overview", label: "Brand" },
@@ -123,11 +123,11 @@ export function getPagePresentation(path: string, h1: string): PagePresentation 
           ];
 
     const callToAction = {
-      title: "Return To The Main Generator",
+      title: "Return To The Bubble Font Generator",
       description:
         "This page serves a narrower search intent. The homepage remains the main Bubble Font Generator destination for the topic cluster.",
       href: routes.home,
-      label: "See Main Tool Page",
+      label: "Open Bubble Font Generator",
     };
 
     return {

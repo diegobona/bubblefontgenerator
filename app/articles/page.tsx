@@ -74,7 +74,7 @@ export default function ArticlesPage() {
               href={`${routes.home}#main-editor`}
               className="inline-flex items-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
             >
-              Open Bubble Font Generator
+              Open The Bubble Font Generator
             </Link>
           </div>
         </article>

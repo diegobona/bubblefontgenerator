@@ -51,8 +51,9 @@ export function SiteHeader() {
           <Link
             href="/"
             className="text-lg font-semibold tracking-tight text-slate-50"
+            aria-label="Bubble Font Generator homepage"
           >
-            BubbleFont
+            Bubble Font Generator
           </Link>
           <nav
             aria-label="Primary"
