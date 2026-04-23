@@ -1,0 +1,42 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bubble-bg" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#221B3F"/>
+      <stop offset="0.55" stop-color="#1A2248"/>
+      <stop offset="1" stop-color="#0F1021"/>
+    </linearGradient>
+    <linearGradient id="bubble-accent" x1="18" y1="16" x2="48" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9"/>
+      <stop offset="0.55" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#F472B6"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="18" fill="url(#bubble-bg)"/>
+  <rect x="5.5" y="5.5" width="53" height="53" rx="16.5" stroke="rgba(255,255,255,0.12)"/>
+  <circle cx="47" cy="17" r="5" fill="#67E8F9" fill-opacity="0.95"/>
+  <circle cx="52" cy="24" r="2.5" fill="#E9D5FF" fill-opacity="0.9"/>
+  <circle cx="16" cy="48" r="3.5" fill="#C084FC" fill-opacity="0.85"/>
+  <path
+    d="M22 15V49M22 15H35C41.0751 15 46 19.9249 46 26C46 32.0751 41.0751 37 35 37H22M22 37H37C42.5228 37 47 41.4772 47 47C47 52.5228 42.5228 57 37 57H22"
+    transform="translate(0 -4)"
+    stroke="url(#bubble-accent)"
+    stroke-width="13"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M22 15V49M22 15H35C41.0751 15 46 19.9249 46 26C46 32.0751 41.0751 37 35 37H22M22 37H37C42.5228 37 47 41.4772 47 47C47 52.5228 42.5228 57 37 57H22"
+    transform="translate(0 -4)"
+    stroke="#F8FAFC"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M17 16C22 10 32 9 39 13"
+    stroke="#FFFFFF"
+    stroke-opacity="0.35"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+</svg>
