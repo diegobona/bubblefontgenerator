@@ -2,6 +2,11 @@
 
 import { useId, useMemo, useRef, useState } from "react";
 
+import {
+  buildStyleAssistSuggestion,
+  type EditorVariant,
+  type StyleAssistPresetId,
+} from "@/lib/ai-style-assist";
 import { routes } from "@/lib/routes";
 
 type BubbleEditorProps = {
@@ -9,7 +14,6 @@ type BubbleEditorProps = {
   heading: string;
 };
 
-type EditorVariant = "core" | "letters" | "writing" | "graffiti";
 type ResultPresetKey =
   | "classic"
   | "soft"
@@ -343,6 +347,13 @@ const variantConfigs: Record<EditorVariant, VariantConfig> = {
   },
 };
 
+const styleAssistExamples: Record<EditorVariant, string[]> = {
+  core: ["cute pink sticker", "soft pastel bubble", "blue graffiti street"],
+  letters: ["cute pink sticker", "playful school name", "soft pastel bubble"],
+  writing: ["soft pastel bubble", "cute note lettering", "handwritten pink bubble"],
+  graffiti: ["blue graffiti street", "urban spray tag", "bold neon bubble"],
+};
+
 function getVariantForPath(path: string): EditorVariant {
   if (path === routes.bubbleLetterFontGenerator) {
     return "letters";
@@ -622,11 +633,54 @@ function ResultSvg({
 export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const variant = getVariantForPath(pagePath);
   const [state, setState] = useState(() => getInitialState(variant));
+  const [stylePrompt, setStylePrompt] = useState("");
+  const [assistMessage, setAssistMessage] = useState<string | null>(null);
+  const [featuredPresetId, setFeaturedPresetId] = useState<StyleAssistPresetId | null>(null);
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null);
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
   const lines = useMemo(() => buildLines(state.text), [state.text]);
-  const presets = variantConfigs[variant].presetKeys.map((key) => resultPresets[key]);
+  const presets = useMemo(() => {
+    const basePresets = variantConfigs[variant].presetKeys.map((key) => resultPresets[key]);
+
+    if (!featuredPresetId) {
+      return basePresets;
+    }
+
+    return [...basePresets].sort((left, right) => {
+      if (left.id === featuredPresetId) {
+        return -1;
+      }
+
+      if (right.id === featuredPresetId) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }, [featuredPresetId, variant]);
+
+  const applyStyleAssist = (promptValue: string) => {
+    const suggestion = buildStyleAssistSuggestion(promptValue, variant);
+
+    if (!suggestion) {
+      setAssistMessage("Enter a short style prompt to apply a suggestion.");
+      return;
+    }
+
+    setState((current) => ({
+      ...current,
+      textColor: suggestion.textColor,
+      backgroundColor: suggestion.backgroundColor,
+      outlineColor: suggestion.outlineColor,
+      shadowColor: suggestion.shadowColor,
+      stickerEdgeEnabled: suggestion.stickerEdgeEnabled,
+      shadowEnabled: suggestion.shadowEnabled,
+    }));
+    setFeaturedPresetId(suggestion.presetId);
+    setAssistMessage(suggestion.message);
+    setDownloadMessage(null);
+  };
 
   const downloadPresetPng = async (preset: ResultPreset) => {
     const svgElement = svgRefs.current[preset.id];
@@ -695,6 +749,67 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             className="mt-2 w-full rounded-2xl border border-cyan-300/45 bg-[rgba(18,17,40,0.92)] px-4 py-4 text-xl text-slate-50 shadow-sm outline-none transition focus:border-cyan-200"
           />
         </label>
+
+        <div className="mt-6 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-lg font-semibold tracking-tight text-slate-50">
+                  AI Style Assist
+                </h2>
+                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">
+                  AI
+                </span>
+              </div>
+              <p className="mt-1 text-sm leading-6 text-slate-400">
+                Describe the look you want and the AI assistant will apply a matching bubble style
+                and push the best result to the top.
+              </p>
+            </div>
+          </div>
+
+          <label className="mt-4 block">
+            <span className="sr-only">Describe your style</span>
+            <input
+              type="text"
+              value={stylePrompt}
+              onChange={(event) => setStylePrompt(event.target.value)}
+              placeholder="cute pink sticker"
+              className="w-full rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+            />
+          </label>
+
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs leading-5 text-slate-400">
+            <span className="font-medium text-slate-500">eg.</span>
+            {styleAssistExamples[variant].map((example) => (
+              <button
+                key={example}
+                type="button"
+                onClick={() => {
+                  setStylePrompt(example);
+                  applyStyleAssist(example);
+                }}
+                className="rounded-full border border-transparent px-0 py-0 text-xs text-slate-400 transition hover:text-cyan-100"
+              >
+                {example}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => applyStyleAssist(stylePrompt)}
+              className="inline-flex items-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={stylePrompt.trim().length === 0}
+            >
+              Apply AI Style
+            </button>
+            {assistMessage ? (
+              <p className="text-sm leading-6 text-slate-400">{assistMessage}</p>
+            ) : null}
+          </div>
+        </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
           <label className="block">
@@ -1095,7 +1210,13 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <button
             type="button"
-            onClick={() => setState(getInitialState(variant))}
+            onClick={() => {
+              setState(getInitialState(variant));
+              setStylePrompt("");
+              setAssistMessage(null);
+              setFeaturedPresetId(null);
+              setDownloadMessage(null);
+            }}
             className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
           >
             Reset All
@@ -1119,13 +1240,18 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             <p className="mt-1 text-sm leading-6 text-slate-300">
               Compare multiple bubble font styles, pick your favorite result, and download a PNG.
             </p>
+            {featuredPresetId ? (
+              <p className="mt-1 text-xs uppercase tracking-[0.14em] text-cyan-100">
+                AI Style Assist moved the recommended result to the top.
+              </p>
+            ) : null}
           </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
             {presets.length} styles
           </span>
         </div>
 
-        <div className="editor-scrollbar max-h-[76vh] space-y-4 overflow-y-auto pr-1">
+        <div className="editor-scrollbar max-h-[72vh] space-y-4 overflow-y-auto pr-1">
           {presets.map((preset) => (
             <article
               key={preset.id}
