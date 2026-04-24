@@ -25,6 +25,11 @@ import {
   getDownloadBackgroundFill,
 } from "@/lib/download-background";
 import { routes } from "@/lib/routes";
+import {
+  buildEmbeddedSvgFontFaceCss,
+  buildExternalSvgFontFaceCss,
+  fetchFontDataUrl,
+} from "@/lib/svg-font-face";
 
 type BubbleEditorProps = {
   pagePath: string;
@@ -556,8 +561,12 @@ function ResultSvg({
       className="block h-full w-full"
     >
       <defs>
-        <style>
-          {`@font-face{font-family:"${font.family}";src:url("${font.filePath}") format("truetype");font-display:swap;}`}
+        <style data-svg-font-face="true">
+          {buildExternalSvgFontFaceCss({
+            family: font.family,
+            fontWeight: font.fontWeight,
+            filePath: font.filePath,
+          })}
         </style>
         <filter id={filterId} x="-20%" y="-20%" width="160%" height="160%">
           <feDropShadow
@@ -827,6 +836,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       setDownloadMessage(`Preparing ${preset.label} PNG...`);
       await document.fonts.load(`${font.fontWeight} 64px "${font.family}"`);
       await document.fonts.ready;
+      const fontDataUrl = await fetchFontDataUrl(font.filePath);
 
       const downloadBackgroundFill = getDownloadBackgroundFill(
         removeBackgroundWhenDownloading,
@@ -842,6 +852,17 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       } else {
         backgroundRect?.remove();
       }
+
+      const fontFaceStyle = svgForDownload.querySelector(
+        "style[data-svg-font-face]",
+      );
+      fontFaceStyle?.replaceChildren(
+        buildEmbeddedSvgFontFaceCss({
+          family: font.family,
+          fontWeight: font.fontWeight,
+          fontDataUrl,
+        }),
+      );
 
       const serializer = new XMLSerializer();
       const svgMarkup = serializer.serializeToString(svgForDownload);
