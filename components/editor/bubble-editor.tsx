@@ -7,6 +7,12 @@ import {
   type EditorVariant,
 } from "@/lib/ai-style-assist";
 import {
+  AI_ASSIST_TEMPLATE_DISPLAY_CLASS_NAME,
+  AI_ASSIST_TEMPLATE_NATIVE_SELECT_CLASS_NAME,
+  AI_ASSIST_TEMPLATE_PLACEHOLDER,
+  AI_ASSIST_TEMPLATE_VALUE_CLASS_NAME,
+} from "@/lib/ai-assist-copy";
+import {
   CORE_BUBBLE_FONT_COUNT,
   BUBBLE_FONT_PAGE_SIZE,
   bubbleFontLibrary,
@@ -733,6 +739,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     () => orderedFonts.slice(0, visibleFontCount),
     [orderedFonts, visibleFontCount],
   );
+  const selectedAssistTemplateLabel =
+    styleAssistTemplates.find((template) => template.prompt === selectedAssistTemplate)
+      ?.label ?? AI_ASSIST_TEMPLATE_PLACEHOLDER;
 
   const applyStyleAssist = (promptValue: string) => {
     const suggestion = buildStyleAssistSuggestion(promptValue, variant);
@@ -961,32 +970,37 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </label>
 
           <label className="mt-3 block">
-            <span className="mb-1 block text-xs font-medium text-slate-500">
-              eg. choose an AI assist template
-            </span>
-            <select
-              value={selectedAssistTemplate}
-              onChange={(event) => {
-                setSelectedAssistTemplate(event.target.value);
-                setStylePrompt(event.target.value);
-                setAssistMessage(null);
-              }}
-              className="w-full rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-200 outline-none transition focus:border-cyan-300"
-              aria-label="Choose an AI assist template"
-            >
-              <option value="" className="bg-slate-950">
-                Choose a template, then edit the text
-              </option>
-              {styleAssistTemplates.map((template) => (
-                <option
-                  key={template.prompt}
-                  value={template.prompt}
-                  className="bg-slate-950"
-                >
-                  {template.label}
+            <div className="relative">
+              <span className={AI_ASSIST_TEMPLATE_DISPLAY_CLASS_NAME}>
+                <span className={AI_ASSIST_TEMPLATE_VALUE_CLASS_NAME}>
+                  {selectedAssistTemplateLabel}
+                </span>
+                <span className="shrink-0 text-[10px] text-cyan-100">v</span>
+              </span>
+              <select
+                value={selectedAssistTemplate}
+                onChange={(event) => {
+                  setSelectedAssistTemplate(event.target.value);
+                  setStylePrompt(event.target.value);
+                  setAssistMessage(null);
+                }}
+                className={AI_ASSIST_TEMPLATE_NATIVE_SELECT_CLASS_NAME}
+                aria-label="Choose an AI assist template"
+              >
+                <option value="" className="bg-slate-950">
+                  {AI_ASSIST_TEMPLATE_PLACEHOLDER}
                 </option>
-              ))}
-            </select>
+                {styleAssistTemplates.map((template) => (
+                  <option
+                    key={template.prompt}
+                    value={template.prompt}
+                    className="bg-slate-950"
+                  >
+                    {template.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </label>
 
           <div className="mt-4 flex flex-wrap items-center gap-3">
