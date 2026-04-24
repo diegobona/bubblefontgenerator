@@ -20,6 +20,10 @@ import {
   MAX_CANVAS_HEIGHT,
   MIN_CANVAS_HEIGHT,
 } from "@/lib/editor-sizing";
+import {
+  DEFAULT_REMOVE_DOWNLOAD_BACKGROUND,
+  getDownloadBackgroundFill,
+} from "@/lib/download-background";
 import { routes } from "@/lib/routes";
 
 type BubbleEditorProps = {
@@ -566,7 +570,14 @@ function ResultSvg({
         </filter>
       </defs>
 
-      <rect x="0" y="0" width={state.width} height={state.height} fill={state.backgroundColor} />
+      <rect
+        x="0"
+        y="0"
+        width={state.width}
+        height={state.height}
+        fill={state.backgroundColor}
+        data-download-background="true"
+      />
 
       <g filter={`url(#${filterId})`}>
         {lines.map((line, index) => {
@@ -692,6 +703,8 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const [fontSort, setFontSort] = useState<BubbleFontSortKey>("popular");
   const [visibleFontCount, setVisibleFontCount] = useState(CORE_BUBBLE_FONT_COUNT);
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null);
+  const [removeBackgroundWhenDownloading, setRemoveBackgroundWhenDownloading] =
+    useState(DEFAULT_REMOVE_DOWNLOAD_BACKGROUND);
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
   const lines = useMemo(() => buildLines(state.text), [state.text]);
@@ -815,8 +828,23 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       await document.fonts.load(`${font.fontWeight} 64px "${font.family}"`);
       await document.fonts.ready;
 
+      const downloadBackgroundFill = getDownloadBackgroundFill(
+        removeBackgroundWhenDownloading,
+        state.backgroundColor,
+      );
+      const svgForDownload = svgElement.cloneNode(true) as SVGSVGElement;
+      const backgroundRect = svgForDownload.querySelector(
+        "[data-download-background]",
+      );
+
+      if (backgroundRect && downloadBackgroundFill) {
+        backgroundRect.setAttribute("fill", downloadBackgroundFill);
+      } else {
+        backgroundRect?.remove();
+      }
+
       const serializer = new XMLSerializer();
-      const svgMarkup = serializer.serializeToString(svgElement);
+      const svgMarkup = serializer.serializeToString(svgForDownload);
       const svgBlob = new Blob([svgMarkup], {
         type: "image/svg+xml;charset=utf-8",
       });
@@ -848,7 +876,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       link.click();
 
       URL.revokeObjectURL(url);
-      setDownloadMessage(`${font.displayName} downloaded.`);
+      setDownloadMessage(
+        `${font.displayName} downloaded with ${
+          downloadBackgroundFill ? "canvas color" : "transparent"
+        } background.`,
+      );
     } catch (error) {
       setDownloadMessage(
         error instanceof Error ? error.message : "Failed to export PNG.",
@@ -1378,6 +1410,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               setFeaturedFontCategories([]);
               setFontSort("popular");
               setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
+              setRemoveBackgroundWhenDownloading(DEFAULT_REMOVE_DOWNLOAD_BACKGROUND);
               setDownloadMessage(null);
             }}
             className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
@@ -1409,28 +1442,62 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 </p>
               ) : null}
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200">
-              <span className="text-slate-400">Sort</span>
-              <select
-                value={fontSort}
+          <div className="flex w-full flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200">
+                <span className="text-slate-400">Sort</span>
+                <select
+                  value={fontSort}
+                  onChange={(event) => {
+                    setFontSort(event.target.value as BubbleFontSortKey);
+                    setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
+                  }}
+                  className="bg-transparent text-cyan-100 outline-none"
+                  aria-label="Sort bubble fonts"
+                >
+                  {fontSortOptions.map((option) => (
+                    <option key={option.value} value={option.value} className="bg-slate-950">
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
+                {visibleFonts.length} of {bubbleFontLibrary.length} fonts
+              </span>
+            </div>
+
+            <label className="flex min-w-0 items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-semibold text-slate-200 sm:text-xs">
+              <span className="min-w-0 leading-5">
+                Remove background when downloading
+              </span>
+              <input
+                type="checkbox"
+                checked={removeBackgroundWhenDownloading}
                 onChange={(event) => {
-                  setFontSort(event.target.value as BubbleFontSortKey);
-                  setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
+                  setRemoveBackgroundWhenDownloading(event.target.checked);
+                  setDownloadMessage(null);
                 }}
-                className="bg-transparent text-cyan-100 outline-none"
-                aria-label="Sort bubble fonts"
+                className="sr-only"
+                aria-label="Remove background when downloading"
+              />
+              <span
+                className={`relative h-6 w-11 shrink-0 rounded-full transition ${
+                  removeBackgroundWhenDownloading
+                    ? "bg-cyan-300"
+                    : "bg-slate-700"
+                }`}
               >
-                {fontSortOptions.map((option) => (
-                  <option key={option.value} value={option.value} className="bg-slate-950">
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                <span
+                  className={`absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition ${
+                    removeBackgroundWhenDownloading ? "translate-x-5" : ""
+                  }`}
+                />
+              </span>
+              <span className="w-6 shrink-0 text-cyan-100">
+                {removeBackgroundWhenDownloading ? "on" : "off"}
+              </span>
             </label>
-            <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
-              {visibleFonts.length} of {bubbleFontLibrary.length} fonts
-            </span>
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 const outDir = join(tmpdir(), "bubble-font-generator-tests");
 const testFiles = [
   "tests/ai-style-assist.test.ts",
+  "tests/download-background.test.ts",
   "tests/font-library.test.ts",
   "tests/editor-sizing.test.ts",
 ];
