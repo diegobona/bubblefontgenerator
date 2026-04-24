@@ -525,7 +525,8 @@ function ResultSvg({
       height="100%"
       role="img"
       aria-label={ariaLabel}
-      className="block h-auto w-full"
+      preserveAspectRatio="xMidYMid meet"
+      className="block h-full w-full"
     >
       <defs>
         <style>
@@ -763,7 +764,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   };
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
+    <div className="grid items-start gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
       <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
         <label className="block">
           <span className="text-sm font-medium text-slate-300">Enter Your Text</span>
@@ -1281,7 +1282,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       </aside>
 
       <section
-        className="rounded-3xl border border-white/10 p-4 shadow-2xl shadow-[#080812]/25"
+        className="self-start rounded-3xl border border-white/10 p-4 shadow-2xl shadow-[#080812]/25"
         style={{ backgroundColor: colorWithOpacity(state.backgroundColor, 0.24) }}
       >
         <div className="mb-4 flex flex-wrap items-start justify-between gap-4 pb-2">
@@ -1333,7 +1334,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </div>
 
               <div
-                className="overflow-hidden rounded-2xl"
+                className="h-[170px] overflow-hidden rounded-2xl sm:h-[190px] xl:h-[180px]"
                 style={{ backgroundColor: state.backgroundColor }}
               >
                 <ResultSvg
