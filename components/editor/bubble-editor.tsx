@@ -348,10 +348,10 @@ const variantConfigs: Record<EditorVariant, VariantConfig> = {
 };
 
 const styleAssistExamples: Record<EditorVariant, string[]> = {
-  core: ["cute pink sticker", "soft pastel bubble", "blue graffiti street"],
-  letters: ["cute pink sticker", "playful school name", "soft pastel bubble"],
-  writing: ["soft pastel bubble", "cute note lettering", "handwritten pink bubble"],
-  graffiti: ["blue graffiti street", "urban spray tag", "bold neon bubble"],
+  core: ["yellow birthday banner", "black outline logo", "blue graffiti street"],
+  letters: ["green classroom label", "rainbow playful name", "cute pink sticker"],
+  writing: ["handwritten pink note", "soft pastel bubble", "clean white script"],
+  graffiti: ["blue graffiti street", "neon purple party", "black outline tag"],
 };
 
 function getVariantForPath(path: string): EditorVariant {
