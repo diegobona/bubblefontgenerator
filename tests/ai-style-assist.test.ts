@@ -44,6 +44,7 @@ const outlineSuggestion = buildStyleAssistSuggestion("black outline logo", "core
 
 assert.ok(outlineSuggestion);
 assert.equal(outlineSuggestion.presetId, "outline");
+assert.equal(outlineSuggestion.outlineEnabled, true);
 assert.equal(outlineSuggestion.textColor, "#111827");
 assert.equal(outlineSuggestion.backgroundColor, "#f8fafc");
 
@@ -60,3 +61,43 @@ assert.ok(rainbowSuggestion);
 assert.equal(rainbowSuggestion.presetId, "kid");
 assert.equal(rainbowSuggestion.textColor, "#f97316");
 assert.equal(rainbowSuggestion.backgroundColor, "#dbeafe");
+
+const removeShadowSuggestion = buildStyleAssistSuggestion("remove shadow", "core");
+
+assert.ok(removeShadowSuggestion);
+assert.equal(removeShadowSuggestion.shadowEnabled, false);
+assert.equal(removeShadowSuggestion.applyColors, false);
+assert.deepEqual(removeShadowSuggestion.fontCategories, []);
+assert.equal(removeShadowSuggestion.shadowBlurDelta, -30);
+
+const biggerTextSuggestion = buildStyleAssistSuggestion("bigger text", "core");
+
+assert.ok(biggerTextSuggestion);
+assert.equal(biggerTextSuggestion.applyColors, false);
+assert.deepEqual(biggerTextSuggestion.fontCategories, []);
+assert.equal(biggerTextSuggestion.fontSizeDelta, 18);
+assert.match(biggerTextSuggestion.message, /bigger text/i);
+
+const tighterSpacingSuggestion = buildStyleAssistSuggestion("tighter letter spacing", "core");
+
+assert.ok(tighterSpacingSuggestion);
+assert.equal(tighterSpacingSuggestion.applyColors, false);
+assert.equal(tighterSpacingSuggestion.letterSpacingDelta, -2);
+
+const removeOutlineSuggestion = buildStyleAssistSuggestion("remove outline", "core");
+
+assert.ok(removeOutlineSuggestion);
+assert.equal(removeOutlineSuggestion.applyColors, false);
+assert.equal(removeOutlineSuggestion.outlineEnabled, false);
+
+const orangeSuggestion = buildStyleAssistSuggestion("orange warm bubble", "core");
+
+assert.ok(orangeSuggestion);
+assert.equal(orangeSuggestion.applyColors, true);
+assert.equal(orangeSuggestion.textColor, "#f97316");
+
+const whiteSuggestion = buildStyleAssistSuggestion("clean white bubble", "core");
+
+assert.ok(whiteSuggestion);
+assert.equal(whiteSuggestion.applyColors, true);
+assert.equal(whiteSuggestion.textColor, "#f8fafc");

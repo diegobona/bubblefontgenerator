@@ -56,8 +56,33 @@ type FontSeed = {
 };
 
 export const CORE_BUBBLE_FONT_COUNT = 12;
+export const BUBBLE_FONT_PAGE_SIZE = 24;
 
 const googleFontsLicenseUrl = "https://fonts.google.com/attribution";
+const popularityBoosts: Record<string, number> = {
+  "rubik-bubbles": 10000,
+  "bungee": 9800,
+  "luckiest-guy": 9600,
+  "bubblegum-sans": 9400,
+  "bungee-shade": 9200,
+  "rubik-spray-paint": 9000,
+  "chewy": 8800,
+  "fredoka": 8600,
+  "bangers": 8400,
+  "permanent-marker": 8200,
+};
+const trendingBoosts: Record<string, number> = {
+  "sour-gummy": 10000,
+  "kablammo": 9800,
+  "rubik-spray-paint": 9600,
+  "cherry-bomb-one": 9400,
+  "bagel-fat-one": 9200,
+  "rubik-bubbles": 9000,
+  "bungee-spice": 8800,
+  "shrikhand": 8600,
+  "road-rage": 8400,
+  "sniglet": 8200,
+};
 let generatedFontRank = 0;
 
 function buildSpecimenUrl(name: string) {
@@ -82,13 +107,55 @@ function buildFont(seed: FontSeed): BubbleFont {
     effectPresetId: seed.effectPresetId,
     loadStrategy: seed.loadStrategy ?? "deferred",
     fontWeight: "400",
-    popularityScore: seed.popularityScore ?? 1000 - generatedFontRank,
-    trendingScore: seed.trendingScore ?? ((generatedFontRank * 37) % 1000),
+    popularityScore:
+      seed.popularityScore ?? getCuratedPopularityScore(seed, generatedFontRank),
+    trendingScore:
+      seed.trendingScore ?? getCuratedTrendingScore(seed, generatedFontRank),
     addedRank: generatedFontRank,
     allowsCommercialUse: true,
     allowsWebEmbedding: true,
     allowsRedistribution: true,
   };
+}
+
+function getCuratedPopularityScore(seed: FontSeed, rank: number) {
+  return (
+    (popularityBoosts[seed.id] ?? 0) +
+    getCategoryPopularityScore(seed.categories) +
+    (seed.loadStrategy === "core" ? 600 : 0) +
+    Math.max(0, 400 - rank)
+  );
+}
+
+function getCuratedTrendingScore(seed: FontSeed, rank: number) {
+  return (
+    (trendingBoosts[seed.id] ?? 0) +
+    getCategoryTrendingScore(seed.categories) +
+    Math.min(rank, 127)
+  );
+}
+
+function getCategoryPopularityScore(categories: readonly BubbleFontCategory[]) {
+  return categories.reduce((score, category) => {
+    if (category === "bubble") return score + 900;
+    if (category === "sticker") return score + 700;
+    if (category === "cute") return score + 650;
+    if (category === "graffiti") return score + 620;
+    if (category === "outline") return score + 560;
+    if (category === "chunky") return score + 520;
+    return score + 360;
+  }, 0);
+}
+
+function getCategoryTrendingScore(categories: readonly BubbleFontCategory[]) {
+  return categories.reduce((score, category) => {
+    if (category === "graffiti") return score + 900;
+    if (category === "bubble") return score + 850;
+    if (category === "cute") return score + 720;
+    if (category === "sticker") return score + 680;
+    if (category === "handwritten") return score + 580;
+    return score + 420;
+  }, 0);
 }
 
 export const bubbleFontLibrary = [
@@ -246,10 +313,12 @@ export function getBubbleFontsForDisplay({
   const rank = new Map(
     preferredCategories.map((category, index) => [category, index] as const),
   );
+  const shouldPrioritizeCategories =
+    sortKey === "popular" && preferredCategories.length > 0;
 
   return fonts.sort((left, right) => {
-    const leftRank = preferredCategories.length > 0 ? getCategoryRank(left, rank) : 0;
-    const rightRank = preferredCategories.length > 0 ? getCategoryRank(right, rank) : 0;
+    const leftRank = shouldPrioritizeCategories ? getCategoryRank(left, rank) : 0;
+    const rightRank = shouldPrioritizeCategories ? getCategoryRank(right, rank) : 0;
 
     if (leftRank !== rightRank) {
       return leftRank - rightRank;

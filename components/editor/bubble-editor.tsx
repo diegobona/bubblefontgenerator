@@ -5,10 +5,10 @@ import { useId, useMemo, useRef, useState } from "react";
 import {
   buildStyleAssistSuggestion,
   type EditorVariant,
-  type StyleAssistPresetId,
 } from "@/lib/ai-style-assist";
 import {
   CORE_BUBBLE_FONT_COUNT,
+  BUBBLE_FONT_PAGE_SIZE,
   bubbleFontLibrary,
   getBubbleFontsForDisplay,
   type BubbleFont,
@@ -367,12 +367,27 @@ const variantConfigs: Record<EditorVariant, VariantConfig> = {
   },
 };
 
-const styleAssistExamples: Record<EditorVariant, string[]> = {
-  core: ["yellow birthday banner", "black outline logo", "blue graffiti street"],
-  letters: ["green classroom label", "rainbow playful name", "cute pink sticker"],
-  writing: ["handwritten pink note", "soft pastel bubble", "clean white script"],
-  graffiti: ["blue graffiti street", "neon purple party", "black outline tag"],
-};
+const styleAssistTemplates = [
+  { label: "Style: cute pink sticker", prompt: "cute pink sticker" },
+  { label: "Style: blue graffiti street", prompt: "blue graffiti street" },
+  { label: "Style: yellow birthday banner", prompt: "yellow birthday banner" },
+  { label: "Style: black outline logo", prompt: "black outline logo" },
+  { label: "Style: green classroom label", prompt: "green classroom label" },
+  { label: "Style: handwritten pink note", prompt: "handwritten pink note" },
+  { label: "Edit: remove shadow", prompt: "remove shadow" },
+  { label: "Edit: add stronger shadow", prompt: "add stronger shadow" },
+  { label: "Edit: bigger text", prompt: "bigger text" },
+  { label: "Edit: smaller text", prompt: "smaller text" },
+  { label: "Edit: remove outline", prompt: "remove outline" },
+  { label: "Edit: thicker outline", prompt: "thicker outline" },
+  { label: "Edit: add sticker edge", prompt: "add sticker edge" },
+  { label: "Edit: more 3D thickness", prompt: "more 3d thickness" },
+  { label: "Edit: remove 3D depth", prompt: "remove 3d depth" },
+  { label: "Edit: wider letter spacing", prompt: "wider letter spacing" },
+  { label: "Edit: tighter letter spacing", prompt: "tighter letter spacing" },
+  { label: "Edit: more shine", prompt: "more shine" },
+  { label: "Edit: remove highlight", prompt: "remove highlight" },
+];
 
 const variantFontCategories: Record<EditorVariant, BubbleFontCategory[]> = {
   core: [],
@@ -672,7 +687,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const [state, setState] = useState(() => getInitialState(variant));
   const [stylePrompt, setStylePrompt] = useState("");
   const [assistMessage, setAssistMessage] = useState<string | null>(null);
-  const [featuredPresetId, setFeaturedPresetId] = useState<StyleAssistPresetId | null>(null);
+  const [selectedAssistTemplate, setSelectedAssistTemplate] = useState("");
   const [featuredFontCategories, setFeaturedFontCategories] = useState<BubbleFontCategory[]>([]);
   const [fontSort, setFontSort] = useState<BubbleFontSortKey>("popular");
   const [visibleFontCount, setVisibleFontCount] = useState(CORE_BUBBLE_FONT_COUNT);
@@ -704,16 +719,82 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       return;
     }
 
-    setState((current) => ({
-      ...current,
-      textColor: suggestion.textColor,
-      backgroundColor: suggestion.backgroundColor,
-      outlineColor: suggestion.outlineColor,
-      shadowColor: suggestion.shadowColor,
-      stickerEdgeEnabled: suggestion.stickerEdgeEnabled,
-      shadowEnabled: suggestion.shadowEnabled,
-    }));
-    setFeaturedPresetId(suggestion.presetId);
+    setState((current) => {
+      const fontSize = clamp(
+        current.fontSize + (suggestion.fontSizeDelta ?? 0),
+        52,
+        160,
+      );
+
+      return {
+        ...current,
+        textColor: suggestion.applyColors ? suggestion.textColor : current.textColor,
+        backgroundColor: suggestion.applyColors
+          ? suggestion.backgroundColor
+          : current.backgroundColor,
+        outlineColor: suggestion.applyColors
+          ? suggestion.outlineColor
+          : current.outlineColor,
+        shadowColor: suggestion.applyColors ? suggestion.shadowColor : current.shadowColor,
+        outlineEnabled: suggestion.outlineEnabled ?? current.outlineEnabled,
+        stickerEdgeEnabled:
+          suggestion.stickerEdgeEnabled ?? current.stickerEdgeEnabled,
+        shadowEnabled: suggestion.shadowEnabled ?? current.shadowEnabled,
+        fontSize,
+        height: getAutoHeightForFontSize({
+          currentHeight: current.height,
+          fontSize,
+          lineHeight: current.lineHeight,
+          lineCount: buildLines(current.text).length,
+          outlineWidth: clamp(
+            current.outlineWidth + (suggestion.outlineWidthDelta ?? 0),
+            0,
+            30,
+          ),
+          stickerEdgeEnabled:
+            suggestion.stickerEdgeEnabled ?? current.stickerEdgeEnabled,
+          stickerEdgeWidth: clamp(
+            current.stickerEdgeWidth + (suggestion.stickerEdgeWidthDelta ?? 0),
+            0,
+            28,
+          ),
+          shadowEnabled: suggestion.shadowEnabled ?? current.shadowEnabled,
+          shadowBlur: clamp(
+            current.shadowBlur + (suggestion.shadowBlurDelta ?? 0),
+            0,
+            30,
+          ),
+          shadowY: current.shadowY,
+          depth: clamp(current.depth + (suggestion.depthDelta ?? 0), 0, 22),
+        }),
+        letterSpacing: clamp(
+          current.letterSpacing + (suggestion.letterSpacingDelta ?? 0),
+          0,
+          18,
+        ),
+        outlineWidth: clamp(
+          current.outlineWidth + (suggestion.outlineWidthDelta ?? 0),
+          0,
+          30,
+        ),
+        stickerEdgeWidth: clamp(
+          current.stickerEdgeWidth + (suggestion.stickerEdgeWidthDelta ?? 0),
+          0,
+          28,
+        ),
+        shadowBlur: clamp(
+          current.shadowBlur + (suggestion.shadowBlurDelta ?? 0),
+          0,
+          30,
+        ),
+        depth: clamp(current.depth + (suggestion.depthDelta ?? 0), 0, 22),
+        highlightStrength: clamp(
+          current.highlightStrength + (suggestion.highlightStrengthDelta ?? 0),
+          0,
+          100,
+        ),
+      };
+    });
     setFeaturedFontCategories(suggestion.fontCategories);
     setVisibleFontCount((currentCount) =>
       Math.max(currentCount, CORE_BUBBLE_FONT_COUNT),
@@ -797,15 +878,15 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-lg font-semibold tracking-tight text-slate-50">
-                  AI Style Assist
+                  AI Assist
                 </h2>
                 <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">
                   AI
                 </span>
               </div>
               <p className="mt-1 text-sm leading-6 text-slate-400">
-                Describe the look you want and the AI assistant will apply a matching bubble style
-                and push the best result to the top.
+                Describe a style or edit command. Try bigger text, remove shadow, cute sticker,
+                graffiti, outline, 3D depth, spacing, or shine.
               </p>
             </div>
           </div>
@@ -815,28 +896,44 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             <input
               type="text"
               value={stylePrompt}
-              onChange={(event) => setStylePrompt(event.target.value)}
+              onChange={(event) => {
+                setStylePrompt(event.target.value);
+                setSelectedAssistTemplate("");
+                setAssistMessage(null);
+              }}
               placeholder="cute pink sticker"
               className="w-full rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
             />
           </label>
 
-          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs leading-5 text-slate-400">
-            <span className="font-medium text-slate-500">eg.</span>
-            {styleAssistExamples[variant].map((example) => (
-              <button
-                key={example}
-                type="button"
-                onClick={() => {
-                  setStylePrompt(example);
-                  applyStyleAssist(example);
-                }}
-                className="rounded-full border border-transparent px-0 py-0 text-xs text-slate-400 transition hover:text-cyan-100"
-              >
-                {example}
-              </button>
-            ))}
-          </div>
+          <label className="mt-3 block">
+            <span className="mb-1 block text-xs font-medium text-slate-500">
+              eg. choose an AI assist template
+            </span>
+            <select
+              value={selectedAssistTemplate}
+              onChange={(event) => {
+                setSelectedAssistTemplate(event.target.value);
+                setStylePrompt(event.target.value);
+                setAssistMessage(null);
+              }}
+              className="w-full rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-200 outline-none transition focus:border-cyan-300"
+              aria-label="Choose an AI assist template"
+            >
+              <option value="" className="bg-slate-950">
+                Choose a template, then edit the text
+              </option>
+              {styleAssistTemplates.map((template) => (
+                <option
+                  key={template.prompt}
+                  value={template.prompt}
+                  className="bg-slate-950"
+                >
+                  {template.label}
+                </option>
+              ))}
+            </select>
+          </label>
 
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <button
@@ -845,7 +942,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               className="inline-flex items-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={stylePrompt.trim().length === 0}
             >
-              Apply AI Style
+              Apply AI Assist
             </button>
             {assistMessage ? (
               <p className="text-sm leading-6 text-slate-400">{assistMessage}</p>
@@ -1276,8 +1373,8 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             onClick={() => {
               setState(getInitialState(variant));
               setStylePrompt("");
+              setSelectedAssistTemplate("");
               setAssistMessage(null);
-              setFeaturedPresetId(null);
               setFeaturedFontCategories([]);
               setFontSort("popular");
               setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
@@ -1306,11 +1403,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             <p className="mt-1 text-sm leading-6 text-slate-300">
               Compare real bubble font previews, pick your favorite result, and download a PNG.
             </p>
-            {featuredPresetId || featuredFontCategories.length > 0 ? (
-              <p className="mt-1 text-xs uppercase tracking-[0.14em] text-cyan-100">
-                AI Style Assist moved recommended font styles to the top.
-              </p>
-            ) : null}
+              {featuredFontCategories.length > 0 && fontSort === "popular" ? (
+                <p className="mt-1 text-xs uppercase tracking-[0.14em] text-cyan-100">
+                  AI Assist moved recommended font styles to the top.
+                </p>
+              ) : null}
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <label className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200">
@@ -1388,10 +1485,22 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           {visibleFontCount < bubbleFontLibrary.length ? (
             <button
               type="button"
-              onClick={() => setVisibleFontCount(bubbleFontLibrary.length)}
+              onClick={() =>
+                setVisibleFontCount((currentCount) =>
+                  Math.min(
+                    bubbleFontLibrary.length,
+                    currentCount + BUBBLE_FONT_PAGE_SIZE,
+                  ),
+                )
+              }
               className="w-full rounded-2xl border border-cyan-300/20 bg-cyan-300/10 px-4 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200/40 hover:bg-cyan-300/15"
             >
-              Show all {bubbleFontLibrary.length} real bubble fonts
+              Show next{" "}
+              {Math.min(
+                BUBBLE_FONT_PAGE_SIZE,
+                bubbleFontLibrary.length - visibleFontCount,
+              )}{" "}
+              real bubble fonts
             </button>
           ) : null}
         </div>

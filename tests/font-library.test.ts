@@ -3,15 +3,14 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 import {
+  BUBBLE_FONT_PAGE_SIZE,
   bubbleFontLibrary,
   coreBubbleFonts,
   getBubbleFontsForDisplay,
 } from "../lib/font-library";
 
-assert.ok(
-  bubbleFontLibrary.length >= 100,
-  "the bubble font generator should expose at least 100 real font choices",
-);
+assert.equal(bubbleFontLibrary.length, 127);
+assert.equal(BUBBLE_FONT_PAGE_SIZE, 24);
 
 assert.ok(
   coreBubbleFonts.length >= 10 && coreBubbleFonts.length <= 12,
@@ -59,6 +58,17 @@ const nameSortedFonts = getBubbleFontsForDisplay({
 
 assert.equal(nameSortedFonts[0].displayName, "Aclonica");
 
+const globalNameSortedFonts = getBubbleFontsForDisplay({
+  preferredCategories: ["graffiti"],
+  sortKey: "name",
+});
+
+assert.equal(
+  globalNameSortedFonts[0].displayName,
+  "Aclonica",
+  "name sorting should remain global even after AI recommendations",
+);
+
 const newestFonts = getBubbleFontsForDisplay({
   preferredCategories: [],
   sortKey: "newest",
@@ -74,7 +84,15 @@ const trendingFonts = getBubbleFontsForDisplay({
   sortKey: "trending",
 });
 
+assert.equal(trendingFonts[0].id, "sour-gummy");
 assert.ok(
   trendingFonts[0].trendingScore >= trendingFonts[1].trendingScore,
   "trending sorting should use the curated trending score",
 );
+
+const popularFonts = getBubbleFontsForDisplay({
+  preferredCategories: [],
+  sortKey: "popular",
+});
+
+assert.equal(popularFonts[0].id, "rubik-bubbles");

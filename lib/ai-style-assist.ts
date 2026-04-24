@@ -18,8 +18,17 @@ export type StyleAssistSuggestion = {
   backgroundColor: string;
   outlineColor: string;
   shadowColor: string;
-  stickerEdgeEnabled: boolean;
-  shadowEnabled: boolean;
+  stickerEdgeEnabled?: boolean;
+  shadowEnabled?: boolean;
+  applyColors: boolean;
+  outlineEnabled?: boolean;
+  fontSizeDelta?: number;
+  letterSpacingDelta?: number;
+  outlineWidthDelta?: number;
+  stickerEdgeWidthDelta?: number;
+  shadowBlurDelta?: number;
+  depthDelta?: number;
+  highlightStrengthDelta?: number;
   message: string;
 };
 
@@ -275,6 +284,175 @@ function getFontCategories(
   return [];
 }
 
+function hasStyleIntent(input: string) {
+  return includesAny(input, [
+    "black",
+    "blue",
+    "bubble",
+    "cartoon",
+    "classic",
+    "clean",
+    "colorful",
+    "cute",
+    "dark",
+    "gold",
+    "graffiti",
+    "green",
+    "handwritten",
+    "kawaii",
+    "logo",
+    "minimal",
+    "multicolor",
+    "neon",
+    "orange",
+    "pastel",
+    "pink",
+    "purple",
+    "rainbow",
+    "red",
+    "school",
+    "sticker",
+    "street",
+    "sunny",
+    "warm",
+    "white",
+    "writing",
+    "yellow",
+  ]);
+}
+
+function hasOutlineStyleIntent(input: string, hasEditIntent: boolean) {
+  return !hasEditIntent && includesAny(input, ["outline", "border"]);
+}
+
+function hasAnyAdjustment(adjustments: ReturnType<typeof getEditAdjustments>) {
+  return Object.values(adjustments).some((value) => value !== undefined);
+}
+
+function getEditAdjustments(input: string) {
+  const wantsRemoveShadow = includesAny(input, [
+    "remove shadow",
+    "no shadow",
+    "without shadow",
+    "turn off shadow",
+    "disable shadow",
+  ]);
+  const wantsMoreShadow = includesAny(input, [
+    "more shadow",
+    "stronger shadow",
+    "add shadow",
+    "deeper shadow",
+  ]);
+  const wantsBiggerText = includesAny(input, [
+    "bigger text",
+    "larger text",
+    "increase font",
+    "increase size",
+    "make text bigger",
+    "make it bigger",
+  ]);
+  const wantsSmallerText = includesAny(input, [
+    "smaller text",
+    "decrease font",
+    "decrease size",
+    "make text smaller",
+    "make it smaller",
+  ]);
+  const wantsNoOutline = includesAny(input, [
+    "remove outline",
+    "no outline",
+    "without outline",
+    "turn off outline",
+  ]);
+  const wantsMoreOutline = includesAny(input, [
+    "more outline",
+    "thicker outline",
+    "bold outline",
+    "strong outline",
+  ]);
+  const wantsStickerEdge = includesAny(input, [
+    "add sticker edge",
+    "more sticker",
+    "sticker border",
+    "thicker sticker",
+  ]);
+  const wantsMoreDepth = includesAny(input, [
+    "more 3d",
+    "more depth",
+    "thicker 3d",
+    "more thickness",
+  ]);
+  const wantsLessDepth = includesAny(input, [
+    "less 3d",
+    "remove 3d",
+    "no 3d",
+    "less depth",
+  ]);
+  const wantsMoreSpacing = includesAny(input, [
+    "more spacing",
+    "wider spacing",
+    "spread letters",
+    "increase spacing",
+  ]);
+  const wantsTighterSpacing = includesAny(input, [
+    "less spacing",
+    "tighter spacing",
+    "tighter letter spacing",
+    "decrease spacing",
+  ]);
+  const wantsMoreHighlight = includesAny(input, [
+    "more highlight",
+    "more shine",
+    "glossier",
+    "shiny",
+  ]);
+  const wantsLessHighlight = includesAny(input, [
+    "less highlight",
+    "remove highlight",
+    "less shine",
+  ]);
+
+  return {
+    shadowEnabled: wantsRemoveShadow ? false : wantsMoreShadow ? true : undefined,
+    outlineEnabled: wantsNoOutline ? false : wantsMoreOutline ? true : undefined,
+    stickerEdgeEnabled: wantsStickerEdge ? true : undefined,
+    fontSizeDelta: wantsBiggerText ? 18 : wantsSmallerText ? -14 : undefined,
+    letterSpacingDelta: wantsMoreSpacing ? 2 : wantsTighterSpacing ? -2 : undefined,
+    outlineWidthDelta: wantsMoreOutline ? 4 : wantsNoOutline ? -30 : undefined,
+    stickerEdgeWidthDelta: wantsStickerEdge ? 5 : undefined,
+    shadowBlurDelta: wantsRemoveShadow ? -30 : wantsMoreShadow ? 6 : undefined,
+    depthDelta: wantsMoreDepth ? 5 : wantsLessDepth ? -22 : undefined,
+    highlightStrengthDelta: wantsMoreHighlight ? 18 : wantsLessHighlight ? -40 : undefined,
+  };
+}
+
+function getAssistMessage(
+  presetId: StyleAssistPresetId,
+  adjustments: ReturnType<typeof getEditAdjustments>,
+) {
+  if (adjustments.shadowEnabled === false) {
+    return "Applied AI assist: remove shadow.";
+  }
+
+  if (adjustments.fontSizeDelta && adjustments.fontSizeDelta > 0) {
+    return "Applied AI assist: bigger text.";
+  }
+
+  if (adjustments.fontSizeDelta && adjustments.fontSizeDelta < 0) {
+    return "Applied AI assist: smaller text.";
+  }
+
+  if (adjustments.outlineEnabled === false) {
+    return "Applied AI assist: remove outline.";
+  }
+
+  if (adjustments.letterSpacingDelta) {
+    return "Applied AI assist: adjust letter spacing.";
+  }
+
+  return `Applied ${presetId} style assist.`;
+}
+
 export function buildStyleAssistSuggestion(
   prompt: string,
   variant: EditorVariant,
@@ -287,7 +465,15 @@ export function buildStyleAssistSuggestion(
 
   const palette = getPalette(normalizedPrompt);
   const presetId = getPresetId(normalizedPrompt, variant);
-  const fontCategories = getFontCategories(normalizedPrompt, presetId, variant);
+  const adjustments = getEditAdjustments(normalizedPrompt);
+  const hasEditIntent = hasAnyAdjustment(adjustments);
+  const applyColors =
+    hasStyleIntent(normalizedPrompt) ||
+    hasOutlineStyleIntent(normalizedPrompt, hasEditIntent);
+  const fontCategories =
+    hasEditIntent && !applyColors
+      ? []
+      : getFontCategories(normalizedPrompt, presetId, variant);
 
   return {
     presetId,
@@ -296,8 +482,21 @@ export function buildStyleAssistSuggestion(
     backgroundColor: palette.backgroundColor,
     outlineColor: palette.outlineColor,
     shadowColor: palette.shadowColor,
-    stickerEdgeEnabled: presetId === "sticker" || presetId === "kid",
-    shadowEnabled: true,
-    message: `Applied ${presetId} style assist.`,
+    stickerEdgeEnabled:
+      adjustments.stickerEdgeEnabled ??
+      (applyColors ? presetId === "sticker" || presetId === "kid" : undefined),
+    shadowEnabled: adjustments.shadowEnabled ?? (applyColors ? true : undefined),
+    applyColors,
+    outlineEnabled:
+      adjustments.outlineEnabled ??
+      (applyColors && presetId === "outline" ? true : undefined),
+    fontSizeDelta: adjustments.fontSizeDelta,
+    letterSpacingDelta: adjustments.letterSpacingDelta,
+    outlineWidthDelta: adjustments.outlineWidthDelta,
+    stickerEdgeWidthDelta: adjustments.stickerEdgeWidthDelta,
+    shadowBlurDelta: adjustments.shadowBlurDelta,
+    depthDelta: adjustments.depthDelta,
+    highlightStrengthDelta: adjustments.highlightStrengthDelta,
+    message: getAssistMessage(presetId, adjustments),
   };
 }
