@@ -5,12 +5,12 @@ import { join } from "node:path";
 import {
   bubbleFontLibrary,
   coreBubbleFonts,
-  getBubbleFontsForCategoryPreference,
+  getBubbleFontsForDisplay,
 } from "../lib/font-library";
 
 assert.ok(
-  bubbleFontLibrary.length >= 50,
-  "the bubble font generator should expose at least 50 real font choices",
+  bubbleFontLibrary.length >= 100,
+  "the bubble font generator should expose at least 100 real font choices",
 );
 
 assert.ok(
@@ -41,10 +41,40 @@ for (const font of bubbleFontLibrary) {
   assert.equal(font.allowsRedistribution, true, `${font.id} must allow redistribution`);
 }
 
-const graffitiFonts = getBubbleFontsForCategoryPreference(["graffiti"]);
+const graffitiFonts = getBubbleFontsForDisplay({
+  preferredCategories: ["graffiti"],
+  sortKey: "popular",
+});
 
 assert.ok(graffitiFonts.length >= bubbleFontLibrary.length);
 assert.ok(
   graffitiFonts[0].categories.includes("graffiti"),
   "graffiti recommendations should be sorted to the top",
+);
+
+const nameSortedFonts = getBubbleFontsForDisplay({
+  preferredCategories: [],
+  sortKey: "name",
+});
+
+assert.equal(nameSortedFonts[0].displayName, "Aclonica");
+
+const newestFonts = getBubbleFontsForDisplay({
+  preferredCategories: [],
+  sortKey: "newest",
+});
+
+assert.ok(
+  newestFonts[0].addedRank > newestFonts.at(-1)!.addedRank,
+  "newest sorting should prioritize recently added fonts",
+);
+
+const trendingFonts = getBubbleFontsForDisplay({
+  preferredCategories: [],
+  sortKey: "trending",
+});
+
+assert.ok(
+  trendingFonts[0].trendingScore >= trendingFonts[1].trendingScore,
+  "trending sorting should use the curated trending score",
 );

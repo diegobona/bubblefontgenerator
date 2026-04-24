@@ -10,9 +10,10 @@ import {
 import {
   CORE_BUBBLE_FONT_COUNT,
   bubbleFontLibrary,
-  getBubbleFontsForCategoryPreference,
+  getBubbleFontsForDisplay,
   type BubbleFont,
   type BubbleFontCategory,
+  type BubbleFontSortKey,
 } from "@/lib/font-library";
 import {
   getAutoHeightForFontSize,
@@ -87,6 +88,13 @@ type VariantConfig = {
   presetKeys: ResultPresetKey[];
   defaultState: Omit<EditorState, "text">;
 };
+
+const fontSortOptions: Array<{ label: string; value: BubbleFontSortKey }> = [
+  { label: "Popular", value: "popular" },
+  { label: "Trending", value: "trending" },
+  { label: "Newest", value: "newest" },
+  { label: "Name", value: "name" },
+];
 
 const resultPresets: Record<ResultPresetKey, ResultPreset> = {
   classic: {
@@ -666,6 +674,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const [assistMessage, setAssistMessage] = useState<string | null>(null);
   const [featuredPresetId, setFeaturedPresetId] = useState<StyleAssistPresetId | null>(null);
   const [featuredFontCategories, setFeaturedFontCategories] = useState<BubbleFontCategory[]>([]);
+  const [fontSort, setFontSort] = useState<BubbleFontSortKey>("popular");
   const [visibleFontCount, setVisibleFontCount] = useState(CORE_BUBBLE_FONT_COUNT);
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null);
   const baseId = useId().replace(/:/g, "");
@@ -676,8 +685,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     const preferredCategories =
       featuredFontCategories.length > 0 ? featuredFontCategories : variantCategories;
 
-    return getBubbleFontsForCategoryPreference(preferredCategories);
-  }, [featuredFontCategories, variant]);
+    return getBubbleFontsForDisplay({
+      preferredCategories,
+      sortKey: fontSort,
+    });
+  }, [featuredFontCategories, fontSort, variant]);
 
   const visibleFonts = useMemo(
     () => orderedFonts.slice(0, visibleFontCount),
@@ -1267,6 +1279,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               setAssistMessage(null);
               setFeaturedPresetId(null);
               setFeaturedFontCategories([]);
+              setFontSort("popular");
               setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
               setDownloadMessage(null);
             }}
@@ -1299,9 +1312,29 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </p>
             ) : null}
           </div>
-          <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
-            {visibleFonts.length} of {bubbleFontLibrary.length} fonts
-          </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200">
+              <span className="text-slate-400">Sort</span>
+              <select
+                value={fontSort}
+                onChange={(event) => {
+                  setFontSort(event.target.value as BubbleFontSortKey);
+                  setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
+                }}
+                className="bg-transparent text-cyan-100 outline-none"
+                aria-label="Sort bubble fonts"
+              >
+                {fontSortOptions.map((option) => (
+                  <option key={option.value} value={option.value} className="bg-slate-950">
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
+              {visibleFonts.length} of {bubbleFontLibrary.length} fonts
+            </span>
+          </div>
         </div>
 
         <div className="editor-scrollbar max-h-[72vh] space-y-4 overflow-y-auto pr-1">
