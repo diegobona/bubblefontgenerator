@@ -6,6 +6,7 @@ const stickerSuggestion = buildStyleAssistSuggestion("cute pink sticker", "core"
 
 assert.ok(stickerSuggestion);
 assert.equal(stickerSuggestion.presetId, "sticker");
+assert.deepEqual(stickerSuggestion.fontCategories.slice(0, 2), ["cute", "sticker"]);
 assert.equal(stickerSuggestion.textColor, "#ff5fa2");
 assert.equal(stickerSuggestion.backgroundColor, "#f6c7ea");
 assert.equal(stickerSuggestion.stickerEdgeEnabled, true);
@@ -14,6 +15,7 @@ const graffitiSuggestion = buildStyleAssistSuggestion("blue graffiti street", "c
 
 assert.ok(graffitiSuggestion);
 assert.equal(graffitiSuggestion.presetId, "graffiti");
+assert.equal(graffitiSuggestion.fontCategories[0], "graffiti");
 assert.equal(graffitiSuggestion.textColor, "#7dd3fc");
 assert.equal(graffitiSuggestion.backgroundColor, "#312e81");
 assert.equal(graffitiSuggestion.shadowEnabled, true);
@@ -34,6 +36,7 @@ const classroomSuggestion = buildStyleAssistSuggestion("green classroom label", 
 
 assert.ok(classroomSuggestion);
 assert.equal(classroomSuggestion.presetId, "kid");
+assert.equal(classroomSuggestion.fontCategories[0], "school");
 assert.equal(classroomSuggestion.textColor, "#22c55e");
 assert.equal(classroomSuggestion.backgroundColor, "#dcfce7");
 

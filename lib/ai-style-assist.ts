@@ -1,3 +1,5 @@
+import type { BubbleFontCategory } from "./font-library";
+
 export type EditorVariant = "core" | "letters" | "writing" | "graffiti";
 export type StyleAssistPresetId =
   | "classic"
@@ -11,6 +13,7 @@ export type StyleAssistPresetId =
 
 export type StyleAssistSuggestion = {
   presetId: StyleAssistPresetId;
+  fontCategories: BubbleFontCategory[];
   textColor: string;
   backgroundColor: string;
   outlineColor: string;
@@ -218,6 +221,60 @@ function getPresetId(input: string, variant: EditorVariant): StyleAssistPresetId
   return variantPresetFallbacks[variant][requestedPreset] ?? requestedPreset;
 }
 
+function getFontCategories(
+  input: string,
+  presetId: StyleAssistPresetId,
+  variant: EditorVariant,
+): BubbleFontCategory[] {
+  if (includesAny(input, ["graffiti", "street", "urban", "spray", "tag"])) {
+    return ["graffiti", "outline", "chunky"];
+  }
+
+  if (includesAny(input, ["cute", "kawaii", "pink"])) {
+    return includesAny(input, ["sticker", "label", "birthday", "banner"])
+      ? ["cute", "sticker", "bubble"]
+      : ["cute", "bubble", "cartoon"];
+  }
+
+  if (includesAny(input, ["school", "classroom", "kid", "kids", "name"])) {
+    return ["school", "cute", "handwritten"];
+  }
+
+  if (includesAny(input, ["sticker", "label", "birthday", "banner"])) {
+    return ["sticker", "cute", "bubble"];
+  }
+
+  if (includesAny(input, ["handwritten", "writing", "script", "note", "notes"])) {
+    return ["handwritten", "school", "cute"];
+  }
+
+  if (includesAny(input, ["outline", "border", "logo"])) {
+    return ["outline", "chunky", "sticker"];
+  }
+
+  if (includesAny(input, ["chunky", "bold", "thick", "neon", "party"])) {
+    return ["chunky", "sticker", "graffiti"];
+  }
+
+  if (includesAny(input, ["bubble", "rounded", "round"])) {
+    return ["bubble", "cute", "cartoon"];
+  }
+
+  if (variant === "graffiti" || presetId === "graffiti") {
+    return ["graffiti", "outline", "chunky"];
+  }
+
+  if (variant === "writing" || presetId === "writing") {
+    return ["handwritten", "school", "cute"];
+  }
+
+  if (variant === "letters" || presetId === "kid") {
+    return ["school", "cute", "bubble"];
+  }
+
+  return [];
+}
+
 export function buildStyleAssistSuggestion(
   prompt: string,
   variant: EditorVariant,
@@ -230,9 +287,11 @@ export function buildStyleAssistSuggestion(
 
   const palette = getPalette(normalizedPrompt);
   const presetId = getPresetId(normalizedPrompt, variant);
+  const fontCategories = getFontCategories(normalizedPrompt, presetId, variant);
 
   return {
     presetId,
+    fontCategories,
     textColor: palette.textColor,
     backgroundColor: palette.backgroundColor,
     outlineColor: palette.outlineColor,

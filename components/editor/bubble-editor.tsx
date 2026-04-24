@@ -7,6 +7,13 @@ import {
   type EditorVariant,
   type StyleAssistPresetId,
 } from "@/lib/ai-style-assist";
+import {
+  CORE_BUBBLE_FONT_COUNT,
+  bubbleFontLibrary,
+  getBubbleFontsForCategoryPreference,
+  type BubbleFont,
+  type BubbleFontCategory,
+} from "@/lib/font-library";
 import { routes } from "@/lib/routes";
 
 type BubbleEditorProps = {
@@ -354,6 +361,13 @@ const styleAssistExamples: Record<EditorVariant, string[]> = {
   graffiti: ["blue graffiti street", "neon purple party", "black outline tag"],
 };
 
+const variantFontCategories: Record<EditorVariant, BubbleFontCategory[]> = {
+  core: [],
+  letters: ["school", "cute", "outline"],
+  writing: ["handwritten", "school", "cute"],
+  graffiti: ["graffiti", "outline", "chunky"],
+};
+
 function getVariantForPath(path: string): EditorVariant {
   if (path === routes.bubbleLetterFontGenerator) {
     return "letters";
@@ -368,6 +382,10 @@ function getVariantForPath(path: string): EditorVariant {
   }
 
   return "core";
+}
+
+function getVariantFontCategories(variant: EditorVariant) {
+  return variantFontCategories[variant];
 }
 
 function getInitialState(variant: EditorVariant): EditorState {
@@ -442,6 +460,7 @@ function buildLines(text: string) {
 type ResultSvgProps = {
   state: EditorState;
   preset: ResultPreset;
+  font: BubbleFont;
   lines: string[];
   filterId: string;
   svgRef?: (node: SVGSVGElement | null) => void;
@@ -451,6 +470,7 @@ type ResultSvgProps = {
 function ResultSvg({
   state,
   preset,
+  font,
   lines,
   filterId,
   svgRef,
@@ -503,6 +523,9 @@ function ResultSvg({
       className="block h-auto w-full"
     >
       <defs>
+        <style>
+          {`@font-face{font-family:"${font.family}";src:url("${font.filePath}") format("truetype");font-display:swap;}`}
+        </style>
         <filter id={filterId} x="-20%" y="-20%" width="160%" height="160%">
           <feDropShadow
             dx={state.shadowEnabled ? shadowX : 0}
@@ -529,8 +552,8 @@ function ResultSvg({
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fontSize={fontSize}
-                  fontWeight={preset.fontWeight}
-                  fontFamily={preset.fontFamily}
+                  fontWeight={font.fontWeight}
+                  fontFamily={font.familyStack}
                   fontStyle={preset.fontStyle}
                   fill={state.textColor}
                   stroke={state.stickerEdgeColor}
@@ -558,8 +581,8 @@ function ResultSvg({
                       textAnchor="middle"
                       dominantBaseline="middle"
                       fontSize={fontSize}
-                      fontWeight={preset.fontWeight}
-                      fontFamily={preset.fontFamily}
+                      fontWeight={font.fontWeight}
+                      fontFamily={font.familyStack}
                       fontStyle={preset.fontStyle}
                       fill={depthColor}
                       stroke={state.outlineEnabled ? colorWithOpacity(state.outlineColor, 0.3) : "transparent"}
@@ -584,8 +607,8 @@ function ResultSvg({
                 textAnchor="middle"
                 dominantBaseline="middle"
                 fontSize={fontSize}
-                fontWeight={preset.fontWeight}
-                fontFamily={preset.fontFamily}
+                fontWeight={font.fontWeight}
+                fontFamily={font.familyStack}
                 fontStyle={preset.fontStyle}
                 fill="white"
                 fillOpacity={preset.id === "graffiti" ? highlightOpacity * 0.7 : highlightOpacity}
@@ -605,8 +628,8 @@ function ResultSvg({
                 textAnchor="middle"
                 dominantBaseline="middle"
                 fontSize={fontSize}
-                fontWeight={preset.fontWeight}
-                fontFamily={preset.fontFamily}
+                fontWeight={font.fontWeight}
+                fontFamily={font.familyStack}
                 fontStyle={preset.fontStyle}
                 fill={state.textColor}
                 stroke={state.outlineEnabled ? state.outlineColor : "transparent"}
@@ -636,29 +659,24 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const [stylePrompt, setStylePrompt] = useState("");
   const [assistMessage, setAssistMessage] = useState<string | null>(null);
   const [featuredPresetId, setFeaturedPresetId] = useState<StyleAssistPresetId | null>(null);
+  const [featuredFontCategories, setFeaturedFontCategories] = useState<BubbleFontCategory[]>([]);
+  const [visibleFontCount, setVisibleFontCount] = useState(CORE_BUBBLE_FONT_COUNT);
   const [downloadMessage, setDownloadMessage] = useState<string | null>(null);
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
   const lines = useMemo(() => buildLines(state.text), [state.text]);
-  const presets = useMemo(() => {
-    const basePresets = variantConfigs[variant].presetKeys.map((key) => resultPresets[key]);
+  const orderedFonts = useMemo(() => {
+    const variantCategories = getVariantFontCategories(variant);
+    const preferredCategories =
+      featuredFontCategories.length > 0 ? featuredFontCategories : variantCategories;
 
-    if (!featuredPresetId) {
-      return basePresets;
-    }
+    return getBubbleFontsForCategoryPreference(preferredCategories);
+  }, [featuredFontCategories, variant]);
 
-    return [...basePresets].sort((left, right) => {
-      if (left.id === featuredPresetId) {
-        return -1;
-      }
-
-      if (right.id === featuredPresetId) {
-        return 1;
-      }
-
-      return 0;
-    });
-  }, [featuredPresetId, variant]);
+  const visibleFonts = useMemo(
+    () => orderedFonts.slice(0, visibleFontCount),
+    [orderedFonts, visibleFontCount],
+  );
 
   const applyStyleAssist = (promptValue: string) => {
     const suggestion = buildStyleAssistSuggestion(promptValue, variant);
@@ -678,12 +696,16 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       shadowEnabled: suggestion.shadowEnabled,
     }));
     setFeaturedPresetId(suggestion.presetId);
+    setFeaturedFontCategories(suggestion.fontCategories);
+    setVisibleFontCount((currentCount) =>
+      Math.max(currentCount, CORE_BUBBLE_FONT_COUNT),
+    );
     setAssistMessage(suggestion.message);
     setDownloadMessage(null);
   };
 
-  const downloadPresetPng = async (preset: ResultPreset) => {
-    const svgElement = svgRefs.current[preset.id];
+  const downloadPresetPng = async (font: BubbleFont, preset: ResultPreset) => {
+    const svgElement = svgRefs.current[font.id];
 
     if (!svgElement) {
       return;
@@ -691,6 +713,8 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
     try {
       setDownloadMessage(`Preparing ${preset.label} PNG...`);
+      await document.fonts.load(`${font.fontWeight} 64px "${font.family}"`);
+      await document.fonts.ready;
 
       const serializer = new XMLSerializer();
       const svgMarkup = serializer.serializeToString(svgElement);
@@ -721,11 +745,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       const pngUrl = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = pngUrl;
-      link.download = `${heading.toLowerCase().replace(/\s+/g, "-")}-${preset.id}.png`;
+      link.download = `${heading.toLowerCase().replace(/\s+/g, "-")}-${font.id}.png`;
       link.click();
 
       URL.revokeObjectURL(url);
-      setDownloadMessage(`${preset.label} downloaded.`);
+      setDownloadMessage(`${font.displayName} downloaded.`);
     } catch (error) {
       setDownloadMessage(
         error instanceof Error ? error.message : "Failed to export PNG.",
@@ -1215,6 +1239,8 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               setStylePrompt("");
               setAssistMessage(null);
               setFeaturedPresetId(null);
+              setFeaturedFontCategories([]);
+              setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
               setDownloadMessage(null);
             }}
             className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
@@ -1238,39 +1264,42 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               Bubble Font Generator Results
             </h2>
             <p className="mt-1 text-sm leading-6 text-slate-300">
-              Compare multiple bubble font styles, pick your favorite result, and download a PNG.
+              Compare real bubble font previews, pick your favorite result, and download a PNG.
             </p>
-            {featuredPresetId ? (
+            {featuredPresetId || featuredFontCategories.length > 0 ? (
               <p className="mt-1 text-xs uppercase tracking-[0.14em] text-cyan-100">
-                AI Style Assist moved the recommended result to the top.
+                AI Style Assist moved recommended font styles to the top.
               </p>
             ) : null}
           </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
-            {presets.length} styles
+            {visibleFonts.length} of {bubbleFontLibrary.length} fonts
           </span>
         </div>
 
         <div className="editor-scrollbar max-h-[72vh] space-y-4 overflow-y-auto pr-1">
-          {presets.map((preset) => (
+          {visibleFonts.map((font) => {
+            const preset = resultPresets[font.effectPresetId];
+
+            return (
             <article
-              key={preset.id}
+              key={font.id}
               className="rounded-3xl p-4 shadow-xl shadow-black/20"
               style={{ backgroundColor: state.backgroundColor }}
             >
               <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="rounded-md bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
-                    {preset.label}
+                    {font.displayName}
                   </span>
                   <span className="text-xs font-medium uppercase tracking-[0.12em] text-slate-100/80">
-                    {preset.tag}
+                    {font.categories.slice(0, 2).join(" / ")}
                   </span>
                 </div>
 
                 <button
                   type="button"
-                  onClick={() => downloadPresetPng(preset)}
+                  onClick={() => downloadPresetPng(font, preset)}
                   className="inline-flex items-center rounded-md bg-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/30"
                 >
                   download
@@ -1284,16 +1313,27 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 <ResultSvg
                   state={state}
                   preset={preset}
+                  font={font}
                   lines={lines}
-                  filterId={`${baseId}-${preset.id}`}
+                  filterId={`${baseId}-${font.id}`}
                   svgRef={(node) => {
-                    svgRefs.current[preset.id] = node;
+                    svgRefs.current[font.id] = node;
                   }}
-                  ariaLabel={`${heading} ${preset.label} preview`}
+                  ariaLabel={`${heading} ${font.displayName} preview`}
                 />
               </div>
             </article>
-          ))}
+            );
+          })}
+          {visibleFontCount < bubbleFontLibrary.length ? (
+            <button
+              type="button"
+              onClick={() => setVisibleFontCount(bubbleFontLibrary.length)}
+              className="w-full rounded-2xl border border-cyan-300/20 bg-cyan-300/10 px-4 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200/40 hover:bg-cyan-300/15"
+            >
+              Show all {bubbleFontLibrary.length} real bubble fonts
+            </button>
+          ) : null}
         </div>
       </section>
     </div>
