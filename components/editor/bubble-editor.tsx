@@ -25,6 +25,7 @@ import {
   getDownloadBackgroundFill,
 } from "@/lib/download-background";
 import { routes } from "@/lib/routes";
+import { resultCardPreviewClassName } from "@/lib/result-card-layout";
 import {
   buildEmbeddedSvgFontFaceCss,
   buildExternalSvgFontFaceCss,
@@ -1522,17 +1523,17 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
         </div>
 
-        <div className="editor-scrollbar max-h-[72vh] space-y-4 overflow-y-auto pr-1">
+        <div className="editor-scrollbar max-h-[72vh] space-y-3 overflow-y-auto pr-1">
           {visibleFonts.map((font) => {
             const preset = resultPresets[font.effectPresetId];
 
             return (
             <article
               key={font.id}
-              className="rounded-3xl p-4 shadow-xl shadow-black/20"
+              className="rounded-3xl p-3 shadow-xl shadow-black/20"
               style={{ backgroundColor: state.backgroundColor }}
             >
-              <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
+              <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="rounded-md bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
                     {font.displayName}
@@ -1552,7 +1553,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </div>
 
               <div
-                className="h-[170px] overflow-hidden rounded-2xl sm:h-[190px] xl:h-[180px]"
+                className={resultCardPreviewClassName}
                 style={{ backgroundColor: state.backgroundColor }}
               >
                 <ResultSvg

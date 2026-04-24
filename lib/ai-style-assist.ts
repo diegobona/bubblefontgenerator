@@ -137,36 +137,28 @@ function includesAny(input: string, terms: string[]) {
   return terms.some((term) => input.includes(term));
 }
 
-function getPalette(input: string) {
+function getExplicitPalette(input: string) {
   if (includesAny(input, ["rainbow", "colorful", "multi color", "multicolor"])) {
     return colorThemes.rainbow;
   }
 
-  if (includesAny(input, ["neon", "glow", "vibrant", "party"])) {
-    return colorThemes.neon;
-  }
-
-  if (includesAny(input, ["black", "dark", "mono", "logo"])) {
+  if (includesAny(input, ["black", "mono"])) {
     return colorThemes.black;
   }
 
-  if (includesAny(input, ["white", "clean", "minimal"])) {
+  if (includesAny(input, ["white"])) {
     return colorThemes.white;
   }
 
-  if (includesAny(input, ["yellow", "gold", "birthday", "sunny"])) {
-    return colorThemes.yellow;
-  }
-
-  if (includesAny(input, ["green", "classroom", "school", "nature"])) {
+  if (includesAny(input, ["green"])) {
     return colorThemes.green;
   }
 
-  if (includesAny(input, ["pink", "rose", "cute", "kawaii"])) {
+  if (includesAny(input, ["pink", "rose"])) {
     return colorThemes.pink;
   }
 
-  if (includesAny(input, ["blue", "navy", "sky", "street"])) {
+  if (includesAny(input, ["blue", "navy", "sky"])) {
     return colorThemes.blue;
   }
 
@@ -174,15 +166,69 @@ function getPalette(input: string) {
     return colorThemes.purple;
   }
 
-  if (includesAny(input, ["red", "hot"])) {
+  if (includesAny(input, ["red"])) {
     return colorThemes.red;
   }
 
-  if (includesAny(input, ["orange", "warm"])) {
+  if (includesAny(input, ["orange"])) {
     return colorThemes.orange;
   }
 
-  if (includesAny(input, ["pastel", "soft", "gentle"])) {
+  if (includesAny(input, ["yellow", "gold"])) {
+    return colorThemes.yellow;
+  }
+
+  if (includesAny(input, ["pastel"])) {
+    return colorThemes.pastel;
+  }
+
+  return null;
+}
+
+function getPalette(input: string) {
+  const explicitPalette = getExplicitPalette(input);
+
+  if (explicitPalette) {
+    return explicitPalette;
+  }
+
+  if (includesAny(input, ["neon", "glow", "vibrant", "party"])) {
+    return colorThemes.neon;
+  }
+
+  if (includesAny(input, ["dark", "logo"])) {
+    return colorThemes.black;
+  }
+
+  if (includesAny(input, ["clean", "minimal"])) {
+    return colorThemes.white;
+  }
+
+  if (includesAny(input, ["classroom", "school", "nature"])) {
+    return colorThemes.green;
+  }
+
+  if (includesAny(input, ["cute", "kawaii"])) {
+    return colorThemes.pink;
+  }
+
+  if (includesAny(input, ["street"])) {
+    return colorThemes.blue;
+  }
+
+  if (includesAny(input, ["hot"])) {
+    return colorThemes.red;
+  }
+
+  if (includesAny(input, ["warm"])) {
+    return colorThemes.orange;
+  }
+
+  if (includesAny(input, ["birthday", "sunny"])) {
+    return colorThemes.yellow;
+  }
+
+  if (includesAny(input, ["soft", "gentle"])) {
     return colorThemes.pastel;
   }
 

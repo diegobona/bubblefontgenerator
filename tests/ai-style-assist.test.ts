@@ -32,6 +32,47 @@ assert.equal(birthdaySuggestion.textColor, "#f59e0b");
 assert.equal(birthdaySuggestion.backgroundColor, "#fef3c7");
 assert.equal(birthdaySuggestion.stickerEdgeEnabled, true);
 
+const redBirthdaySuggestion = buildStyleAssistSuggestion("red birthday banner", "core");
+
+assert.ok(redBirthdaySuggestion);
+assert.equal(redBirthdaySuggestion.presetId, "sticker");
+assert.equal(
+  redBirthdaySuggestion.textColor,
+  "#ef4444",
+  "explicit color words should override template context words like birthday",
+);
+assert.equal(redBirthdaySuggestion.backgroundColor, "#fee2e2");
+
+const redGraffitiSuggestion = buildStyleAssistSuggestion("red graffiti street", "core");
+
+assert.ok(redGraffitiSuggestion);
+assert.equal(redGraffitiSuggestion.presetId, "graffiti");
+assert.equal(
+  redGraffitiSuggestion.textColor,
+  "#ef4444",
+  "explicit color words should override template context words like street",
+);
+
+const purpleClassroomSuggestion = buildStyleAssistSuggestion("purple classroom label", "letters");
+
+assert.ok(purpleClassroomSuggestion);
+assert.equal(purpleClassroomSuggestion.presetId, "kid");
+assert.equal(
+  purpleClassroomSuggestion.textColor,
+  "#a78bfa",
+  "explicit color words should override template context words like classroom",
+);
+
+const blueCuteStickerSuggestion = buildStyleAssistSuggestion("blue cute sticker", "core");
+
+assert.ok(blueCuteStickerSuggestion);
+assert.equal(blueCuteStickerSuggestion.presetId, "sticker");
+assert.equal(
+  blueCuteStickerSuggestion.textColor,
+  "#7dd3fc",
+  "explicit color words should override template context words like cute",
+);
+
 const classroomSuggestion = buildStyleAssistSuggestion("green classroom label", "letters");
 
 assert.ok(classroomSuggestion);
@@ -48,7 +89,7 @@ assert.equal(outlineSuggestion.outlineEnabled, true);
 assert.equal(outlineSuggestion.textColor, "#111827");
 assert.equal(outlineSuggestion.backgroundColor, "#f8fafc");
 
-const neonSuggestion = buildStyleAssistSuggestion("neon purple party", "core");
+const neonSuggestion = buildStyleAssistSuggestion("neon party", "core");
 
 assert.ok(neonSuggestion);
 assert.equal(neonSuggestion.presetId, "chunky");
