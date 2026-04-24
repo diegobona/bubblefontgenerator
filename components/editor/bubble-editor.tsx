@@ -14,6 +14,11 @@ import {
   type BubbleFont,
   type BubbleFontCategory,
 } from "@/lib/font-library";
+import {
+  getAutoHeightForFontSize,
+  MAX_CANVAS_HEIGHT,
+  MIN_CANVAS_HEIGHT,
+} from "@/lib/editor-sizing";
 import { routes } from "@/lib/routes";
 
 type BubbleEditorProps = {
@@ -886,15 +891,32 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 min={52}
                 max={160}
                 step={2}
-                value={state.fontSize}
-                onChange={(event) =>
-                  setState((current) => ({
-                    ...current,
-                    fontSize: Number(event.target.value),
-                  }))
-                }
-                className="mt-3 w-full"
-              />
+                  value={state.fontSize}
+                  onChange={(event) =>
+                    setState((current) => {
+                      const fontSize = Number(event.target.value);
+
+                      return {
+                        ...current,
+                        fontSize,
+                        height: getAutoHeightForFontSize({
+                          currentHeight: current.height,
+                          fontSize,
+                          lineHeight: current.lineHeight,
+                          lineCount: buildLines(current.text).length,
+                          outlineWidth: current.outlineWidth,
+                          stickerEdgeEnabled: current.stickerEdgeEnabled,
+                          stickerEdgeWidth: current.stickerEdgeWidth,
+                          shadowEnabled: current.shadowEnabled,
+                          shadowBlur: current.shadowBlur,
+                          shadowY: current.shadowY,
+                          depth: current.depth,
+                        }),
+                      };
+                    })
+                  }
+                  className="mt-3 w-full"
+                />
             </label>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -917,18 +939,22 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </label>
               <label className="block">
                 <span className="text-sm font-medium text-slate-300">Canvas Height</span>
-                <input
-                  type="number"
-                  min={180}
-                  max={520}
-                  step={20}
-                  value={state.height}
-                  onChange={(event) =>
-                    setState((current) => ({
-                      ...current,
-                      height: clamp(Number(event.target.value) || 160, 140, 360),
-                    }))
-                  }
+                  <input
+                    type="number"
+                    min={MIN_CANVAS_HEIGHT}
+                    max={MAX_CANVAS_HEIGHT}
+                    step={20}
+                    value={state.height}
+                    onChange={(event) =>
+                      setState((current) => ({
+                        ...current,
+                        height: clamp(
+                          Number(event.target.value) || current.height,
+                          MIN_CANVAS_HEIGHT,
+                          MAX_CANVAS_HEIGHT,
+                        ),
+                      }))
+                    }
                   className="mt-2 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
                 />
               </label>
