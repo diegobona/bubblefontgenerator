@@ -36,8 +36,8 @@ assert.ok(
 );
 assert.match(
   seoPageSource,
-  /<PageContainer size=\{isHomePage \? "wide" : "default"\}>/,
-  "homepage should use the wider container while inner pages keep the default reading width",
+  /<PageContainer size=\{isHomePage \|\| isToolPage \? "wide" : "default"\}>/,
+  "home and generator tool pages should use the wider editor container while articles keep the default reading width",
 );
 assert.ok(
   !seoPageSource.includes("lg:max-w-xl"),

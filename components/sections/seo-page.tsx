@@ -79,7 +79,7 @@ export function SeoPage({ page }: SeoPageProps) {
     <main className="flex-1 bg-transparent">
       {hasFaqs ? <FaqJsonLd faqs={page.faqs} /> : null}
       <BreadcrumbJsonLd items={breadcrumbItems} />
-      <PageContainer size={isHomePage ? "wide" : "default"}>
+      <PageContainer size={isHomePage || isToolPage ? "wide" : "default"}>
         <article className={isHomePage ? "py-6 sm:py-8" : "py-12 sm:py-16"}>
           {isHomePage ? (
             <header
