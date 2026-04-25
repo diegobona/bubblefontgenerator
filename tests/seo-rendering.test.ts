@@ -92,6 +92,43 @@ assert.ok(
   !bubbleEditorSource.includes("max-h-[72vh]"),
   "result font list should not use the short viewport-capped height",
 );
+assert.ok(
+  bubbleEditorSource.includes("pagePath === routes.transparentBubbleFontGenerator"),
+  "transparent generator page should have dedicated transparent-background behavior",
+);
+assert.ok(
+  bubbleEditorSource.includes("forceTransparentBackground"),
+  "transparent generator should force transparent previews and downloads",
+);
+assert.ok(
+  bubbleEditorSource.includes("transparentPreviewBackgroundStyle"),
+  "transparent generator should use a checkerboard preview background to communicate transparency",
+);
+assert.match(
+  bubbleEditorSource,
+  /linear-gradient\(45deg[\s\S]*backgroundSize: "32px 32px"/,
+  "transparent preview checkerboard should use a visible tiled background",
+);
+assert.match(
+  bubbleEditorSource,
+  /resultPreviewStyle = isTransparentBackgroundPage[\s\S]*transparentPreviewBackgroundStyle[\s\S]*backgroundColor: state\.backgroundColor/,
+  "only the on-page transparent preview should use checkerboard; normal pages keep canvas color",
+);
+assert.match(
+  bubbleEditorSource,
+  /forceTransparentBackground \? null : \([\s\S]*data-download-background="true"/,
+  "transparent generator should remove the SVG background rect instead of painting a canvas color",
+);
+assert.match(
+  bubbleEditorSource,
+  /\{!isTransparentBackgroundPage \? \([\s\S]*<span className="text-sm font-medium text-slate-300">Background<\/span>/,
+  "transparent generator should not show an editable Background color control",
+);
+assert.match(
+  bubbleEditorSource,
+  /\{!isTransparentBackgroundPage \? \([\s\S]*Remove background when downloading/,
+  "transparent generator should not show the remove-background download switch",
+);
 
 assert.ok(
   bubbleEditorSource.includes('data-editor-color-controls="true"'),

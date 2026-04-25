@@ -7,3 +7,45 @@
 - Network:       http://192.168.0.107:3000
 ✓ Ready in 294ms
 
+ GET /bubble-letter-font-generator/ 200 in 849ms (next.js: 280ms, application-code: 569ms)
+ GET / 200 in 340ms (next.js: 57ms, application-code: 283ms)
+ GET /bubble-letter-font-generator/ 200 in 43ms (next.js: 6ms, application-code: 38ms)
+ GET /bubble-graffiti-font-generator/ 200 in 126ms (next.js: 66ms, application-code: 60ms)
+ GET /bubble-font-generator-png/ 200 in 1342ms (next.js: 1294ms, application-code: 48ms)
+ GET / 200 in 50ms (next.js: 4ms, application-code: 46ms)
+ GET /bubble-font-generator-png/ 200 in 47ms (next.js: 6ms, application-code: 41ms)
+ GET /transparent-bubble-font-generator/ 200 in 1174ms (next.js: 1118ms, application-code: 56ms)
+ GET /bubble-font-generator-png/ 200 in 49ms (next.js: 6ms, application-code: 43ms)
+✓ Compiled in 118ms
+ GET /bubble-letter-font-generator/ 200 in 411ms (next.js: 125ms, application-code: 286ms)
+ GET /bubble-font-generator-png/ 200 in 414ms (next.js: 325ms, application-code: 88ms)
+✓ Compiled in 220ms
+ GET /bubble-letter-font-generator/ 200 in 392ms (next.js: 123ms, application-code: 270ms)
+ GET /bubble-font-generator-png/ 200 in 195ms (next.js: 121ms, application-code: 74ms)
+✓ Compiled in 76ms
+ GET /bubble-letter-font-generator/ 200 in 406ms (next.js: 290ms, application-code: 116ms)
+ GET /bubble-font-generator-png/ 200 in 409ms (next.js: 106ms, application-code: 303ms)
+✓ Compiled in 83ms
+ GET /bubble-font-generator-png/ 200 in 396ms (next.js: 107ms, application-code: 290ms)
+ GET /bubble-letter-font-generator/ 200 in 399ms (next.js: 296ms, application-code: 103ms)
+✓ Compiled in 78ms
+ GET /bubble-font-generator-png/ 200 in 437ms (next.js: 120ms, application-code: 317ms)
+ GET /bubble-letter-font-generator/ 200 in 437ms (next.js: 312ms, application-code: 125ms)
+✓ Compiled in 56ms
+ GET /bubble-font-generator-png/ 200 in 411ms (next.js: 116ms, application-code: 295ms)
+ GET /bubble-letter-font-generator/ 200 in 412ms (next.js: 329ms, application-code: 83ms)
+ GET /transparent-bubble-font-generator/ 200 in 494ms (next.js: 126ms, application-code: 367ms)
+ GET /transparent-bubble-font-generator/ 200 in 171ms (next.js: 5ms, application-code: 166ms)
+ GET /bubble-font-generator-png/ 200 in 426ms (next.js: 11ms, application-code: 415ms)
+ GET /bubble-font-generator-png/ 200 in 153ms (next.js: 4ms, application-code: 149ms)
+ GET /transparent-bubble-font-generator/ 200 in 49ms (next.js: 4ms, application-code: 45ms)
+✓ Compiled in 75ms
+ GET /transparent-bubble-font-generator/ 200 in 253ms (next.js: 120ms, application-code: 133ms)
+ GET /transparent-bubble-font-generator/ 200 in 254ms (next.js: 197ms, application-code: 57ms)
+✓ Compiled in 104ms
+ GET /transparent-bubble-font-generator/ 200 in 257ms (next.js: 113ms, application-code: 144ms)
+ GET /transparent-bubble-font-generator/ 200 in 268ms (next.js: 190ms, application-code: 78ms)
+✓ Compiled in 94ms
+ GET /transparent-bubble-font-generator/ 200 in 224ms (next.js: 111ms, application-code: 114ms)
+ GET /transparent-bubble-font-generator/ 200 in 47ms (next.js: 4ms, application-code: 43ms)
+ GET /transparent-bubble-font-generator/ 200 in 241ms (next.js: 5ms, application-code: 236ms)

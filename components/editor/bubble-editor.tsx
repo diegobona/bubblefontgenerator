@@ -413,6 +413,14 @@ const variantFontCategories: Record<EditorVariant, BubbleFontCategory[]> = {
   graffiti: ["graffiti", "outline", "chunky"],
 };
 
+const transparentPreviewBackgroundStyle = {
+  backgroundColor: "#242424",
+  backgroundImage:
+    "linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%), linear-gradient(-45deg, rgba(255,255,255,0.06) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.06) 75%), linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.06) 75%)",
+  backgroundPosition: "0 0, 0 16px, 16px -16px, -16px 0",
+  backgroundSize: "32px 32px",
+};
+
 function getVariantForPath(path: string): EditorVariant {
   if (path === routes.bubbleLetterFontGenerator) {
     return "letters";
@@ -508,6 +516,7 @@ type ResultSvgProps = {
   font: BubbleFont;
   lines: string[];
   filterId: string;
+  forceTransparentBackground: boolean;
   svgRef?: (node: SVGSVGElement | null) => void;
   ariaLabel: string;
 };
@@ -518,6 +527,7 @@ function ResultSvg({
   font,
   lines,
   filterId,
+  forceTransparentBackground,
   svgRef,
   ariaLabel,
 }: ResultSvgProps) {
@@ -587,14 +597,16 @@ function ResultSvg({
         </filter>
       </defs>
 
-      <rect
-        x="0"
-        y="0"
-        width={state.width}
-        height={state.height}
-        fill={state.backgroundColor}
-        data-download-background="true"
-      />
+      {forceTransparentBackground ? null : (
+        <rect
+          x="0"
+          y="0"
+          width={state.width}
+          height={state.height}
+          fill={state.backgroundColor}
+          data-download-background="true"
+        />
+      )}
 
       <g filter={`url(#${filterId})`}>
         {lines.map((line, index) => {
@@ -712,6 +724,8 @@ function ResultSvg({
 
 export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const variant = getVariantForPath(pagePath);
+  const isTransparentBackgroundPage =
+    pagePath === routes.transparentBubbleFontGenerator;
   const [state, setState] = useState(() => getInitialState(variant));
   const [stylePrompt, setStylePrompt] = useState("");
   const [assistMessage, setAssistMessage] = useState<string | null>(null);
@@ -747,6 +761,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const selectedAssistTemplateLabel =
     styleAssistTemplates.find((template) => template.prompt === selectedAssistTemplate)
       ?.label ?? AI_ASSIST_TEMPLATE_PLACEHOLDER;
+  const resultBackgroundStyle = isTransparentBackgroundPage
+    ? { backgroundColor: "transparent" }
+    : { backgroundColor: state.backgroundColor };
+  const resultPreviewStyle = isTransparentBackgroundPage
+    ? transparentPreviewBackgroundStyle
+    : { backgroundColor: state.backgroundColor };
 
   const applyStyleAssist = (promptValue: string) => {
     const suggestion = buildStyleAssistSuggestion(promptValue, variant);
@@ -766,7 +786,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       return {
         ...current,
         textColor: suggestion.applyColors ? suggestion.textColor : current.textColor,
-        backgroundColor: suggestion.applyColors
+        backgroundColor: suggestion.applyColors && !isTransparentBackgroundPage
           ? suggestion.backgroundColor
           : current.backgroundColor,
         outlineColor: suggestion.applyColors
@@ -854,7 +874,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       const fontDataUrl = await fetchFontDataUrl(font.filePath);
 
       const downloadBackgroundFill = getDownloadBackgroundFill(
-        removeBackgroundWhenDownloading,
+        isTransparentBackgroundPage || removeBackgroundWhenDownloading,
         state.backgroundColor,
       );
       const svgForDownload = svgElement.cloneNode(true) as SVGSVGElement;
@@ -1025,7 +1045,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
         <div
           data-editor-color-controls="true"
-          className="mt-6 grid grid-cols-2 gap-3"
+          className={`mt-6 grid gap-3 ${
+            isTransparentBackgroundPage ? "" : "grid-cols-2"
+          }`}
         >
           <label className="block">
             <span className="text-sm font-medium text-slate-300">Text Color</span>
@@ -1044,22 +1066,24 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             </div>
           </label>
 
-          <label className="block">
-            <span className="text-sm font-medium text-slate-300">Background</span>
-            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-2">
-              <input
-                type="color"
-                value={state.backgroundColor}
-                onChange={(event) =>
-                  setState((current) => ({
-                    ...current,
-                    backgroundColor: event.target.value,
-                  }))
-                }
-                className="h-11 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
-              />
-            </div>
-          </label>
+          {!isTransparentBackgroundPage ? (
+            <label className="block">
+              <span className="text-sm font-medium text-slate-300">Background</span>
+              <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-2">
+                <input
+                  type="color"
+                  value={state.backgroundColor}
+                  onChange={(event) =>
+                    setState((current) => ({
+                      ...current,
+                      backgroundColor: event.target.value,
+                    }))
+                  }
+                  className="h-11 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
+                />
+              </div>
+            </label>
+          ) : null}
         </div>
 
         <label
@@ -1514,37 +1538,39 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </span>
             </div>
 
-            <label className="flex min-w-0 items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-semibold text-slate-200 sm:text-xs">
-              <span className="min-w-0 leading-5">
-                Remove background when downloading
-              </span>
-              <input
-                type="checkbox"
-                checked={removeBackgroundWhenDownloading}
-                onChange={(event) => {
-                  setRemoveBackgroundWhenDownloading(event.target.checked);
-                  setDownloadMessage(null);
-                }}
-                className="sr-only"
-                aria-label="Remove background when downloading"
-              />
-              <span
-                className={`relative h-6 w-11 shrink-0 rounded-full transition ${
-                  removeBackgroundWhenDownloading
-                    ? "bg-cyan-300"
-                    : "bg-slate-700"
-                }`}
-              >
-                <span
-                  className={`absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition ${
-                    removeBackgroundWhenDownloading ? "translate-x-5" : ""
-                  }`}
+            {!isTransparentBackgroundPage ? (
+              <label className="flex min-w-0 items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-semibold text-slate-200 sm:text-xs">
+                <span className="min-w-0 leading-5">
+                  Remove background when downloading
+                </span>
+                <input
+                  type="checkbox"
+                  checked={removeBackgroundWhenDownloading}
+                  onChange={(event) => {
+                    setRemoveBackgroundWhenDownloading(event.target.checked);
+                    setDownloadMessage(null);
+                  }}
+                  className="sr-only"
+                  aria-label="Remove background when downloading"
                 />
-              </span>
-              <span className="w-6 shrink-0 text-cyan-100">
-                {removeBackgroundWhenDownloading ? "on" : "off"}
-              </span>
-            </label>
+                <span
+                  className={`relative h-6 w-11 shrink-0 rounded-full transition ${
+                    removeBackgroundWhenDownloading
+                      ? "bg-cyan-300"
+                      : "bg-slate-700"
+                  }`}
+                >
+                  <span
+                    className={`absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition ${
+                      removeBackgroundWhenDownloading ? "translate-x-5" : ""
+                    }`}
+                  />
+                </span>
+                <span className="w-6 shrink-0 text-cyan-100">
+                  {removeBackgroundWhenDownloading ? "on" : "off"}
+                </span>
+              </label>
+            ) : null}
           </div>
         </div>
 
@@ -1559,7 +1585,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             <article
               key={font.id}
               className="rounded-3xl p-3 shadow-xl shadow-black/20"
-              style={{ backgroundColor: state.backgroundColor }}
+              style={resultBackgroundStyle}
             >
               <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-3">
@@ -1582,7 +1608,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
               <div
                 className={resultCardPreviewClassName}
-                style={{ backgroundColor: state.backgroundColor }}
+                style={resultPreviewStyle}
               >
                 <ResultSvg
                   state={state}
@@ -1590,6 +1616,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   font={font}
                   lines={lines}
                   filterId={`${baseId}-${font.id}`}
+                  forceTransparentBackground={isTransparentBackgroundPage}
                   svgRef={(node) => {
                     svgRefs.current[font.id] = node;
                   }}
