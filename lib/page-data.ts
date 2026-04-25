@@ -168,11 +168,6 @@ export const pageDocuments = {
         description: "Focused tool for names, labels, and rounded letter styles.",
       },
       {
-        href: routes.bubbleWritingFontGenerator,
-        label: "Bubble Writing Font Generator",
-        description: "Focused tool for softer handwritten bubble text.",
-      },
-      {
         href: routes.bubbleGraffitiFontGenerator,
         label: "Bubble Graffiti Font Generator",
         description: "Focused tool for bolder graffiti-style bubble text.",
@@ -340,7 +335,7 @@ export const pageDocuments = {
     path: routes.articles,
     title: "Bubble Font Generator Articles | Guides, Comparisons and Tutorials",
     description:
-      "Browse supporting guides and comparisons around bubble letters, bubble writing, and free bubble font generator usage, all connected back to the main Bubble Font Generator.",
+      "Browse supporting guides and comparisons around bubble letters, graffiti bubble text, and free bubble font generator usage, all connected back to the main Bubble Font Generator.",
     h1: "Bubble Font Articles",
     intro:
       "Use this page to browse the article side of the bubble font topic cluster. Each guide answers a specific question and links naturally back to the tool pages when readers are ready to create.",
@@ -443,85 +438,9 @@ export const pageDocuments = {
         description: "Compare the broader and narrower tool intents.",
       },
       {
-        href: routes.bubbleWritingFontGenerator,
-        label: "Bubble Writing Font Generator",
-        description: "Try a softer handwritten bubble style.",
-      },
-      {
         href: routes.whatIsBubbleFont,
         label: "What Is Bubble Font?",
         description: "Read the quick concept guide.",
-      },
-    ],
-  },
-  bubbleWritingFontGenerator: {
-    path: routes.bubbleWritingFontGenerator,
-    title: "Bubble Writing Font Generator | Handwritten Bubble Text Maker",
-    description:
-      "Make soft handwritten bubble text with a lighter, smoother style on this focused page connected to the main Bubble Font Generator.",
-    h1: "Bubble Writing Font Generator",
-    intro:
-      "Create softer bubble writing with a lighter, more handwritten feel.",
-    sections: [
-      {
-        id: "editor-area",
-        title: "Bubble Writing Editor",
-        paragraphs: [
-          "This page is tuned for short phrases and softer handwritten-looking bubble text rather than standard blocky bubble letters.",
-        ],
-      },
-      {
-        id: "style-intent",
-        title: "What Bubble Writing Usually Means",
-        paragraphs: [
-          "Bubble writing usually means rounded handwritten-looking words with a casual feel. It works well for notes, small headers, labels, and short decorative text.",
-        ],
-      },
-      {
-        id: "page-purpose",
-        title: "How This Page Fits The Site",
-        paragraphs: [
-          "This page gives bubble writing its own destination while still supporting the broader Bubble Font Generator topic.",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        question: "Does this page target a different keyword than bubble letter font generator?",
-        answer:
-          "Yes. The overlap is close, but this page is mapped to bubble writing language and a softer handwritten style.",
-      },
-      {
-        question: "Will the final page still include tutorial content?",
-        answer:
-          "Yes. The final version will keep tutorials, FAQs, and internal links below the tool area so the page remains useful and crawlable.",
-      },
-    ],
-    relatedLinks: [
-      {
-        href: routes.home,
-        label: "Bubble Font Generator",
-        description: "Return to the main Bubble Font Generator.",
-      },
-      {
-        href: routes.whatIsBubbleFont,
-        label: "What Is Bubble Font?",
-        description: "Read the definition and style guide.",
-      },
-      {
-        href: routes.freeBubbleFontGenerator,
-        label: "Free Bubble Font Generator Guide",
-        description: "See what people usually want from a free tool.",
-      },
-      {
-        href: routes.bubbleLetterFontGenerator,
-        label: "Bubble Letter Font Generator",
-        description: "Switch to a more classic bubble letters look.",
-      },
-      {
-        href: routes.bubbleGraffitiFontGenerator,
-        label: "Bubble Graffiti Font Generator",
-        description: "Switch to a heavier graffiti-style look.",
       },
     ],
   },
@@ -584,11 +503,6 @@ export const pageDocuments = {
         href: routes.freeBubbleFontGenerator,
         label: "Free Bubble Font Generator Guide",
         description: "Check what people usually expect from a free tool.",
-      },
-      {
-        href: routes.bubbleWritingFontGenerator,
-        label: "Bubble Writing Font Generator",
-        description: "Try a softer handwritten bubble style.",
       },
       {
         href: routes.bubbleLetterFontGenerator,
@@ -747,7 +661,7 @@ export const pageDocuments = {
         id: "broader-term",
         title: "Bubble Font Generator Covers More Styles",
         paragraphs: [
-          "Bubble font generator usually covers the whole rounded-text category. A user may want classic bubble text, softer writing, sticker-like styles, or even graffiti-flavored versions.",
+          "Bubble font generator usually covers the whole rounded-text category. A user may want classic bubble text, classroom labels, sticker-like styles, or even graffiti-flavored versions.",
         ],
       },
       {
@@ -829,7 +743,7 @@ export const pageDocuments = {
         id: "best-next-step",
         title: "Where To Start",
         paragraphs: [
-          "If you want a quick starting point, open the main bubble font generator first. From there, you can switch into letters, writing, or graffiti depending on the look you want.",
+          "If you want a quick starting point, open the main bubble font generator first. From there, you can switch into classic bubble letters or graffiti depending on the look you want.",
         ],
       },
     ],
@@ -850,11 +764,6 @@ export const pageDocuments = {
         href: routes.home,
         label: "Bubble Font Generator",
         description: "Go to the homepage editor.",
-      },
-      {
-        href: routes.bubbleWritingFontGenerator,
-        label: "Bubble Writing Font Generator",
-        description: "Try the softer handwritten style page.",
       },
       {
         href: routes.bubbleGraffitiFontGenerator,

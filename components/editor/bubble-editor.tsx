@@ -356,7 +356,7 @@ const variantConfigs: Record<EditorVariant, VariantConfig> = {
     },
   },
   graffiti: {
-    defaultText: "Urban\nBlast",
+    defaultText: "Graffiti\nBlast",
     presetKeys: ["graffiti", "chunky", "outline", "sticker"],
     defaultState: {
       width: 1120,
@@ -364,20 +364,20 @@ const variantConfigs: Record<EditorVariant, VariantConfig> = {
       fontSize: 94,
       lineHeight: 1,
       letterSpacing: 4,
-      textColor: "#ffb703",
-      backgroundColor: "#6b5bd2",
+      textColor: "#00f5d4",
+      backgroundColor: "#1f1147",
       outlineEnabled: true,
       outlineColor: "#f8fafc",
-      outlineWidth: 12,
+      outlineWidth: 16,
       stickerEdgeEnabled: false,
       stickerEdgeColor: "#f8fafc",
       stickerEdgeWidth: 6,
       shadowEnabled: true,
-      shadowColor: "rgba(59,130,246,0.42)",
-      shadowX: 14,
-      shadowY: 16,
-      shadowBlur: 20,
-      depth: 18,
+      shadowColor: "rgba(2, 6, 23, 0.72)",
+      shadowX: 18,
+      shadowY: 20,
+      shadowBlur: 24,
+      depth: 24,
       highlightStrength: 18,
     },
   },
@@ -415,10 +415,6 @@ const variantFontCategories: Record<EditorVariant, BubbleFontCategory[]> = {
 function getVariantForPath(path: string): EditorVariant {
   if (path === routes.bubbleLetterFontGenerator) {
     return "letters";
-  }
-
-  if (path === routes.bubbleWritingFontGenerator) {
-    return "writing";
   }
 
   if (path === routes.bubbleGraffitiFontGenerator) {

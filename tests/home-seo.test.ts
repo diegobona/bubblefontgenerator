@@ -121,6 +121,11 @@ for (const href of requiredHomeInternalLinks) {
   );
 }
 
+assert.ok(
+  !("bubbleWritingFontGenerator" in pageDocuments),
+  "Bubble Writing should be merged into the Bubble Letter page instead of indexed as a separate page",
+);
+
 const knownRoutes = new Set<string>(Object.values(routes));
 const allRelatedLinks: LinkItem[] = [];
 
@@ -130,13 +135,19 @@ for (const page of allPages) {
 
 for (const link of allRelatedLinks) {
   assert.ok(knownRoutes.has(link.href), `${link.label} should link to a known route`);
+  assert.notEqual(
+    link.href,
+    routes.bubbleWritingFontGenerator,
+    "site content should not actively link to the merged Bubble Writing page",
+  );
 }
 
-const primaryNavLabels = new Map(primaryNavLinks.map((link) => [link.href, link.label]));
+const primaryNavLabels = new Map<string, string>(
+  primaryNavLinks.map((link) => [link.href, link.label]),
+);
 
 for (const href of [
   routes.bubbleLetterFontGenerator,
-  routes.bubbleWritingFontGenerator,
   routes.bubbleGraffitiFontGenerator,
 ]) {
   assert.match(
@@ -145,6 +156,11 @@ for (const href of [
     `${href} primary nav label should use clear generator anchor text`,
   );
 }
+
+assert.ok(
+  !primaryNavLabels.has(routes.bubbleWritingFontGenerator),
+  "primary navigation should not link to the merged Bubble Writing page",
+);
 
 const footerToolHrefs = new Set<string>(footerToolLinks.map((link) => link.href));
 
@@ -157,6 +173,11 @@ for (const href of [
     `footer tool links should include ${href}`,
   );
 }
+
+assert.ok(
+  !footerToolHrefs.has(routes.bubbleWritingFontGenerator),
+  "footer should not link to the merged Bubble Writing page",
+);
 
 for (const page of allPages.filter((item) => item.path !== routes.home)) {
   assert.ok(

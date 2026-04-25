@@ -12,7 +12,6 @@ export const siteConfig = {
 export const primaryNavLinks = [
   { href: routes.home, label: "Bubble Font Generator" },
   { href: routes.bubbleLetterFontGenerator, label: "Bubble Letter Generator" },
-  { href: routes.bubbleWritingFontGenerator, label: "Bubble Writing Generator" },
   { href: routes.bubbleGraffitiFontGenerator, label: "Graffiti Bubble Generator" },
   { href: routes.articles, label: "Bubble Font Articles" },
 ];
@@ -29,10 +28,6 @@ export const footerToolLinks = [
   {
     href: routes.bubbleLetterFontGenerator,
     label: "Bubble Letter Font Generator",
-  },
-  {
-    href: routes.bubbleWritingFontGenerator,
-    label: "Bubble Writing Font Generator",
   },
   {
     href: routes.bubbleGraffitiFontGenerator,
