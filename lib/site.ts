@@ -2,6 +2,7 @@ import { routes } from "./routes";
 
 export const siteConfig = {
   name: "Bubble Font Generator",
+  brandName: "BubbleFont",
   siteName: "Bubble Font Generator",
   url: "https://bubblefontgenerator.net",
   description:
@@ -12,8 +13,9 @@ export const siteConfig = {
 export const primaryNavLinks = [
   { href: routes.home, label: "Bubble Font Generator" },
   { href: routes.bubbleLetterFontGenerator, label: "Bubble Letter Generator" },
+  { href: routes.transparentBubbleFontGenerator, label: "Transparent PNG" },
   { href: routes.bubbleGraffitiFontGenerator, label: "Graffiti Bubble Generator" },
-  { href: routes.articles, label: "Bubble Font Articles" },
+  { href: routes.articles, label: "Articles" },
 ];
 
 export const footerToolLinks = [

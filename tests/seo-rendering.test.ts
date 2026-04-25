@@ -30,6 +30,15 @@ assert.match(
   /data-home-hero-header="true"[\s\S]*data-home-trust-items="true"[\s\S]*xl:justify-end/,
   "homepage trust tags should sit in the hero header row on large screens",
 );
+assert.match(
+  seoPageSource,
+  /data-home-trust-items="true"[\s\S]*bg-white\/\[0\.04\][\s\S]*text-slate-300/,
+  "homepage trust tags should use a muted static-chip style instead of looking like the active nav item",
+);
+assert.ok(
+  !seoPageSource.includes("inline-flex items-center rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3.5 py-1.5 text-sm text-cyan-100"),
+  "homepage trust tags should not reuse the cyan pill visual language from selected navigation",
+);
 assert.ok(
   pageContainerSource.includes('max-w-[1680px]'),
   "PageContainer should support a wider layout for the homepage tool area",

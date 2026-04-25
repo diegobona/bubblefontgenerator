@@ -9,7 +9,7 @@ import { buildMetadata } from "../lib/metadata";
 import { type LinkItem, homeStyleIdeas, pageDocuments } from "../lib/page-data";
 import { routes } from "../lib/routes";
 import { homePreviewImage } from "../lib/seo-assets";
-import { footerToolLinks, primaryNavLinks } from "../lib/site";
+import { footerToolLinks, primaryNavLinks, siteConfig } from "../lib/site";
 
 const home = pageDocuments.home;
 const bubbleLetterPage = pageDocuments.bubbleLetterFontGenerator;
@@ -144,6 +144,38 @@ for (const link of allRelatedLinks) {
 
 const primaryNavLabels = new Map<string, string>(
   primaryNavLinks.map((link) => [link.href, link.label]),
+);
+
+assert.deepEqual(
+  primaryNavLinks.map((link) => link.href),
+  [
+    routes.home,
+    routes.bubbleLetterFontGenerator,
+    routes.transparentBubbleFontGenerator,
+    routes.bubbleGraffitiFontGenerator,
+    routes.articles,
+  ],
+  "primary navigation should include Transparent PNG as a top-level tool entry",
+);
+assert.equal(
+  primaryNavLabels.get(routes.transparentBubbleFontGenerator),
+  "Transparent PNG",
+  "transparent generator should use the short Transparent PNG top-nav label",
+);
+assert.equal(
+  primaryNavLabels.get(routes.articles),
+  "Articles",
+  "article hub should use the short Articles top-nav label",
+);
+assert.equal(
+  siteConfig.brandName,
+  "BubbleFont",
+  "header brand should be distinct from the Bubble Font Generator homepage nav label",
+);
+assert.notEqual(
+  siteConfig.brandName,
+  primaryNavLabels.get(routes.home),
+  "header brand and homepage nav entry should not repeat the same visible text",
 );
 
 for (const href of [

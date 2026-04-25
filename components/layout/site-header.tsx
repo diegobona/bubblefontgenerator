@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { PageContainer } from "./page-container";
-import { primaryNavLinks } from "@/lib/site";
+import { primaryNavLinks, siteConfig } from "@/lib/site";
 import { routes } from "@/lib/routes";
 
 const articlePaths = new Set([
@@ -53,7 +53,7 @@ export function SiteHeader() {
             className="text-lg font-semibold tracking-tight text-slate-50"
             aria-label="Bubble Font Generator homepage"
           >
-            Bubble Font Generator
+            {siteConfig.brandName}
           </Link>
           <nav
             aria-label="Primary"
