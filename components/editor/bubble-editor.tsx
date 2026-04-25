@@ -761,10 +761,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const selectedAssistTemplateLabel =
     styleAssistTemplates.find((template) => template.prompt === selectedAssistTemplate)
       ?.label ?? AI_ASSIST_TEMPLATE_PLACEHOLDER;
+  const shouldPreviewTransparentBackground =
+    isTransparentBackgroundPage || removeBackgroundWhenDownloading;
   const resultBackgroundStyle = isTransparentBackgroundPage
     ? { backgroundColor: "transparent" }
     : { backgroundColor: state.backgroundColor };
-  const resultPreviewStyle = isTransparentBackgroundPage
+  const resultPreviewStyle = shouldPreviewTransparentBackground
     ? transparentPreviewBackgroundStyle
     : { backgroundColor: state.backgroundColor };
 
@@ -1616,7 +1618,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   font={font}
                   lines={lines}
                   filterId={`${baseId}-${font.id}`}
-                  forceTransparentBackground={isTransparentBackgroundPage}
+                  forceTransparentBackground={shouldPreviewTransparentBackground}
                   svgRef={(node) => {
                     svgRefs.current[font.id] = node;
                   }}

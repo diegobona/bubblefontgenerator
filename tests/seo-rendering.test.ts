@@ -111,8 +111,17 @@ assert.match(
 );
 assert.match(
   bubbleEditorSource,
-  /resultPreviewStyle = isTransparentBackgroundPage[\s\S]*transparentPreviewBackgroundStyle[\s\S]*backgroundColor: state\.backgroundColor/,
-  "only the on-page transparent preview should use checkerboard; normal pages keep canvas color",
+  /const shouldPreviewTransparentBackground =[\s\S]*isTransparentBackgroundPage \|\| removeBackgroundWhenDownloading/,
+  "regular generator pages should switch previews to transparent checkerboard when the remove-background switch is on",
+);
+assert.match(
+  bubbleEditorSource,
+  /resultPreviewStyle = shouldPreviewTransparentBackground[\s\S]*transparentPreviewBackgroundStyle[\s\S]*backgroundColor: state\.backgroundColor/,
+  "transparent preview mode should use checkerboard; normal canvas mode should keep canvas color",
+);
+assert.ok(
+  bubbleEditorSource.includes("forceTransparentBackground={shouldPreviewTransparentBackground}"),
+  "preview SVG should remove its background when either transparent page or remove-background mode is active",
 );
 assert.match(
   bubbleEditorSource,

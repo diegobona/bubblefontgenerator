@@ -49,3 +49,11 @@
  GET /transparent-bubble-font-generator/ 200 in 224ms (next.js: 111ms, application-code: 114ms)
  GET /transparent-bubble-font-generator/ 200 in 47ms (next.js: 4ms, application-code: 43ms)
  GET /transparent-bubble-font-generator/ 200 in 241ms (next.js: 5ms, application-code: 236ms)
+ GET /transparent-bubble-font-generator/ 200 in 155ms (next.js: 6ms, application-code: 149ms)
+ GET / 200 in 220ms (next.js: 137ms, application-code: 83ms)
+✓ Compiled in 125ms
+ GET /transparent-bubble-font-generator/ 200 in 192ms (next.js: 113ms, application-code: 79ms)
+ GET / 200 in 449ms (next.js: 162ms, application-code: 287ms)
+✓ Compiled in 58ms
+ GET /transparent-bubble-font-generator/ 200 in 422ms (next.js: 131ms, application-code: 291ms)
+ GET / 200 in 429ms (next.js: 325ms, application-code: 104ms)
