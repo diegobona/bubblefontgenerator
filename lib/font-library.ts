@@ -301,6 +301,38 @@ export function getBubbleFontsForCategoryPreference(
   });
 }
 
+export function getBubbleFontsForDistinctFirstView({
+  preferredCategories,
+  sortKey,
+}: {
+  preferredCategories: readonly BubbleFontCategory[];
+  sortKey: BubbleFontSortKey;
+}) {
+  const orderedFonts = getBubbleFontsForDisplay({ preferredCategories, sortKey });
+
+  if (sortKey === "name") {
+    return orderedFonts;
+  }
+
+  const distinctFonts: BubbleFont[] = [];
+  const duplicateFamilyFonts: BubbleFont[] = [];
+  const seenFamilies = new Set<string>();
+
+  for (const font of orderedFonts) {
+    const familyGroup = getSimilarityFamilyGroup(font);
+
+    if (!seenFamilies.has(familyGroup)) {
+      distinctFonts.push(font);
+      seenFamilies.add(familyGroup);
+      continue;
+    }
+
+    duplicateFamilyFonts.push(font);
+  }
+
+  return [...distinctFonts, ...duplicateFamilyFonts];
+}
+
 export function getBubbleFontsForDisplay({
   preferredCategories,
   sortKey,
@@ -367,4 +399,12 @@ function getCategoryRank(
     .filter((value): value is number => value !== undefined);
 
   return matchingRanks.length > 0 ? Math.min(...matchingRanks) : 999;
+}
+
+function getSimilarityFamilyGroup(font: BubbleFont) {
+  if (font.id.startsWith("baloo")) {
+    return "baloo";
+  }
+
+  return font.id;
 }

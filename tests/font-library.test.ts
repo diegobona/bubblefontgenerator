@@ -6,6 +6,7 @@ import {
   BUBBLE_FONT_PAGE_SIZE,
   bubbleFontLibrary,
   coreBubbleFonts,
+  getBubbleFontsForDistinctFirstView,
   getBubbleFontsForDisplay,
 } from "../lib/font-library";
 
@@ -96,3 +97,30 @@ const popularFonts = getBubbleFontsForDisplay({
 });
 
 assert.equal(popularFonts[0].id, "rubik-bubbles");
+
+const bubbleLetterFonts = getBubbleFontsForDistinctFirstView({
+  preferredCategories: ["school", "cute", "outline"],
+  sortKey: "popular",
+});
+const firstBubbleLetterPage = bubbleLetterFonts.slice(0, BUBBLE_FONT_PAGE_SIZE);
+const firstPageBalooFonts = firstBubbleLetterPage.filter((font) =>
+  font.id.startsWith("baloo"),
+);
+const lastBubbleLetterPage = bubbleLetterFonts.slice(-12);
+
+assert.ok(
+  firstPageBalooFonts.length <= 1,
+  "bubble letter first page should avoid repeated Baloo-family fonts",
+);
+assert.ok(
+  firstBubbleLetterPage.some((font) => font.id === "rubik-bubbles"),
+  "bubble letter first page should keep visually distinct bubble fonts near the top",
+);
+assert.ok(
+  firstBubbleLetterPage.some((font) => font.id === "bubblegum-sans"),
+  "bubble letter first page should keep Bubblegum Sans near the top",
+);
+assert.ok(
+  lastBubbleLetterPage.filter((font) => font.id.startsWith("baloo")).length >= 4,
+  "duplicate Baloo-family fonts should be pushed to the end of the bubble letter list",
+);

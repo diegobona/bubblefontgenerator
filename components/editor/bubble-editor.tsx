@@ -16,6 +16,7 @@ import {
   CORE_BUBBLE_FONT_COUNT,
   BUBBLE_FONT_PAGE_SIZE,
   bubbleFontLibrary,
+  getBubbleFontsForDistinctFirstView,
   getBubbleFontsForDisplay,
   type BubbleFont,
   type BubbleFontCategory,
@@ -428,6 +429,10 @@ function getVariantFontCategories(variant: EditorVariant) {
   return variantFontCategories[variant];
 }
 
+function shouldUseDistinctFirstView(variant: EditorVariant) {
+  return variant === "letters";
+}
+
 function getInitialState(variant: EditorVariant): EditorState {
   const config = variantConfigs[variant];
 
@@ -725,7 +730,11 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     const preferredCategories =
       featuredFontCategories.length > 0 ? featuredFontCategories : variantCategories;
 
-    return getBubbleFontsForDisplay({
+    const getFonts = shouldUseDistinctFirstView(variant)
+      ? getBubbleFontsForDistinctFirstView
+      : getBubbleFontsForDisplay;
+
+    return getFonts({
       preferredCategories,
       sortKey: fontSort,
     });
@@ -1014,10 +1023,13 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+        <div
+          data-editor-color-controls="true"
+          className="mt-6 grid grid-cols-2 gap-3"
+        >
           <label className="block">
             <span className="text-sm font-medium text-slate-300">Text Color</span>
-            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-3">
+            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-2">
               <input
                 type="color"
                 value={state.textColor}
@@ -1027,14 +1039,14 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     textColor: event.target.value,
                   }))
                 }
-                className="h-12 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
+                className="h-11 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
               />
             </div>
           </label>
 
           <label className="block">
             <span className="text-sm font-medium text-slate-300">Background</span>
-            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-3">
+            <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-2">
               <input
                 type="color"
                 value={state.backgroundColor}
@@ -1044,55 +1056,58 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                     backgroundColor: event.target.value,
                   }))
                 }
-                className="h-12 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
+                className="h-11 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
               />
             </div>
           </label>
         </div>
+
+        <label
+          data-editor-font-size-control="true"
+          className="mt-5 block rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-4"
+        >
+          <div className="flex items-center justify-between text-sm font-medium text-slate-300">
+            <span>Font Size</span>
+            <span>{state.fontSize}px</span>
+          </div>
+          <input
+            type="range"
+            min={52}
+            max={160}
+            step={2}
+            value={state.fontSize}
+            onChange={(event) =>
+              setState((current) => {
+                const fontSize = Number(event.target.value);
+
+                return {
+                  ...current,
+                  fontSize,
+                  height: getAutoHeightForFontSize({
+                    currentHeight: current.height,
+                    fontSize,
+                    lineHeight: current.lineHeight,
+                    lineCount: buildLines(current.text).length,
+                    outlineWidth: current.outlineWidth,
+                    stickerEdgeEnabled: current.stickerEdgeEnabled,
+                    stickerEdgeWidth: current.stickerEdgeWidth,
+                    shadowEnabled: current.shadowEnabled,
+                    shadowBlur: current.shadowBlur,
+                    shadowY: current.shadowY,
+                    depth: current.depth,
+                  }),
+                };
+              })
+            }
+            className="mt-3 w-full"
+          />
+        </label>
 
         <details className="mt-8 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
           <summary className="cursor-pointer list-none text-xl font-semibold text-slate-100">
             Advanced Options
           </summary>
           <div className="mt-6 space-y-5">
-            <label className="block">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-300">
-                <span>Font Size</span>
-                <span>{state.fontSize}px</span>
-              </div>
-              <input
-                type="range"
-                min={52}
-                max={160}
-                step={2}
-                  value={state.fontSize}
-                  onChange={(event) =>
-                    setState((current) => {
-                      const fontSize = Number(event.target.value);
-
-                      return {
-                        ...current,
-                        fontSize,
-                        height: getAutoHeightForFontSize({
-                          currentHeight: current.height,
-                          fontSize,
-                          lineHeight: current.lineHeight,
-                          lineCount: buildLines(current.text).length,
-                          outlineWidth: current.outlineWidth,
-                          stickerEdgeEnabled: current.stickerEdgeEnabled,
-                          stickerEdgeWidth: current.stickerEdgeWidth,
-                          shadowEnabled: current.shadowEnabled,
-                          shadowBlur: current.shadowBlur,
-                          shadowY: current.shadowY,
-                          depth: current.depth,
-                        }),
-                      };
-                    })
-                  }
-                  className="mt-3 w-full"
-                />
-            </label>
-
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block">
                 <span className="text-sm font-medium text-slate-300">Canvas Width</span>

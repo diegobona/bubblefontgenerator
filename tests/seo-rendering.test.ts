@@ -45,3 +45,21 @@ assert.match(
   /graffiti:[\s\S]*defaultText: "Graffiti\\nBlast"[\s\S]*outlineWidth: 16[\s\S]*depth: 24/,
   "Graffiti page should have a visibly stronger default style",
 );
+
+assert.ok(
+  bubbleEditorSource.includes('data-editor-color-controls="true"'),
+  "color controls should have a stable wrapper for compact layout",
+);
+assert.ok(
+  !bubbleEditorSource.includes('data-editor-color-controls="true" className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-1"'),
+  "text and background color controls should stay on one row in the desktop sidebar",
+);
+assert.match(
+  bubbleEditorSource,
+  /data-editor-color-controls="true"[\s\S]*data-editor-font-size-control="true"[\s\S]*<details[\s\S]*Advanced Options/,
+  "font size should sit below the color controls, outside Advanced Options",
+);
+assert.ok(
+  !bubbleEditorSource.match(/<details[\s\S]*Advanced Options[\s\S]*<span>Font Size<\/span>/),
+  "Advanced Options should start after the primary font size control",
+);
