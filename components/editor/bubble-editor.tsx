@@ -925,7 +925,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   };
 
   return (
-    <div className="grid items-start gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
+    <div className="grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
       <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
         <label className="block">
           <span className="text-sm font-medium text-slate-300">Enter Your Text</span>
