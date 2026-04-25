@@ -80,16 +80,24 @@ export function SeoPage({ page }: SeoPageProps) {
       {hasFaqs ? <FaqJsonLd faqs={page.faqs} /> : null}
       <BreadcrumbJsonLd items={breadcrumbItems} />
       <PageContainer>
-        <article className={isHomePage ? "py-8 sm:py-10" : "py-12 sm:py-16"}>
+        <article className={isHomePage ? "py-6 sm:py-8" : "py-12 sm:py-16"}>
           {isHomePage ? (
-            <header className="mb-5">
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                {page.h1}
-              </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
-                {page.intro}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2.5">
+            <header
+              data-home-hero-header="true"
+              className="mb-3 gap-6 lg:flex lg:items-start lg:justify-between"
+            >
+              <div className="min-w-0">
+                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                  {page.h1}
+                </h1>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+                  {page.intro}
+                </p>
+              </div>
+              <div
+                data-home-trust-items="true"
+                className="mt-3 flex flex-wrap gap-2.5 lg:mt-2 lg:max-w-xl lg:justify-end"
+              >
                 {homeTrustItems.map((item) => (
                   <span
                     key={item}
@@ -111,7 +119,7 @@ export function SeoPage({ page }: SeoPageProps) {
             </header>
           ) : null}
 
-          <div className={isToolPage || isHomePage ? "mt-4" : "mt-12"}>
+          <div className={isToolPage || isHomePage ? "mt-2" : "mt-12"}>
             <div className="space-y-12">
               {isToolPage || isHomePage ? (
                 <section id={isHomePage ? "main-editor" : undefined} aria-label="Bubble editor">

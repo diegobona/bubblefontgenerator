@@ -24,6 +24,15 @@ assert.ok(
   !seoPageSource.includes("{visibleToolSections.map"),
   "tool page supporting copy should not be rendered only in a screen-reader section",
 );
+assert.match(
+  seoPageSource,
+  /data-home-hero-header="true"[\s\S]*data-home-trust-items="true"[\s\S]*lg:justify-end/,
+  "homepage trust tags should sit in the hero header row on large screens",
+);
+assert.ok(
+  !seoPageSource.includes('<header className="mb-5">'),
+  "homepage header spacing should stay compact so the editor starts higher",
+);
 
 assert.ok(
   writingPageSource.includes("permanentRedirect(routes.bubbleLetterFontGenerator)"),
