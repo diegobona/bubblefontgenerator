@@ -5,14 +5,18 @@ import {
   HOME_VISIBLE_SECTION_COUNT,
   HOME_VISIBLE_STYLE_IDEA_COUNT,
 } from "../lib/home-seo-layout";
-import { homeStyleIdeas, pageDocuments } from "../lib/page-data";
+import { buildMetadata } from "../lib/metadata";
+import { type LinkItem, homeStyleIdeas, pageDocuments } from "../lib/page-data";
 import { routes } from "../lib/routes";
+import { homePreviewImage } from "../lib/seo-assets";
+import { footerToolLinks, primaryNavLinks } from "../lib/site";
 
 const home = pageDocuments.home;
 const bubbleLetterPage = pageDocuments.bubbleLetterFontGenerator;
 const graffitiPage = pageDocuments.bubbleGraffitiFontGenerator;
 const pngPage = pageDocuments.bubbleFontGeneratorPng;
 const transparentPage = pageDocuments.transparentBubbleFontGenerator;
+const allPages = Object.values(pageDocuments);
 
 assert.equal(home.h1, "Bubble Font Generator");
 assert.match(home.title, /Free Bubble Letter PNG Maker/);
@@ -59,6 +63,112 @@ assert.equal(
   0,
   "homepage should collapse FAQ answers by default",
 );
+
+const uniqueTitles = new Set(allPages.map((page) => page.title));
+const uniqueDescriptions = new Set(allPages.map((page) => page.description));
+const uniqueH1s = new Set(allPages.map((page) => page.h1));
+
+assert.equal(uniqueTitles.size, allPages.length, "every page should have a unique title");
+assert.equal(
+  uniqueDescriptions.size,
+  allPages.length,
+  "every page should have a unique description",
+);
+assert.equal(uniqueH1s.size, allPages.length, "every page should have a unique H1");
+
+const homeMetadata = buildMetadata(home);
+const canonicalUrls = allPages.map((page) => buildMetadata(page).alternates?.canonical);
+
+assert.ok(!("keywords" in homeMetadata), "home metadata should not use meta keywords");
+assert.match(
+  JSON.stringify(homeMetadata.openGraph),
+  /bubble-home-preview\.svg/,
+  "home Open Graph metadata should include the preview image",
+);
+assert.match(
+  JSON.stringify(homeMetadata.openGraph),
+  /Bubble font generator preview/i,
+  "home Open Graph metadata should include natural image alt text",
+);
+assert.equal(
+  new Set(canonicalUrls).size,
+  canonicalUrls.length,
+  "each page should have a unique canonical URL",
+);
+
+for (const page of allPages) {
+  const metadata = buildMetadata(page);
+
+  assert.equal(
+    metadata.alternates?.canonical,
+    `https://bubblefontgenerator.net${page.path}`,
+    `${page.path} should use its own canonical URL`,
+  );
+}
+
+const requiredHomeInternalLinks = [
+  routes.bubbleLetterFontGenerator,
+  routes.bubbleFontGeneratorPng,
+  routes.transparentBubbleFontGenerator,
+  routes.bubbleGraffitiFontGenerator,
+  routes.howToMakeBubbleLetters,
+];
+
+for (const href of requiredHomeInternalLinks) {
+  assert.ok(
+    home.relatedLinks.some((link) => link.href === href),
+    `homepage should internally link to ${href}`,
+  );
+}
+
+const knownRoutes = new Set<string>(Object.values(routes));
+const allRelatedLinks: LinkItem[] = [];
+
+for (const page of allPages) {
+  allRelatedLinks.push(...page.relatedLinks);
+}
+
+for (const link of allRelatedLinks) {
+  assert.ok(knownRoutes.has(link.href), `${link.label} should link to a known route`);
+}
+
+const primaryNavLabels = new Map(primaryNavLinks.map((link) => [link.href, link.label]));
+
+for (const href of [
+  routes.bubbleLetterFontGenerator,
+  routes.bubbleWritingFontGenerator,
+  routes.bubbleGraffitiFontGenerator,
+]) {
+  assert.match(
+    primaryNavLabels.get(href) ?? "",
+    /Generator/,
+    `${href} primary nav label should use clear generator anchor text`,
+  );
+}
+
+const footerToolHrefs = new Set<string>(footerToolLinks.map((link) => link.href));
+
+for (const href of [
+  routes.bubbleFontGeneratorPng,
+  routes.transparentBubbleFontGenerator,
+]) {
+  assert.ok(
+    footerToolHrefs.has(href),
+    `footer tool links should include ${href}`,
+  );
+}
+
+for (const page of allPages.filter((item) => item.path !== routes.home)) {
+  assert.ok(
+    page.relatedLinks.some((link) => link.href === routes.home),
+    `${page.path} should link back to the Bubble Font Generator homepage`,
+  );
+}
+
+assert.equal(homePreviewImage.src, "/images/seo/bubble-home-preview.svg");
+assert.match(homePreviewImage.alt, /bubble font generator preview/i);
+assert.ok(homePreviewImage.width >= 300, "home preview image should be large enough");
+assert.ok(homePreviewImage.height >= 300, "home preview image should be large enough");
 
 const styleIdeaLabels = homeStyleIdeas.map((idea) => idea.label).join(" ");
 

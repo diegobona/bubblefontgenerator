@@ -11,13 +11,21 @@ export const siteConfig = {
 
 export const primaryNavLinks = [
   { href: routes.home, label: "Bubble Font Generator" },
-  { href: routes.bubbleLetterFontGenerator, label: "Bubble Letters" },
-  { href: routes.bubbleWritingFontGenerator, label: "Bubble Writing" },
-  { href: routes.bubbleGraffitiFontGenerator, label: "Graffiti Bubble" },
-  { href: routes.articles, label: "Articles" },
+  { href: routes.bubbleLetterFontGenerator, label: "Bubble Letter Generator" },
+  { href: routes.bubbleWritingFontGenerator, label: "Bubble Writing Generator" },
+  { href: routes.bubbleGraffitiFontGenerator, label: "Graffiti Bubble Generator" },
+  { href: routes.articles, label: "Bubble Font Articles" },
 ];
 
 export const footerToolLinks = [
+  {
+    href: routes.bubbleFontGeneratorPng,
+    label: "Bubble Font Generator PNG",
+  },
+  {
+    href: routes.transparentBubbleFontGenerator,
+    label: "Transparent Bubble Font Generator",
+  },
   {
     href: routes.bubbleLetterFontGenerator,
     label: "Bubble Letter Font Generator",

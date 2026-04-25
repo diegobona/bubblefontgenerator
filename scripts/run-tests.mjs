@@ -10,6 +10,7 @@ const testFiles = [
   "tests/download-background.test.ts",
   "tests/font-library.test.ts",
   "tests/home-seo.test.ts",
+  "tests/seo-rendering.test.ts",
   "tests/svg-font-face.test.ts",
   "tests/result-card-layout.test.ts",
   "tests/editor-sizing.test.ts",

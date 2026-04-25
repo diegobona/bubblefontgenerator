@@ -357,6 +357,11 @@ export const pageDocuments = {
     faqs: [],
     relatedLinks: [
       {
+        href: routes.home,
+        label: "Bubble Font Generator",
+        description: "Open the main Bubble Font Generator tool.",
+      },
+      {
         href: routes.whatIsBubbleFont,
         label: "What Is Bubble Font?",
         description: "Understand the meaning, style, and use cases of bubble font.",

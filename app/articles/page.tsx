@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 import { PageContainer } from "@/components/layout/page-container";
-import { buildMetadata } from "@/lib/metadata";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
+import { buildMetadata, getCanonicalUrl } from "@/lib/metadata";
 import { pageDocuments } from "@/lib/page-data";
 import { routes } from "@/lib/routes";
 
@@ -36,11 +37,21 @@ export const metadata = buildMetadata(page);
 export default function ArticlesPage() {
   return (
     <main className="flex-1 bg-transparent">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", item: getCanonicalUrl(routes.home) },
+          { name: page.h1, item: getCanonicalUrl(page.path) },
+        ]}
+      />
       <PageContainer>
         <article className="py-12 sm:py-16">
-          <header className="sr-only">
-            <h1>{page.h1}</h1>
-            <p>{page.intro}</p>
+          <header className="mb-8 max-w-3xl">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              {page.h1}
+            </h1>
+            <p className="mt-3 text-sm leading-6 text-slate-300 sm:text-base">
+              {page.intro}
+            </p>
           </header>
 
           <section className="grid gap-5 md:grid-cols-2">

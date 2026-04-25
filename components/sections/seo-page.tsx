@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { BubbleEditor } from "@/components/editor/bubble-editor";
 import { PageContainer } from "@/components/layout/page-container";
@@ -13,6 +14,7 @@ import { homeStyleIdeas, type PageDocument } from "@/lib/page-data";
 import { getCanonicalUrl } from "@/lib/metadata";
 import { getPagePresentation } from "@/lib/page-presentation";
 import { routes } from "@/lib/routes";
+import { homePreviewImage } from "@/lib/seo-assets";
 
 type SeoPageProps = {
   page: PageDocument;
@@ -32,16 +34,12 @@ const homeGuideLinks = [
     title: "Transparent Bubble Font Generator",
   },
   {
-    href: routes.whatIsBubbleFont,
-    title: "What Is Bubble Font?",
+    href: routes.bubbleGraffitiFontGenerator,
+    title: "Bubble Graffiti Font Generator",
   },
   {
     href: routes.howToMakeBubbleLetters,
     title: "How to Make Bubble Letters",
-  },
-  {
-    href: routes.freeBubbleFontGenerator,
-    title: "Free Bubble Font Generator Guide",
   },
 ];
 
@@ -63,7 +61,6 @@ export function SeoPage({ page }: SeoPageProps) {
   const collapsedHomeSections = page.sections.slice(HOME_VISIBLE_SECTION_COUNT);
   const collapsedHomeStyleIdeas = homeStyleIdeas.slice(HOME_VISIBLE_STYLE_IDEA_COUNT);
   const collapsedHomeFaqs = page.faqs.slice(HOME_VISIBLE_FAQ_COUNT);
-  const visibleToolSections = page.sections.slice(0, 2);
   const visibleRelatedLinks = page.relatedLinks.slice(0, isHomePage ? 4 : 3);
   const breadcrumbItems = isHomePage
     ? [{ name: "Home", item: getCanonicalUrl(routes.home) }]
@@ -108,7 +105,7 @@ export function SeoPage({ page }: SeoPageProps) {
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 {page.h1}
               </h1>
-              <p className={isToolPage ? "sr-only" : "mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base"}>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
                 {page.intro}
               </p>
             </header>
@@ -123,23 +120,6 @@ export function SeoPage({ page }: SeoPageProps) {
                     pagePath={isHomePage ? routes.home : page.path}
                     heading={page.h1}
                   />
-                </section>
-              ) : null}
-
-              {isToolPage ? (
-                <section className="sr-only">
-                  {visibleToolSections.map((section) => (
-                    <section
-                      key={section.id}
-                      id={section.id}
-                      aria-labelledby={section.id}
-                    >
-                      <h2 id={section.id}>{section.title}</h2>
-                      <div>
-                        <p>{section.paragraphs[0]}</p>
-                      </div>
-                    </section>
-                  ))}
                 </section>
               ) : null}
 
@@ -168,7 +148,65 @@ export function SeoPage({ page }: SeoPageProps) {
                 </article>
               ) : null}
 
-              {hasFaqs && !isHomePage ? (
+              {isToolPage ? (
+                <section
+                  aria-labelledby="tool-seo-support"
+                  className="max-w-4xl"
+                >
+                  <details className="group rounded-2xl border border-white/10 bg-[rgba(24,20,48,0.58)]">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-slate-100 transition hover:text-white [&::-webkit-details-marker]:hidden">
+                      <span id="tool-seo-support">About this {page.h1}</span>
+                      <span className="text-xs font-medium text-cyan-200 transition group-open:rotate-45">
+                        +
+                      </span>
+                    </summary>
+                    <div className="space-y-5 border-t border-white/10 px-5 py-5">
+                      <div className="grid gap-4 text-sm leading-6 text-slate-300 md:grid-cols-2">
+                        {page.sections.slice(0, 2).map((section) => (
+                          <div key={section.id}>
+                            <h2 className="font-semibold text-slate-100">
+                              {section.title}
+                            </h2>
+                            <p className="mt-1">{section.paragraphs[0]}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {hasFaqs ? (
+                        <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-[rgba(12,10,28,0.32)]">
+                          {page.faqs.map((faq) => (
+                            <details key={faq.question} className="group px-4 py-3">
+                              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-slate-100 transition hover:text-white [&::-webkit-details-marker]:hidden">
+                                <span>{faq.question}</span>
+                                <span className="text-xs font-medium text-cyan-200 transition group-open:rotate-45">
+                                  +
+                                </span>
+                              </summary>
+                              <p className="mt-2 text-sm leading-6 text-slate-300">{faq.answer}</p>
+                            </details>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      {hasRelatedLinks ? (
+                        <div className="flex flex-wrap gap-3">
+                          {visibleRelatedLinks.map((link) => (
+                            <Link
+                              key={link.href}
+                              href={link.href}
+                              className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(34,27,63,0.62)] px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-300/25 hover:bg-[rgba(43,34,79,0.86)] hover:text-white"
+                            >
+                              {link.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  </details>
+                </section>
+              ) : null}
+
+              {hasFaqs && !isHomePage && !isToolPage ? (
                 <section
                   aria-labelledby="page-faq"
                   className={
@@ -214,7 +252,7 @@ export function SeoPage({ page }: SeoPageProps) {
                 </section>
               ) : null}
 
-              {hasRelatedLinks && !isHomePage ? (
+              {hasRelatedLinks && !isHomePage && !isToolPage ? (
                 <section
                   aria-labelledby="related-pages"
                   className={
@@ -268,18 +306,29 @@ export function SeoPage({ page }: SeoPageProps) {
                       </span>
                     </summary>
                     <div className="space-y-6 border-t border-white/10 px-5 py-5">
-                      {collapsedHomeSections.length > 0 ? (
-                        <div className="grid gap-4 text-sm leading-6 text-slate-300 md:grid-cols-2">
-                          {collapsedHomeSections.map((section) => (
-                            <div key={section.id}>
-                              <h3 className="font-semibold text-slate-100">
-                                {section.title}
-                              </h3>
-                              <p className="mt-1">{section.paragraphs[0]}</p>
-                            </div>
-                          ))}
+                      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_260px]">
+                        {collapsedHomeSections.length > 0 ? (
+                          <div className="grid gap-4 text-sm leading-6 text-slate-300 md:grid-cols-2">
+                            {collapsedHomeSections.map((section) => (
+                              <div key={section.id}>
+                                <h3 className="font-semibold text-slate-100">
+                                  {section.title}
+                                </h3>
+                                <p className="mt-1">{section.paragraphs[0]}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : null}
+                        <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950/35">
+                          <Image
+                            src={homePreviewImage.src}
+                            alt={homePreviewImage.alt}
+                            width={homePreviewImage.width}
+                            height={homePreviewImage.height}
+                            className="h-auto w-full"
+                          />
                         </div>
-                      ) : null}
+                      </div>
 
                       {collapsedHomeStyleIdeas.length > 0 ? (
                         <div>
