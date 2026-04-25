@@ -1562,7 +1562,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   onClick={() => downloadPresetPng(font, preset)}
                   className="inline-flex items-center rounded-md bg-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/30"
                 >
-                  download
+                  Download PNG
                 </button>
               </div>
 

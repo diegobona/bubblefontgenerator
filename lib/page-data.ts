@@ -28,36 +28,89 @@ export type PageDocument = {
   relatedLinks: LinkItem[];
 };
 
+export type HomeStyleIdea = {
+  label: string;
+  prompt: string;
+  description: string;
+};
+
+export const homeStyleIdeas: HomeStyleIdea[] = [
+  {
+    label: "3D Bubble Font Generator",
+    prompt: "more 3d red sticker",
+    description: "Use depth, shadow, and sticker edges for raised bubble text.",
+  },
+  {
+    label: "70s Bubble Font Generator",
+    prompt: "orange warm bubble",
+    description: "Make retro rounded bubble text with a warm 70s color feel.",
+  },
+  {
+    label: "Black Bubble Font Generator",
+    prompt: "black outline logo",
+    description: "Create dark bubble lettering for logos and bold titles.",
+  },
+  {
+    label: "Bubble Calligraphy Font Generator",
+    prompt: "handwritten pink note",
+    description: "Try softer script-like bubble text for decorative words.",
+  },
+  {
+    label: "Bubble Cursive Font Generator",
+    prompt: "handwritten pink note",
+    description: "Start from a flowing bubble writing look for cursive-style ideas.",
+  },
+  {
+    label: "Bubble Font Alphabet Generator",
+    prompt: "green classroom label",
+    description: "Use bubble letters for alphabet cards, labels, and classroom projects.",
+  },
+];
+
 export const pageDocuments = {
   home: {
     path: routes.home,
     title:
-      "Bubble Font Generator | Free Bubble Text Generator Online",
+      "Bubble Font Generator - Free Bubble Letter PNG Maker",
     description:
-      "Use the Bubble Font Generator to generate bubble text online, compare multiple rounded styles, customize colors and effects, and download a PNG in seconds.",
+      "Create real bubble font text online, customize colors, outlines, and shadows, then download bubble letter PNG images with optional transparent background.",
     h1: "Bubble Font Generator",
     intro:
-      "Generate bubble text online, compare multiple styles, and download your favorite result as a PNG.",
+      "Create real bubble font text online. Customize colors, outlines, shadows, sticker edges, and download PNG images with or without transparent background.",
     sections: [
       {
-        id: "brand-overview",
-        title: "Make Bubble Text Fast",
+        id: "what-is-tool",
+        title: "What Is This Bubble Font Generator?",
         paragraphs: [
-          "Type your text once and instantly compare multiple styles in the main bubble font generator without opening design software.",
+          "This Bubble Font Generator creates visual bubble lettering with real bubble fonts instead of only copy-and-paste Unicode text. Type once, compare styles, and keep the version that looks best for your project.",
         ],
       },
       {
-        id: "feature-highlights",
-        title: "Customize The Look",
+        id: "png-maker",
+        title: "Download Bubble Letters As PNG",
         paragraphs: [
-          "Change color, outline, shadow, spacing, sticker edge, and depth with a live preview before you download.",
+          "Use the editor as a bubble letter PNG maker: adjust color, outline, shadow, spacing, sticker edge, and depth, then download a clean PNG image. Turn on background removal when you need a transparent bubble font for stickers, logos, thumbnails, or classroom labels.",
         ],
       },
       {
-        id: "content-hub",
-        title: "Explore More Styles",
+        id: "style-ideas",
+        title: "Bubble Font Styles And Ideas",
         paragraphs: [
-          "Jump into Bubble Letters, Bubble Writing, Graffiti Bubble, or browse articles for tips and ideas.",
+          "Try classic bubble letters, cute sticker text, graffiti bubble fonts, outline styles, birthday banners, classroom labels, poster titles, logos, and social media graphics. Common searches like bubbly font generator, font generator bubble, bubble fonts generator, and bubble text font generator all point to this same need: fast rounded text that looks good as an image.",
+        ],
+      },
+      {
+        id: "copy-paste-difference",
+        title: "More Than A Copy-and-Paste Bubble Text Tool",
+        paragraphs: [
+          "Copy-and-paste bubble text is useful for plain text fields, so users searching bubble font generator copy and paste, bubbly font generator copy and paste, or bubble font generator copy paste may still find it helpful. This tool goes further with real font shapes, custom outlines, 3D depth, sticker edges, and transparent PNG downloads.",
+        ],
+      },
+      {
+        id: "long-tail-styles",
+        title: "More Bubble Font Generator Styles",
+        paragraphs: [
+          "Use the same editor for 3D bubble font generator looks, 70s bubble font generator ideas, black bubble font generator styling, bubble calligraphy font generator experiments, bubble cursive font generator text, and bubble font alphabet generator projects.",
         ],
       },
     ],
@@ -70,7 +123,12 @@ export const pageDocuments = {
       {
         question: "Can I download bubble text as a PNG?",
         answer:
-          "Yes. The bubble font generator lets you compare multiple styles, customize the look, and download your favorite result as a PNG.",
+          "Yes. The bubble font generator lets you compare multiple styles, customize the look, and download your favorite result as a PNG image.",
+      },
+      {
+        question: "Can I make bubble letters with a transparent background?",
+        answer:
+          "Yes. Use the Remove background when downloading switch before export to create a transparent bubble font PNG for stickers, logos, thumbnails, or other design work.",
       },
       {
         question: "Do I need to install anything before using the tool?",
@@ -82,8 +140,28 @@ export const pageDocuments = {
         answer:
           "Yes. You can adjust colors, outline, shadow, sticker edge, spacing, highlight, and other visual settings before export.",
       },
+      {
+        question: "Is this different from a copy-and-paste bubble text generator?",
+        answer:
+          "Yes. Copy-and-paste bubble text creates Unicode characters for text fields. If you searched for bubble font generator copy and paste or bubbly font generator copy and paste, this tool is different because it creates editable visual bubble font images with real fonts, outlines, shadows, and PNG downloads.",
+      },
+      {
+        question: "What can I use bubble font PNGs for?",
+        answer:
+          "Bubble font PNGs work well for stickers, logos, birthday banners, classroom labels, posters, YouTube thumbnails, social posts, and kids projects.",
+      },
     ],
     relatedLinks: [
+      {
+        href: routes.bubbleFontGeneratorPng,
+        label: "Bubble Font Generator PNG",
+        description: "Make bubble letters and download them as PNG images.",
+      },
+      {
+        href: routes.transparentBubbleFontGenerator,
+        label: "Transparent Bubble Font Generator",
+        description: "Create transparent bubble font PNGs for stickers and logos.",
+      },
       {
         href: routes.bubbleLetterFontGenerator,
         label: "Bubble Letter Font Generator",
@@ -123,6 +201,138 @@ export const pageDocuments = {
         href: routes.articles,
         label: "Bubble Font Articles",
         description: "Browse all guides, tutorials, and comparison pages.",
+      },
+    ],
+  },
+  bubbleFontGeneratorPng: {
+    path: routes.bubbleFontGeneratorPng,
+    title: "Bubble Font Generator PNG | Download Bubble Letters as Images",
+    description:
+      "Use this Bubble Font Generator PNG page to create bubble text, customize real bubble fonts, and download bubble letters as images for stickers, logos, banners, and posts.",
+    h1: "Bubble Font Generator PNG",
+    intro:
+      "Create bubble font PNG images online with real bubble fonts, custom colors, outlines, shadows, and quick download options.",
+    sections: [
+      {
+        id: "png-editor",
+        title: "Make Bubble Letters As Images",
+        paragraphs: [
+          "This page focuses on users who want a finished bubble letter image instead of copy-and-paste text. Type your words, choose a style, and export a PNG that can be used in design tools, documents, social posts, or printable projects.",
+        ],
+      },
+      {
+        id: "png-use-cases",
+        title: "Where Bubble Font PNGs Work Best",
+        paragraphs: [
+          "Bubble font PNG images work well for stickers, logos, birthday banners, classroom labels, YouTube thumbnails, posters, kids projects, and quick social graphics.",
+        ],
+      },
+      {
+        id: "png-main-tool",
+        title: "Connected To The Main Bubble Font Generator",
+        paragraphs: [
+          "The homepage remains the main Bubble Font Generator, while this page targets the PNG download intent for people who specifically need bubble letters as images.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can I download bubble letters as PNG images?",
+        answer:
+          "Yes. Choose a bubble font style, customize the look, and use Download PNG to save the result as an image.",
+      },
+      {
+        question: "Can I use bubble font PNGs for stickers or logos?",
+        answer:
+          "Yes. PNG exports are useful for stickers, logos, thumbnails, posters, classroom labels, and other visual projects.",
+      },
+    ],
+    relatedLinks: [
+      {
+        href: routes.home,
+        label: "Bubble Font Generator",
+        description: "Return to the main Bubble Font Generator.",
+      },
+      {
+        href: routes.transparentBubbleFontGenerator,
+        label: "Transparent Bubble Font Generator",
+        description: "Create bubble text PNGs with the background removed.",
+      },
+      {
+        href: routes.bubbleLetterFontGenerator,
+        label: "Bubble Letter Font Generator",
+        description: "Try the classic bubble letter intent page.",
+      },
+      {
+        href: routes.bubbleGraffitiFontGenerator,
+        label: "Bubble Graffiti Font Generator",
+        description: "Try a bolder graffiti bubble text style.",
+      },
+    ],
+  },
+  transparentBubbleFontGenerator: {
+    path: routes.transparentBubbleFontGenerator,
+    title: "Transparent Bubble Font Generator | Remove Background from Bubble Text",
+    description:
+      "Create transparent bubble font PNG images online with a transparent background. Customize bubble letters, remove the background when downloading, and use the result for stickers, logos, thumbnails, or designs.",
+    h1: "Transparent Bubble Font Generator",
+    intro:
+      "Make bubble font text with a transparent background so your bubble letters can sit cleanly on stickers, logos, thumbnails, and other designs.",
+    sections: [
+      {
+        id: "transparent-editor",
+        title: "Create Transparent Bubble Text",
+        paragraphs: [
+          "Use this page when you need bubble text without a solid background. Customize the bubble font style, then turn on Remove background when downloading before exporting the PNG.",
+        ],
+      },
+      {
+        id: "transparent-use-cases",
+        title: "Why Transparent Bubble PNGs Are Useful",
+        paragraphs: [
+          "Transparent bubble font PNGs are easier to place on stickers, logos, merch mockups, YouTube thumbnails, slides, classroom worksheets, and social graphics because the background does not cover the design underneath.",
+        ],
+      },
+      {
+        id: "transparent-main-tool",
+        title: "A Focused Page Under The Main Bubble Font Generator",
+        paragraphs: [
+          "The homepage targets the broad Bubble Font Generator keyword, while this page focuses on transparent bubble text and background removal intent.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How do I remove the background from bubble text?",
+        answer:
+          "Turn on Remove background when downloading, then click Download PNG on the bubble font style you want.",
+      },
+      {
+        question: "Does transparent download change the preview?",
+        answer:
+          "No. The preview can keep a background color for visibility, while the downloaded PNG can remove the background when the switch is enabled.",
+      },
+    ],
+    relatedLinks: [
+      {
+        href: routes.home,
+        label: "Bubble Font Generator",
+        description: "Return to the main Bubble Font Generator.",
+      },
+      {
+        href: routes.bubbleFontGeneratorPng,
+        label: "Bubble Font Generator PNG",
+        description: "Download bubble letters as regular PNG images.",
+      },
+      {
+        href: routes.bubbleLetterFontGenerator,
+        label: "Bubble Letter Font Generator",
+        description: "Try the classic bubble letter intent page.",
+      },
+      {
+        href: routes.freeBubbleFontGenerator,
+        label: "Free Bubble Font Generator Guide",
+        description: "Read what to look for in a free bubble font tool.",
       },
     ],
   },
@@ -170,9 +380,9 @@ export const pageDocuments = {
   },
   bubbleLetterFontGenerator: {
     path: routes.bubbleLetterFontGenerator,
-    title: "Bubble Letter Font Generator | Cute Bubble Letters Maker",
+    title: "Bubble Letter Font Generator - Make Bubble Letters Online",
     description:
-      "Create cute bubble letters for names, labels, and titles on this focused style page under the main Bubble Font Generator.",
+      "Create cute bubble letters online with this bubble letter font generator. It also covers font generator bubble letters, bubble letter generator font, and bubble letters font generator searches.",
     h1: "Bubble Letter Font Generator",
     intro:
       "Make rounded bubble letters for names, labels, and short playful titles.",
@@ -181,7 +391,7 @@ export const pageDocuments = {
         id: "editor-area",
         title: "Bubble Letters Editor",
         paragraphs: [
-          "This page focuses on the bubble letter look people usually want for names, labels, and friendly word art.",
+          "This page focuses on the bubble letter look people usually want for names, labels, and friendly word art. It is the best match for bubble letter font generator searches and close variants like font generator bubble letters.",
         ],
       },
       {
@@ -195,7 +405,7 @@ export const pageDocuments = {
         id: "page-purpose",
         title: "How This Page Fits The Site",
         paragraphs: [
-          "This page serves a narrower search intent under the broader Bubble Font Generator topic, so users can go straight to a more specific style page when they already know what they want.",
+          "This page serves a narrower search intent under the broader Bubble Font Generator topic. It naturally covers bubble letter generator font and bubble letters font generator language while linking back to the homepage for broader styles.",
         ],
       },
     ],
@@ -203,7 +413,7 @@ export const pageDocuments = {
       {
         question: "Is this page different from the main bubble font generator page?",
         answer:
-          "Yes. This page is narrower and focuses on bubble letters as a specific use case under the broader Bubble Font Generator topic.",
+          "Yes. This page is narrower and focuses on bubble letters as a specific use case under the broader Bubble Font Generator topic, including font generator bubble letters and bubble letters font generator wording.",
       },
       {
         question: "Will this page link back to the core tool page?",
@@ -315,7 +525,7 @@ export const pageDocuments = {
     title:
       "Bubble Graffiti Font Generator | Graffiti Bubble Text Maker",
     description:
-      "Create bold graffiti bubble text with thicker outlines, stronger shapes, and a street-style look on this focused Bubble Font Generator page.",
+      "Create bold graffiti bubble text with this bubble graffiti font generator and graffiti bubble font generator page for thicker outlines, stronger shapes, and a street-style look.",
     h1: "Bubble Graffiti Font Generator",
     intro:
       "Create heavier graffiti-style bubble text with more impact and bolder shapes.",
@@ -324,7 +534,7 @@ export const pageDocuments = {
         id: "editor-area",
         title: "Bubble Graffiti Editor",
         paragraphs: [
-          "This page is tuned for graffiti-flavored bubble text with stronger outlines, heavier depth, and a more expressive look than a standard bubble letters page.",
+          "This page is tuned for graffiti-flavored bubble text with stronger outlines, heavier depth, and a more expressive look than a standard bubble letters page. It covers both bubble graffiti font generator and graffiti bubble font generator word order.",
         ],
       },
       {

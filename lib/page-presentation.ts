@@ -30,7 +30,9 @@ export type PagePresentation = {
 };
 
 const toolPaths = new Set<string>([
+  routes.bubbleFontGeneratorPng,
   routes.bubbleLetterFontGenerator,
+  routes.transparentBubbleFontGenerator,
   routes.bubbleWritingFontGenerator,
   routes.bubbleGraffitiFontGenerator,
 ]);

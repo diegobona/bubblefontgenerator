@@ -1,0 +1,3 @@
+export const HOME_VISIBLE_SECTION_COUNT = 0;
+export const HOME_VISIBLE_STYLE_IDEA_COUNT = 0;
+export const HOME_VISIBLE_FAQ_COUNT = 0;

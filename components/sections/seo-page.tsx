@@ -4,7 +4,12 @@ import { BubbleEditor } from "@/components/editor/bubble-editor";
 import { PageContainer } from "@/components/layout/page-container";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { FaqJsonLd } from "@/components/seo/faq-jsonld";
-import type { PageDocument } from "@/lib/page-data";
+import {
+  HOME_VISIBLE_FAQ_COUNT,
+  HOME_VISIBLE_SECTION_COUNT,
+  HOME_VISIBLE_STYLE_IDEA_COUNT,
+} from "@/lib/home-seo-layout";
+import { homeStyleIdeas, type PageDocument } from "@/lib/page-data";
 import { getCanonicalUrl } from "@/lib/metadata";
 import { getPagePresentation } from "@/lib/page-presentation";
 import { routes } from "@/lib/routes";
@@ -14,6 +19,18 @@ type SeoPageProps = {
 };
 
 const homeGuideLinks = [
+  {
+    href: routes.bubbleLetterFontGenerator,
+    title: "Bubble Letter Font Generator",
+  },
+  {
+    href: routes.bubbleFontGeneratorPng,
+    title: "Bubble Font Generator PNG",
+  },
+  {
+    href: routes.transparentBubbleFontGenerator,
+    title: "Transparent Bubble Font Generator",
+  },
   {
     href: routes.whatIsBubbleFont,
     title: "What Is Bubble Font?",
@@ -28,7 +45,12 @@ const homeGuideLinks = [
   },
 ];
 
-const homeTrustItems = ["Free to use", "PNG export", "Fast preview"];
+const homeTrustItems = [
+  "Real bubble fonts",
+  "Download PNG",
+  "Transparent background",
+  "Free online",
+];
 const homeFaqsTitle = "Bubble Font Generator FAQ";
 
 export function SeoPage({ page }: SeoPageProps) {
@@ -38,7 +60,9 @@ export function SeoPage({ page }: SeoPageProps) {
   const isArticlePage = presentation.kind === "article";
   const hasFaqs = page.faqs.length > 0;
   const hasRelatedLinks = page.relatedLinks.length > 0;
-  const visibleHomeSections = page.sections.slice(0, 2);
+  const collapsedHomeSections = page.sections.slice(HOME_VISIBLE_SECTION_COUNT);
+  const collapsedHomeStyleIdeas = homeStyleIdeas.slice(HOME_VISIBLE_STYLE_IDEA_COUNT);
+  const collapsedHomeFaqs = page.faqs.slice(HOME_VISIBLE_FAQ_COUNT);
   const visibleToolSections = page.sections.slice(0, 2);
   const visibleRelatedLinks = page.relatedLinks.slice(0, isHomePage ? 4 : 3);
   const breadcrumbItems = isHomePage
@@ -66,7 +90,7 @@ export function SeoPage({ page }: SeoPageProps) {
                 {page.h1}
               </h1>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
-                Type your text, compare rounded styles, and download a PNG in seconds.
+                {page.intro}
               </p>
               <div className="mt-3 flex flex-wrap gap-2.5">
                 {homeTrustItems.map((item) => (
@@ -117,34 +141,6 @@ export function SeoPage({ page }: SeoPageProps) {
                     </section>
                   ))}
                 </section>
-              ) : null}
-
-              {isHomePage ? (
-                <>
-                  <section
-                    aria-labelledby="home-about"
-                    className="max-w-4xl"
-                  >
-                    <div className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.76)] p-6 shadow-xl shadow-[#080812]/20">
-                      <h2
-                        id="home-about"
-                        className="text-xl font-semibold tracking-tight text-slate-50"
-                      >
-                        Why Use This Bubble Font Generator
-                      </h2>
-                      <div className="mt-4 space-y-4 text-sm leading-7 text-slate-300 sm:text-base">
-                        {visibleHomeSections.map((section) => (
-                          <div key={section.id}>
-                            <h3 className="text-base font-semibold text-slate-100 sm:text-lg">
-                              {section.title}
-                            </h3>
-                            <p className="mt-2">{section.paragraphs[0]}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </section>
-                </>
               ) : null}
 
               {isArticlePage ? (
@@ -218,7 +214,7 @@ export function SeoPage({ page }: SeoPageProps) {
                 </section>
               ) : null}
 
-              {hasRelatedLinks ? (
+              {hasRelatedLinks && !isHomePage ? (
                 <section
                   aria-labelledby="related-pages"
                   className={
@@ -261,49 +257,87 @@ export function SeoPage({ page }: SeoPageProps) {
 
               {isHomePage ? (
                 <section
-                  aria-labelledby="page-faq"
+                  aria-labelledby="home-seo-support"
                   className="max-w-4xl border-t border-white/10 pt-8"
                 >
-                  <h2 id="page-faq" className="text-2xl font-semibold tracking-tight text-slate-50">
-                    {homeFaqsTitle}
-                  </h2>
-                  <div className="mt-5 space-y-5">
-                    {page.faqs.map((faq) => (
-                      <div key={faq.question}>
-                        <h3 className="text-lg font-semibold text-slate-100">{faq.question}</h3>
-                        <p className="mt-2 text-base leading-7 text-slate-300">{faq.answer}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null}
+                  <details className="group rounded-2xl border border-white/10 bg-[rgba(24,20,48,0.58)]">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-slate-100 transition hover:text-white [&::-webkit-details-marker]:hidden">
+                      <span id="home-seo-support">About this bubble font generator</span>
+                      <span className="text-xs font-medium text-cyan-200 transition group-open:rotate-45">
+                        +
+                      </span>
+                    </summary>
+                    <div className="space-y-6 border-t border-white/10 px-5 py-5">
+                      {collapsedHomeSections.length > 0 ? (
+                        <div className="grid gap-4 text-sm leading-6 text-slate-300 md:grid-cols-2">
+                          {collapsedHomeSections.map((section) => (
+                            <div key={section.id}>
+                              <h3 className="font-semibold text-slate-100">
+                                {section.title}
+                              </h3>
+                              <p className="mt-1">{section.paragraphs[0]}</p>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
 
-              {isHomePage ? (
-                <section
-                  aria-labelledby="home-guides"
-                  className="max-w-4xl border-t border-white/10 pt-8"
-                >
-                  <h2
-                    id="home-guides"
-                    className="text-lg font-semibold tracking-tight text-slate-50"
-                  >
-                    Related Bubble Font Guides
-                  </h2>
-                  <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-                    Read a supporting guide when you want more context, then come back to the main
-                    Bubble Font Generator to keep creating.
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    {homeGuideLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(34,27,63,0.62)] px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-300/25 hover:bg-[rgba(43,34,79,0.86)] hover:text-white"
-                      >
-                        {item.title}
-                      </Link>
-                    ))}
-                  </div>
+                      {collapsedHomeStyleIdeas.length > 0 ? (
+                        <div>
+                          <h3 className="text-sm font-semibold text-slate-100">
+                            Bubble font style ideas
+                          </h3>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {collapsedHomeStyleIdeas.map((idea) => (
+                              <span
+                                key={idea.label}
+                                className="rounded-full border border-cyan-300/15 bg-cyan-300/10 px-3 py-1.5 text-xs text-cyan-100"
+                              >
+                                {idea.label}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {collapsedHomeFaqs.length > 0 ? (
+                        <div>
+                          <h3 className="text-sm font-semibold text-slate-100">
+                            {homeFaqsTitle}
+                          </h3>
+                          <div className="mt-3 divide-y divide-white/10 rounded-2xl border border-white/10 bg-[rgba(12,10,28,0.32)]">
+                            {collapsedHomeFaqs.map((faq) => (
+                              <details key={faq.question} className="group px-4 py-3">
+                                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-slate-100 transition hover:text-white [&::-webkit-details-marker]:hidden">
+                                  <span>{faq.question}</span>
+                                  <span className="text-xs font-medium text-cyan-200 transition group-open:rotate-45">
+                                    +
+                                  </span>
+                                </summary>
+                                <p className="mt-2 text-sm leading-6 text-slate-300">{faq.answer}</p>
+                              </details>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      <div>
+                        <h3 className="text-sm font-semibold text-slate-100">
+                          Related bubble font generators and guides
+                        </h3>
+                        <div className="mt-3 flex flex-wrap gap-3">
+                          {homeGuideLinks.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(34,27,63,0.62)] px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-300/25 hover:bg-[rgba(43,34,79,0.86)] hover:text-white"
+                            >
+                              {item.title}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </details>
                 </section>
               ) : null}
 
