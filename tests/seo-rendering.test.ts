@@ -80,6 +80,18 @@ assert.ok(
   !bubbleEditorSource.includes('xl:grid-cols-[300px_minmax(0,1fr)]'),
   "desktop editor layout should not keep the narrow 300px control panel",
 );
+assert.ok(
+  bubbleEditorSource.includes('data-result-font-list="true"'),
+  "result font list should have a stable wrapper for height tuning",
+);
+assert.ok(
+  bubbleEditorSource.includes("max-h-[1080px]"),
+  "result font list should be tall enough to show about five result cards by default",
+);
+assert.ok(
+  !bubbleEditorSource.includes("max-h-[72vh]"),
+  "result font list should not use the short viewport-capped height",
+);
 
 assert.ok(
   bubbleEditorSource.includes('data-editor-color-controls="true"'),

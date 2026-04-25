@@ -1548,7 +1548,10 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           </div>
         </div>
 
-        <div className="editor-scrollbar max-h-[72vh] space-y-3 overflow-y-auto pr-1">
+        <div
+          data-result-font-list="true"
+          className="editor-scrollbar max-h-[1080px] space-y-3 overflow-y-auto pr-1"
+        >
           {visibleFonts.map((font) => {
             const preset = resultPresets[font.effectPresetId];
 
