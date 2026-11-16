@@ -5,10 +5,13 @@ import { tmpdir } from "node:os";
 
 const outDir = join(tmpdir(), "bubble-font-generator-tests");
 const testFiles = [
+  "tests/unicode-text.test.ts",
+  "tests/printable-letters.test.ts",
   "tests/ai-style-assist.test.ts",
   "tests/ai-assist-copy.test.ts",
   "tests/download-background.test.ts",
   "tests/font-library.test.ts",
+  "tests/font-downloads.test.ts",
   "tests/home-seo.test.ts",
   "tests/seo-rendering.test.ts",
   "tests/svg-font-face.test.ts",
@@ -28,6 +31,7 @@ run("npx", [
   "--moduleResolution",
   "node",
   "--esModuleInterop",
+  "--resolveJsonModule",
   "--skipLibCheck",
   "--outDir",
   outDir,
@@ -52,6 +56,7 @@ function run(command, args) {
 
   const result = spawnSync(command, args, {
     stdio: "inherit",
+    env: { ...process.env, NODE_PATH: join(process.cwd(), "node_modules") },
   });
 
   if (result.status !== 0) {

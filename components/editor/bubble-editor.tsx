@@ -1,5 +1,7 @@
 "use client";
 
+import { UnicodeCopyPanel } from "@/components/editor/unicode-copy-panel";
+
 import { useId, useMemo, useRef, useState } from "react";
 
 import {
@@ -947,7 +949,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   };
 
   return (
-    <div className="grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
+    <div className={pagePath === routes.home ? "grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)_280px]" : "grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)]"}>
       <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
         <label className="block">
           <span className="text-sm font-medium text-slate-300">Enter Your Text</span>
@@ -1599,13 +1601,24 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   </span>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => downloadPresetPng(font, preset)}
-                  className="inline-flex items-center rounded-md bg-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/30"
-                >
-                  Download PNG
-                </button>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => downloadPresetPng(font, preset)}
+                    className="inline-flex items-center rounded-md bg-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/30"
+                  >
+                    Download PNG
+                  </button>
+                  <a
+                    href={font.filePath}
+                    download={`${font.id}.ttf`}
+                    aria-label={`Download ${font.displayName} TTF font`}
+                    className="inline-flex items-center rounded-md bg-white/10 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/20"
+                  >
+                    TTF
+                  </a>
+                  <a href={`/fonts/licenses/${font.id}.txt`} download={`${font.id}-license.txt`} className="text-xs text-white/80 underline underline-offset-2" aria-label={`${font.displayName} license`}>License</a>
+                </div>
               </div>
 
               <div
@@ -1651,6 +1664,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           ) : null}
         </div>
       </section>
+      {pagePath === routes.home ? <UnicodeCopyPanel text={state.text} /> : null}
     </div>
   );
 }

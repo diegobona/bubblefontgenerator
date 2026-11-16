@@ -73,7 +73,7 @@ export function SiteHeader() {
                       : "rounded-full border border-transparent px-3 py-2 text-slate-300 transition hover:border-cyan-300/20 hover:bg-cyan-300/10 hover:text-cyan-100"
                   }
                 >
-                  {link.label}
+                  {pathname === routes.home && link.href === routes.bubbleLetterFontGenerator ? "Bubble Letters" : link.label}
                 </Link>
               );
             })}

@@ -1,0 +1,3 @@
+# Preserve upstream license bytes so the provenance checksums are reproducible.
+public/fonts/licenses/*.txt text eol=lf
+public/fonts/licenses/manifest.json text eol=lf

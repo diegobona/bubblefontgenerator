@@ -1,0 +1,12 @@
+@media print {
+  html:has(.printable-editor), body:has(.printable-editor) { background: white !important; margin: 0 !important; padding: 0 !important; height: auto !important; }
+  body:has(.printable-editor) .no-print,
+  body:has(.printable-editor) header,
+  body:has(.printable-editor) footer { display: none !important; }
+  body:has(.printable-editor) > div { display: block !important; min-height: 0 !important; }
+  .printable-page, .printable-page > div, .printable-editor { display: block !important; width: 100% !important; max-width: none !important; padding: 0 !important; margin: 0 !important; }
+  .print-sheets { display: block !important; margin: 0 !important; padding: 0 !important; }
+  .print-sheet { width: 100% !important; max-width: none !important; margin: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; break-inside: avoid; break-after: page; }
+  .print-sheet:last-child { break-after: auto; }
+  .print-sheet svg { display: block; width: 100%; height: 100%; }
+}

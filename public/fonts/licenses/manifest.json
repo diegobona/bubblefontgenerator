@@ -1,0 +1,767 @@
+{
+  "revision": "7af0d90b4d532ffa4b041937b560c6df4e7b1e95",
+  "fonts": {
+    "rubik-bubbles": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-bubbles.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikbubbles/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "rubik-puddles": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-puddles.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikpuddles/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "rubik-gemstones": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-gemstones.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikgemstones/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "rubik-iso": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-iso.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikiso/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "rubik-dirt": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-dirt.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikdirt/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "rubik-spray-paint": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-spray-paint.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikspraypaint/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "bungee": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bungee.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bungee/OFL.txt",
+      "sha256": "ff43f39d2143afa2ef0a7009629d25f62de23f0614ecdaea6dd07f6c58c5d2b1"
+    },
+    "bungee-shade": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bungee-shade.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bungeeshade/OFL.txt",
+      "sha256": "ff43f39d2143afa2ef0a7009629d25f62de23f0614ecdaea6dd07f6c58c5d2b1"
+    },
+    "bungee-inline": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bungee-inline.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bungeeinline/OFL.txt",
+      "sha256": "ff43f39d2143afa2ef0a7009629d25f62de23f0614ecdaea6dd07f6c58c5d2b1"
+    },
+    "chewy": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/chewy.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/chewy/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "luckiest-guy": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/luckiest-guy.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/luckiestguy/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "bubblegum-sans": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bubblegum-sans.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bubblegumsans/OFL.txt",
+      "sha256": "26daffa24723bb188643085cfc5423f9d78d22a395df4a7928380e430545a201"
+    },
+    "rubik-beastly": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-beastly.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikbeastly/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "rubik-moonrocks": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rubik-moonrocks.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rubikmoonrocks/OFL.txt",
+      "sha256": "f9e2d4498ea80d38bac7b8841d68af68c132fa67e1552e7c05717e6987de1d74"
+    },
+    "bungee-outline": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bungee-outline.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bungeeoutline/OFL.txt",
+      "sha256": "ff43f39d2143afa2ef0a7009629d25f62de23f0614ecdaea6dd07f6c58c5d2b1"
+    },
+    "bungee-spice": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bungee-spice.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bungeespice/OFL.txt",
+      "sha256": "ff43f39d2143afa2ef0a7009629d25f62de23f0614ecdaea6dd07f6c58c5d2b1"
+    },
+    "coiny": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/coiny.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/coiny/OFL.txt",
+      "sha256": "2b8d5bc69b29061167fbf3f8ba4b3a38f4709284113155bc48cfd52c56fb8011"
+    },
+    "modak": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/modak.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/modak/OFL.txt",
+      "sha256": "5fb0694694dc307d1eb0121689395e634b6329ff545acc53f55ad66a716b3cf1"
+    },
+    "slackey": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/slackey.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/slackey/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "titan-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/titan-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/titanone/OFL.txt",
+      "sha256": "61be7c29f4835e2be7243db12213d75d53ff028f29f4b493212a1688b1d3a1ba"
+    },
+    "fredoka": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/fredoka.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/fredoka/OFL.txt",
+      "sha256": "5c9e7eee5c6b25f4b05b8d53b2e470ea4962f9ced742d044a98f7d95d1375bab"
+    },
+    "baloo-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/baloo2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "dynapuff": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/dynapuff.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/dynapuff/OFL.txt",
+      "sha256": "ab64bd0e5f68e87427350554d60f0d753cf0fc908328513b17020278bfa3100e"
+    },
+    "bagel-fat-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bagel-fat-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bagelfatone/OFL.txt",
+      "sha256": "3c0c7ba68ec39dba0f2e811cbca3d420c167ef9001c5931ed8e870b53ba5b744"
+    },
+    "cherry-bomb-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/cherry-bomb-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/cherrybombone/OFL.txt",
+      "sha256": "17f6a6af32f2d2595885d81fef0f51969ca68cec72e0873bb840992716b4f5bb"
+    },
+    "chicle": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/chicle.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/chicle/OFL.txt",
+      "sha256": "f27cbf1055db7b9dd80bce5cd12b462f2d9ed7313d84dd8bfef1ddd2b61bdfc5"
+    },
+    "frijole": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/frijole.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/frijole/OFL.txt",
+      "sha256": "c2368518f12463a93cfed44e1460f36085dc60df06f415ee9b0319809987ccce"
+    },
+    "fascinate-inline": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/fascinate-inline.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/fascinateinline/OFL.txt",
+      "sha256": "a7fe1f3d23034092b015aaeb53d2ecbc9e592be96b10bdfbcf8700ec6a6ffc97"
+    },
+    "monoton": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/monoton.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/monoton/OFL.txt",
+      "sha256": "585c6d2da8bcd8ffa651e0016f2e992a6891b625143a46a1dacf00699a817d9a"
+    },
+    "rampart-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rampart-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rampartone/OFL.txt",
+      "sha256": "70553c13865a01baff643e9b56e95d652637dcf4688ea591d51afa3e01246964"
+    },
+    "londrina-shadow": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/londrina-shadow.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/londrinashadow/OFL.txt",
+      "sha256": "819e3b25f9b50f12299a3db1638be3813efc6b938f2b86693a218d20ec4e3209"
+    },
+    "londrina-outline": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/londrina-outline.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/londrinaoutline/OFL.txt",
+      "sha256": "9551ade371e7bcb1f6d9959273bbf1fed3bdf398efb5c57cc1fd85d6a13e9e5e"
+    },
+    "londrina-solid": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/londrina-solid.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/londrinasolid/OFL.txt",
+      "sha256": "66b5c49d384cba754806a891ebd52f2ca08dd05c0eb3c56170192da466a00a20"
+    },
+    "londrina-sketch": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/londrina-sketch.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/londrinasketch/OFL.txt",
+      "sha256": "85b700bfba1250a6f8bdf930cd7113faf3d8e9dc52cd89eb98c3ac8a038a4aa9"
+    },
+    "jua": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/jua.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/jua/OFL.txt",
+      "sha256": "44a7c6e4c5572392ae122d3b1d8c6ba6fd640a7797e675384585d947f2773e3c"
+    },
+    "lilita-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/lilita-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/lilitaone/OFL.txt",
+      "sha256": "255d5debbb80eb2ea762644311f266a279e8778f00156655a516e2b7781a63e1"
+    },
+    "spicy-rice": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/spicy-rice.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/spicyrice/OFL.txt",
+      "sha256": "466aaa3bbd245e4c91c4e82c0828efe9fcfd913f5b020d75f0918516c2540fa8"
+    },
+    "henny-penny": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/henny-penny.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/hennypenny/OFL.txt",
+      "sha256": "2d83a49d05906b5e23285168e72c0d019fc15e3ad110376f640feeeda34c27d1"
+    },
+    "mystery-quest": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/mystery-quest.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/mysteryquest/OFL.txt",
+      "sha256": "965bd2c907f7bb6f36da4f85e83f29aea8b2f720783deebd7ed7b40678e67672"
+    },
+    "fontdiner-swanky": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/fontdiner-swanky.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/fontdinerswanky/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "freckle-face": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/freckle-face.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/freckleface/OFL.txt",
+      "sha256": "3ed8d8988aeb4875781ce957fe1a70b818dedd148a6be6ab36bfe288b8ea207d"
+    },
+    "flavors": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/flavors.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/flavors/OFL.txt",
+      "sha256": "4febcc8d6e539db3e0c652da87bc8704f6d48e71e07f8ddb0974094a3de8da81"
+    },
+    "griffy": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/griffy.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/griffy/OFL.txt",
+      "sha256": "a0439a161df073e466e9813b20c2c780fbb5140aa75b6b208c469fe90084dc39"
+    },
+    "bangers": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bangers.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bangers/OFL.txt",
+      "sha256": "c36ad22ae5daf9bb19fa6decb3d9ec51cb9dc5b89c04c630aebe34ef26fb962e"
+    },
+    "boogaloo": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/boogaloo.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/boogaloo/OFL.txt",
+      "sha256": "4653c63a4bab99aa50de5190853fa21ea6c0a25d69d49f5a42cd51f0f67665e0"
+    },
+    "barrio": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/barrio.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/barrio/OFL.txt",
+      "sha256": "af4f48f79d71e974cd8b881177f99bf8075ddcfb7d0da9a71da26d4e75a02c08"
+    },
+    "righteous": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/righteous.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/righteous/OFL.txt",
+      "sha256": "1c5bc055869d5e9151ec7774082727db720ec4293c65be67f91a4bdcaeb02998"
+    },
+    "permanent-marker": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/permanent-marker.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/permanentmarker/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "rock-salt": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/rock-salt.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/rocksalt/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "sedgwick-ave-display": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sedgwick-ave-display.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sedgwickavedisplay/OFL.txt",
+      "sha256": "f323edc1e5a6d8fa16120aa15367cdfb15468474cc621f9bda1a2f73c5d08d73"
+    },
+    "knewave": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/knewave.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/knewave/OFL.txt",
+      "sha256": "14b3fbd06078a869cf2ba96e6dacb852d373703c86ca7ad54a4cdd6e20fbab19"
+    },
+    "dokdo": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/dokdo.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/dokdo/OFL.txt",
+      "sha256": "dcc832bd71ea62cbf97f06327a1b5442905b49ea446801421d71f7d1362db215"
+    },
+    "gochi-hand": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/gochi-hand.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/gochihand/OFL.txt",
+      "sha256": "b36cb03d6ddc163452d9935ce6f325741434272d3889acf42cc23584f31a85bf"
+    },
+    "patrick-hand": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/patrick-hand.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/patrickhand/OFL.txt",
+      "sha256": "377f4f9c19e935228552478eb68cc2ed82910988a60ba60e2ac73b09f32d02d1"
+    },
+    "schoolbell": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/schoolbell.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/schoolbell/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "finger-paint": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/finger-paint.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/fingerpaint/OFL.txt",
+      "sha256": "29e4918d1b3035296d41c6271228de0e739e7fa6d24076979590c02bc6abbd34"
+    },
+    "kablammo": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/kablammo.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/kablammo/OFL.txt",
+      "sha256": "f993b906272c2c0f13f12bc8fef1367a39164853dc69fc808fd26ec343fe58e8"
+    },
+    "aclonica": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/aclonica.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/aclonica/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "alfa-slab-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/alfa-slab-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/alfaslabone/OFL.txt",
+      "sha256": "05dd88a474f93493ff1db3a89974fbae9455ec4e911356ffcd2ab1efd2bd4ee9"
+    },
+    "amarante": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/amarante.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/amarante/OFL.txt",
+      "sha256": "89bf0833b785c49b0f271273ab440bdc20c85bf0322537dc901df940bf1579da"
+    },
+    "anton": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/anton.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/anton/OFL.txt",
+      "sha256": "eee1d24ff8f553eb732237c7dd9b945a78313ed49ad6de02872a47277741b44a"
+    },
+    "archivo-black": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/archivo-black.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/archivoblack/OFL.txt",
+      "sha256": "4eb085b4f06e3c1625d8b577902bf639d480633635837bf2ed94d1a7b1b842f5"
+    },
+    "atma": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/atma.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/atma/OFL.txt",
+      "sha256": "b33974ab59e6a711a6e88ceea258abb628146064a1302ab35b87a60689637e17"
+    },
+    "averia-gruesa-libre": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/averia-gruesa-libre.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/averiagruesalibre/OFL.txt",
+      "sha256": "46239ba6485d28553fd944da4ad32a00d9c403aa1c3e111676b0b96fe458d1d4"
+    },
+    "baloo-bhai-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-bhai-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/baloobhai2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "baloo-chettan-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-chettan-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/baloochettan2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "baloo-da-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-da-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/balooda2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "baloo-paaji-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-paaji-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/baloopaaji2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "baloo-tamma-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-tamma-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/balootamma2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "baloo-tammudu-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-tammudu-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/balootammudu2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "baloo-thambi-2": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/baloo-thambi-2.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/baloothambi2/OFL.txt",
+      "sha256": "ad09b05dc8bc678c9daf7c4c5f7ef1f55e5726127f4330b2e98e40b9dffcb860"
+    },
+    "bowlby-one-sc": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/bowlby-one-sc.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/bowlbyonesc/OFL.txt",
+      "sha256": "f3ee3eb20a9d565bee2bbc0d616de382a113327d7506565b2f3d3bee5f489375"
+    },
+    "ceviche-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/ceviche-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/cevicheone/OFL.txt",
+      "sha256": "9a33b452a3107542c35fc5fcee80e4d8798c82aca071c2f6f58a0f8dc5ad61fe"
+    },
+    "chelsea-market": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/chelsea-market.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/chelseamarket/OFL.txt",
+      "sha256": "ae6de2f6fc00f76cc7eb0d97c1ae5e0b7ec734f20ad7f58cf4c74738dc822d21"
+    },
+    "comic-neue": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/comic-neue.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/comicneue/OFL.txt",
+      "sha256": "7c38a22e5878e60fe423360553e63dd7be23d29f1f60336034935dbfc96e8320"
+    },
+    "concert-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/concert-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/concertone/OFL.txt",
+      "sha256": "162a3b5c72cba845280a6f887c11d02984540b924510138c8b1eb473bcdafb6a"
+    },
+    "crafty-girls": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/crafty-girls.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/craftygirls/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "dekko": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/dekko.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/dekko/OFL.txt",
+      "sha256": "f139d6f43d2a63a8fb3ded48b8ec747d9d59a7fbb13d077d9b96ac88580bc1ad"
+    },
+    "emilys-candy": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/emilys-candy.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/emilyscandy/OFL.txt",
+      "sha256": "0623888cc2391c6c9853c04eafa7f687fef1a8328bbb848feab05d9e2a98764d"
+    },
+    "erica-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/erica-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/ericaone/OFL.txt",
+      "sha256": "d484e0dce424a9e360adabb568b6773db5f1566df71ce3e9dcd66a6cc2c38d33"
+    },
+    "faster-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/faster-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/fasterone/OFL.txt",
+      "sha256": "d2531d4b5f4959ad215423377d117a908999e6572a280f1837f75f3292d4b20d"
+    },
+    "galindo": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/galindo.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/galindo/OFL.txt",
+      "sha256": "117fa195cff980e3b10fd8e8e21658c6ec954b0886647970a03c9694d3553b69"
+    },
+    "glass-antiqua": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/glass-antiqua.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/glassantiqua/OFL.txt",
+      "sha256": "2950994bcfb8e903f0539d28a8ec4af077e0aa1fa7946c33c912d2d6969c2971"
+    },
+    "hanalei": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/hanalei.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/hanalei/OFL.txt",
+      "sha256": "c7bc36ce61900ab8dda4cf9492e7856cb687a9796b779a28e180eb5d942e9e7f"
+    },
+    "hanalei-fill": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/hanalei-fill.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/hanaleifill/OFL.txt",
+      "sha256": "c7bc36ce61900ab8dda4cf9492e7856cb687a9796b779a28e180eb5d942e9e7f"
+    },
+    "happy-monkey": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/happy-monkey.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/happymonkey/OFL.txt",
+      "sha256": "bff4e5087ece354afccd073621197bbb7dd9349943b5ee6aa12b1adf0b133081"
+    },
+    "joti-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/joti-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/jotione/OFL.txt",
+      "sha256": "d5382ecbd4d2069ceb237bc8d9b6e8e7b35fef5b93a69611302a10225c909cce"
+    },
+    "kirang-haerang": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/kirang-haerang.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/kiranghaerang/OFL.txt",
+      "sha256": "7e896665d0863d2a17a671001dbe2528a5f9302f1dff9222af8b0834e9088d0c"
+    },
+    "lakki-reddy": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/lakki-reddy.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/lakkireddy/OFL.txt",
+      "sha256": "b5c3d12a3085b96011fee65555234bb9d31fa7444cf6f8d5ae6b1f5771394399"
+    },
+    "lemon": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/lemon.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/lemon/OFL.txt",
+      "sha256": "848e0b5017db213c349117818e5303914747d440a05a5b74908b64253a6664c7"
+    },
+    "lemonada": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/lemonada.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/lemonada/OFL.txt",
+      "sha256": "b01d6bdd63d66dea158fcc2078591a1e151313e2b2493973b428e4137ee687a1"
+    },
+    "love-ya-like-a-sister": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/love-ya-like-a-sister.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/loveyalikeasister/OFL.txt",
+      "sha256": "0e441ae9f18ad0c294cc5b6ae3974c2db1614cab220598578b1b58c4cc334485"
+    },
+    "madimi-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/madimi-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/madimione/OFL.txt",
+      "sha256": "27b3e0a9b6a32c6e2a7b0de74126ae7858725be68bb9b1d8b61f5f7c1970a7aa"
+    },
+    "mogra": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/mogra.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/mogra/OFL.txt",
+      "sha256": "889287344475d39b48b6c354fd025ea6f4b726e9b2785b70b5e335f754116984"
+    },
+    "mouse-memoirs": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/mouse-memoirs.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/mousememoirs/OFL.txt",
+      "sha256": "738daab99d9270a44aa10e29c7086c4f8eab6307fcba4ec09d1ea04d7f633040"
+    },
+    "neucha": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/neucha.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/neucha/OFL.txt",
+      "sha256": "656a20870fbcb8f559f1c6308c1df90ac93d7cd0279aab49b43a43b5e58534e6"
+    },
+    "oregano": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/oregano.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/oregano/OFL.txt",
+      "sha256": "96b7bc175186cd0153a9682a1c9bb1da7103ab13a83abef8026bc64582ca616f"
+    },
+    "original-surfer": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/original-surfer.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/originalsurfer/OFL.txt",
+      "sha256": "173ea2d0bdda981829719623c35699e8c0e4aa508e0af12817ad7ccbfa4c6137"
+    },
+    "pangolin": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/pangolin.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/pangolin/OFL.txt",
+      "sha256": "b4fc1d55ce610f255c5712f8169543f9610536d002deb99bbc99bfbba9f8a560"
+    },
+    "passion-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/passion-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/passionone/OFL.txt",
+      "sha256": "36c285c5472c625901d4a13da7e31c5ea6126678d31d56cf95572c49f27c8950"
+    },
+    "paytone-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/paytone-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/paytoneone/OFL.txt",
+      "sha256": "12404fcefccc3cb964cb2406510ba679b30f7d7ae689db08df5b455ae24b3feb"
+    },
+    "pirata-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/pirata-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/pirataone/OFL.txt",
+      "sha256": "e8ad3f3de5baeff6bac6e711d8c406e0a6b8a61d2944741532d8965d893a2681"
+    },
+    "ranchers": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/ranchers.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/ranchers/OFL.txt",
+      "sha256": "53612c24b8b4652a2a71191e89a0e32e85b8c062ad9acb80cc46a6fd4f55a9c9"
+    },
+    "ribeye": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/ribeye.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/ribeye/OFL.txt",
+      "sha256": "9acc45e5ba18b5b38868fad1f51c03df4f5d7a43061d46314843de45c4444233"
+    },
+    "ribeye-marrow": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/ribeye-marrow.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/ribeyemarrow/OFL.txt",
+      "sha256": "9acc45e5ba18b5b38868fad1f51c03df4f5d7a43061d46314843de45c4444233"
+    },
+    "road-rage": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/road-rage.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/roadrage/OFL.txt",
+      "sha256": "b926569d7ff2c695dab9d771f3d9c3ded162f7a5bbac4aaf390d89f1ce0e1a5c"
+    },
+    "rowdies": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rowdies.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rowdies/OFL.txt",
+      "sha256": "c585309492415154b9ad6401a9e0c5d9e3f9b2e92b71146d968e5bd4305ac74b"
+    },
+    "ruge-boogie": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/ruge-boogie.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rugeboogie/OFL.txt",
+      "sha256": "81d9b6b68a568e6ef905b66b73fd3774b6c687e2adcc723d8994d1addb60656f"
+    },
+    "rum-raisin": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rum-raisin.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rumraisin/OFL.txt",
+      "sha256": "d50dab6e56cb9aadd360b681f918a426fd2e9cee38acdc7a529dfda1e3fa3dd9"
+    },
+    "rye": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/rye.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/rye/OFL.txt",
+      "sha256": "399b33eb38cdfc76b8665defa5f81d52e8193d630ad5858c893db6bc20031bc9"
+    },
+    "sansita": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sansita.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sansita/OFL.txt",
+      "sha256": "0d38734e904a94d1b110feaf4db5e8b5495478fa56d895582d0af6694d14fcee"
+    },
+    "shrikhand": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/shrikhand.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/shrikhand/OFL.txt",
+      "sha256": "72b3c4c159b5c5c88a6db41ee8c1c0f4ac9be1b5b6e8174dccc48b0877a4e059"
+    },
+    "sigmar": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sigmar.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sigmar/OFL.txt",
+      "sha256": "75ff072c71b85d17c237e06104b5ff6648095cd62229a321b3bb5750f18df49d"
+    },
+    "sigmar-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sigmar-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sigmarone/OFL.txt",
+      "sha256": "2db02cb5d05d5f8a003ffefce36a32a16520ad4cab9ed90635ff953b583e4e82"
+    },
+    "sniglet": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sniglet.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sniglet/OFL.txt",
+      "sha256": "bca612761639e27860c5af7d702831b71f9230367d90fc094235c5e7838c0c01"
+    },
+    "sour-gummy": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sour-gummy.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sourgummy/OFL.txt",
+      "sha256": "765d5ad6b6e006b0d98dc3c347138087d10f6e4f0829e530473ca7bd5854db8a"
+    },
+    "special-elite": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/special-elite.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/specialelite/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "sue-ellen-francisco": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/sue-ellen-francisco.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/sueellenfrancisco/OFL.txt",
+      "sha256": "0e441ae9f18ad0c294cc5b6ae3974c2db1614cab220598578b1b58c4cc334485"
+    },
+    "sunshiney": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/sunshiney.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/sunshiney/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "swanky-and-moo-moo": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/swanky-and-moo-moo.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/swankyandmoomoo/OFL.txt",
+      "sha256": "0e441ae9f18ad0c294cc5b6ae3974c2db1614cab220598578b1b58c4cc334485"
+    },
+    "trade-winds": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/trade-winds.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/tradewinds/OFL.txt",
+      "sha256": "018d17b5e04c0a217a21979fa6b6d77bd5a143a5f06ea2ea102e427abd1ebfa2"
+    },
+    "ultra": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/ultra.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/ultra/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "unkempt": {
+      "name": "Apache License 2.0",
+      "path": "/fonts/licenses/unkempt.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/apache/unkempt/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "wendy-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/wendy-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/wendyone/OFL.txt",
+      "sha256": "aff3cea99bf300b4b29f4dc04867cf9b49d83de8c5ecaf991c446d506b56173e"
+    },
+    "yatra-one": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/yatra-one.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/yatraone/OFL.txt",
+      "sha256": "6d27c8b6204d21e76ccca378f8cab04bdcda30a2d83ebead76ad629f5204d1de"
+    },
+    "yesteryear": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/yesteryear.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/yesteryear/OFL.txt",
+      "sha256": "a80ee908b60f5bec9c10b135d3da93730e2194107d1f7fd3f61bd8c1a97b3e0c"
+    },
+    "zcool-kuaile": {
+      "name": "SIL Open Font License 1.1",
+      "path": "/fonts/licenses/zcool-kuaile.txt",
+      "sourceUrl": "https://github.com/google/fonts/blob/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/ofl/zcoolkuaile/OFL.txt",
+      "sha256": "538078469839b4a2e7ad22bef4ebe41681a4e53749bb2a072144024f1d6d703d"
+    }
+  }
+}

@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
-import {
-  HOME_VISIBLE_FAQ_COUNT,
-  HOME_VISIBLE_SECTION_COUNT,
-  HOME_VISIBLE_STYLE_IDEA_COUNT,
-} from "../lib/home-seo-layout";
 import { buildMetadata } from "../lib/metadata";
 import { type LinkItem, homeStyleIdeas, pageDocuments } from "../lib/page-data";
 import { routes } from "../lib/routes";
@@ -20,9 +16,15 @@ const allPages = Object.values(pageDocuments);
 
 assert.equal(home.h1, "Bubble Font Generator");
 assert.match(home.title, /Free Bubble Letter PNG Maker/);
-assert.match(home.description, /transparent background/i);
-assert.match(home.intro, /real bubble font text/i);
-assert.match(home.intro, /download PNG images/i);
+for (const phrase of ["bubble font generator", "free", "copy and paste", "bubble text"]) {
+  assert.ok(home.description.toLowerCase().includes(phrase));
+}
+assert.ok(home.description.length >= 140 && home.description.length <= 160);
+assert.match(home.intro, /copy and paste/i);
+const homeContent = readFileSync("components/sections/home-content.tsx", "utf8");
+assert.match(homeContent, /Bubble Text Generator/);
+assert.ok(!/bubbly font generator|font generator bubble|bubble text font generator/.test(homeContent));
+assert.match(homeContent, /routes.bubbleLetterFontGenerator, "bubble letter generator"/);
 
 const homeText = [
   home.title,
@@ -32,37 +34,8 @@ const homeText = [
   ...home.faqs.flatMap((faq) => [faq.question, faq.answer]),
 ].join(" ");
 
-assert.match(homeText, /real bubble fonts/i);
 assert.match(homeText, /transparent background/i);
-assert.match(homeText, /copy-and-paste/i);
 assert.match(homeText, /stickers/i);
-assert.match(homeText, /logos/i);
-assert.match(homeText, /classroom/i);
-assert.match(homeText, /bubbly font generator/i);
-assert.match(homeText, /font generator bubble/i);
-assert.match(homeText, /bubble fonts generator/i);
-assert.match(homeText, /bubble text font generator/i);
-assert.match(homeText, /bubble font generator copy and paste/i);
-assert.match(homeText, /bubbly font generator copy and paste/i);
-assert.match(homeText, /3D bubble font generator/i);
-assert.match(homeText, /70s bubble font generator/i);
-assert.match(homeText, /bubble font alphabet generator/i);
-
-assert.equal(
-  HOME_VISIBLE_SECTION_COUNT,
-  0,
-  "homepage should collapse supporting SEO explanation by default",
-);
-assert.equal(
-  HOME_VISIBLE_STYLE_IDEA_COUNT,
-  0,
-  "homepage should not show the long-tail style idea grid by default",
-);
-assert.equal(
-  HOME_VISIBLE_FAQ_COUNT,
-  0,
-  "homepage should collapse FAQ answers by default",
-);
 
 const uniqueTitles = new Set(allPages.map((page) => page.title));
 const uniqueDescriptions = new Set(allPages.map((page) => page.description));
@@ -150,12 +123,14 @@ assert.deepEqual(
   primaryNavLinks.map((link) => link.href),
   [
     routes.home,
+    routes.printableBubbleLetters,
+    routes.bubbleLettersFont,
     routes.bubbleLetterFontGenerator,
     routes.transparentBubbleFontGenerator,
     routes.bubbleGraffitiFontGenerator,
     routes.articles,
   ],
-  "primary navigation should include Transparent PNG as a top-level tool entry",
+  "primary navigation should include printable templates and fonts alongside existing tools",
 );
 assert.equal(
   primaryNavLabels.get(routes.transparentBubbleFontGenerator),
@@ -248,9 +223,22 @@ const bubbleLetterText = [
 ].join(" ");
 
 assert.match(bubbleLetterText, /bubble letter font generator/i);
-assert.match(bubbleLetterText, /font generator bubble letters/i);
-assert.match(bubbleLetterText, /bubble letter generator font/i);
-assert.match(bubbleLetterText, /bubble letters font generator/i);
+assert.doesNotMatch(bubbleLetterText, /font generator bubble letters|bubble letter generator font|bubble letters font generator|searches/i);
+assert.ok(bubbleLetterPage.description.length >= 140 && bubbleLetterPage.description.length <= 160);
+assert.equal(bubbleLetterPage.faqs.length, 5);
+const letterBody = [
+  ...bubbleLetterPage.sections.flatMap(section => [section.title, ...section.paragraphs]),
+  ...bubbleLetterPage.faqs.flatMap(faq => [faq.question, faq.answer]),
+].join(" ");
+const letterWords = letterBody.match(/\b\w+(?:['¡¯-]\w+)*\b/g)?.length ?? 0;
+const letterMentions = letterBody.match(/bubble letter font generator/gi)?.length ?? 0;
+assert.ok(letterWords >= 1000);
+assert.ok(letterMentions <= 17);
+assert.ok(letterMentions * 300 / letterWords >= 2 && letterMentions * 300 / letterWords <= 5);
+for (const phrase of ["bubble letter maker", "bubble letter creator"]) {
+  const count = letterBody.split(phrase).length - 1;
+  assert.ok(count >= 1 && count <= 2);
+}
 
 const graffitiText = [
   graffitiPage.title,
