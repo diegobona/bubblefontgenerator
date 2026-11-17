@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HomeContent } from "@/components/sections/home-content";
+import { HomeContent, homeFaqItems } from "@/components/sections/home-content";
 import { ExploreLinks } from "@/components/sections/explore-links";
 
 import { BubbleEditor } from "@/components/editor/bubble-editor";
@@ -14,13 +14,6 @@ import { routes } from "@/lib/routes";
 type SeoPageProps = {
   page: PageDocument;
 };
-
-const homeTrustItems = [
-  "Real bubble fonts",
-  "Download PNG",
-  "Transparent background",
-  "Free online",
-];
 
 function linkedText(text: string, anchor: string, href: string) {
   const index = text.indexOf(anchor);
@@ -58,8 +51,8 @@ export function SeoPage({ page }: SeoPageProps) {
         ];
 
   return (
-    <main className="flex-1 bg-transparent">
-      {hasFaqs ? <FaqJsonLd faqs={page.faqs} /> : null}
+    <main data-home-page={isHomePage ? "true" : undefined} className="flex-1 bg-transparent">
+      {hasFaqs ? <FaqJsonLd faqs={isHomePage ? homeFaqItems : page.faqs} /> : null}
       <BreadcrumbJsonLd items={breadcrumbItems} />
       <PageContainer size={isHomePage || isToolPage ? "wide" : "default"}>
         <article className={isHomePage ? "py-6 sm:py-8" : "py-12 sm:py-16"}>
@@ -75,19 +68,6 @@ export function SeoPage({ page }: SeoPageProps) {
                 <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300 sm:text-base">
                   {page.intro}
                 </p>
-              </div>
-              <div
-                data-home-trust-items="true"
-                className="mt-3 flex shrink-0 flex-wrap gap-2.5 xl:mt-2 xl:max-w-[760px] xl:justify-end"
-              >
-                {homeTrustItems.map((item) => (
-                  <span
-                    key={item}
-                    className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-slate-300"
-                  >
-                    {item}
-                  </span>
-                ))}
               </div>
             </header>
           ) : isToolPage || isArticlePage ? (
@@ -303,9 +283,23 @@ export function SeoPage({ page }: SeoPageProps) {
                 </section>
               ) : null}
 
-              {isHomePage ? <HomeContent /> : null}
+              {isHomePage ? <>
+                <div className="home-entry-cards">
+                  <a href={routes.printableBubbleLetters}>
+                    <span className="home-entry-icon" aria-hidden="true">Aa</span>
+                    <div><h2>Printable Templates</h2><p>Bubble letters and numbers to print, color, and use.</p></div>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a href={routes.bubbleLettersFont}>
+                    <span className="home-entry-icon" aria-hidden="true">Tt</span>
+                    <div><h2>Font Downloads (TTF)</h2><p>Download bubble fonts (TTF) to install and use anywhere.</p></div>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+                <HomeContent />
+              </> : null}
 
-              {isHomePage || isLetterPage ? <ExploreLinks /> : null}
+              {isHomePage || isLetterPage ? <ExploreLinks home={isHomePage} /> : null}
 
               {!isHomePage && !isLetterPage ? (
                 <section className="max-w-4xl rounded-3xl border border-cyan-300/15 bg-[rgba(24,20,48,0.76)] p-6 shadow-xl shadow-[#080812]/20">

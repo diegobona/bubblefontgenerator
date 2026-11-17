@@ -25,20 +25,10 @@ assert.ok(
   !seoPageSource.includes("{visibleToolSections.map"),
   "tool page supporting copy should not be rendered only in a screen-reader section",
 );
-assert.match(
-  seoPageSource,
-  /data-home-hero-header="true"[\s\S]*data-home-trust-items="true"[\s\S]*xl:justify-end/,
-  "homepage trust tags should sit in the hero header row on large screens",
-);
-assert.match(
-  seoPageSource,
-  /data-home-trust-items="true"[\s\S]*bg-white\/\[0\.04\][\s\S]*text-slate-300/,
-  "homepage trust tags should use a muted static-chip style instead of looking like the active nav item",
-);
-assert.ok(
-  !seoPageSource.includes("inline-flex items-center rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3.5 py-1.5 text-sm text-cyan-100"),
-  "homepage trust tags should not reuse the cyan pill visual language from selected navigation",
-);
+assert.ok(!seoPageSource.includes('data-home-trust-items'), "home hero keeps the title and exact intro above the toolbar");
+assert.ok(seoPageSource.includes('isHomePage ? homeFaqItems : page.faqs'), "homepage JSON-LD uses the same five FAQ items as the visible content");
+assert.match(bubbleEditorSource, /<aside className="home-toolbar"[\s\S]*<UnicodeCopyPanel text=\{state.text\} \/>[\s\S]*\{results\}/, "home DOM places copyable text before image results");
+assert.ok(bubbleEditorSource.includes('isHomePage ? "home-font-preview" : resultCardPreviewClassName'), "fixed-ratio homepage preview layout does not alter other generators");
 assert.ok(
   pageContainerSource.includes('max-w-[1680px]'),
   "PageContainer should support a wider layout for the homepage tool area",

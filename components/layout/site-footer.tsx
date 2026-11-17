@@ -1,30 +1,6 @@
-import Link from "next/link";
-
-import { PageContainer } from "./page-container";
+import { SiteFooterFrame } from "./site-footer-frame";
 import { ExploreLinks } from "@/components/sections/explore-links";
-import { routes } from "@/lib/routes";
 
 export function SiteFooter() {
-  return (
-    <footer className="mt-16 border-t border-white/8 bg-[#120f28]/70">
-      <PageContainer>
-        <div className="grid gap-10 py-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)_minmax(0,0.9fr)]">
-          <div>
-            <Link
-              href={routes.home}
-              className="text-lg font-semibold tracking-tight text-slate-50"
-            >
-              Bubble Font Generator
-            </Link>
-            <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
-              Use the main Bubble Font Generator to type your text, compare multiple styles, and
-              download a PNG in seconds.
-            </p>
-          </div>
-
-          <ExploreLinks footer />
-        </div>
-      </PageContainer>
-    </footer>
-  );
+  return <SiteFooterFrame><ExploreLinks footer /></SiteFooterFrame>;
 }

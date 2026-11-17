@@ -24,6 +24,13 @@ function normalizePath(path: string) {
 
 export function SiteHeader() {
   const pathname = normalizePath(usePathname());
+  const isHome = pathname === routes.home;
+  const links = isHome ? [
+    { href: "/", label: "Generator" },
+    { href: "/printable-bubble-letters/", label: "Printable Letters" },
+    { href: "/bubble-letters-font/", label: "Fonts & TTF" },
+    { href: "#guides", label: "Guides" },
+  ] : primaryNavLinks;
 
   const isActiveLink = (href: string) => {
     const normalizedHref = normalizePath(href);
@@ -53,13 +60,13 @@ export function SiteHeader() {
             className="text-lg font-semibold tracking-tight text-slate-50"
             aria-label="Bubble Font Generator homepage"
           >
-            {siteConfig.brandName}
+            {isHome ? "BubbleFont" : siteConfig.brandName}
           </Link>
           <nav
             aria-label="Primary"
             className="flex flex-wrap items-center gap-3 text-sm"
           >
-            {primaryNavLinks.map((link) => {
+            {links.map((link) => {
               const isActive = isActiveLink(link.href);
 
               return (
@@ -73,7 +80,7 @@ export function SiteHeader() {
                       : "rounded-full border border-transparent px-3 py-2 text-slate-300 transition hover:border-cyan-300/20 hover:bg-cyan-300/10 hover:text-cyan-100"
                   }
                 >
-                  {pathname === routes.home && link.href === routes.bubbleLetterFontGenerator ? "Bubble Letters" : link.label}
+                  {link.label}
                 </Link>
               );
             })}

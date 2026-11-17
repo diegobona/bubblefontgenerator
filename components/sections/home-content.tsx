@@ -66,6 +66,8 @@ const faqs = [
   ["Should I copy and paste or download a PNG?", "Use Copy for a nickname, bio, or message that needs to remain text. Download a PNG from the bubble font generator for stickers, banners, thumbnails, or any design where color and exact shape matter. If your destination rejects decorative characters, use ordinary text there and save the illustrated lettering for an image area."],
 ];
 
+export const homeFaqItems = faqs.map(([question, answer]) => ({ question, answer }));
+
 export function HomeContent() {
   return <div data-home-content="true" className="space-y-10 text-slate-300">
     {sections.map((section, index) => <section key={section.title} className="space-y-4">

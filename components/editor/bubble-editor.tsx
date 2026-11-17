@@ -742,9 +742,11 @@ function ResultSvg({
 
 export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const variant = getVariantForPath(pagePath);
+  const isHomePage = pagePath === routes.home;
+  const initialState = () => ({ ...getInitialState(variant), ...(isHomePage ? { text: "Bubble Magic" } : {}) });
   const isTransparentBackgroundPage =
     pagePath === routes.transparentBubbleFontGenerator;
-  const [state, setState] = useState(() => getInitialState(variant));
+  const [state, setState] = useState(initialState);
   const [alignment, setAlignment] = useState<TextAlignment>("center");
   const [alignmentRevision, setAlignmentRevision] = useState(0);
   const [stylePrompt, setStylePrompt] = useState("");
@@ -975,10 +977,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     }
   };
 
-  return (
-    <div data-home-editor={pagePath === routes.home ? "true" : undefined} className={pagePath === routes.home ? "grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)_280px]" : "grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)]"}>
-      <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
-        <div data-editor-input="true">
+  const textControl = (
         <label className="block">
           <span className="text-sm font-medium text-slate-300">Enter Your Text</span>
           <textarea
@@ -986,13 +985,15 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             onChange={(event) =>
               setState((current) => ({ ...current, text: event.target.value }))
             }
-            rows={4}
+            rows={isHomePage ? 1 : 4}
             aria-label="Enter your text"
             placeholder="Type your words here"
             className="mt-2 w-full rounded-2xl border border-cyan-300/45 bg-[rgba(18,17,40,0.92)] px-4 py-4 text-xl text-slate-50 shadow-sm outline-none transition focus:border-cyan-200"
           />
         </label>
+  );
 
+  const assistToggle = (
         <button
           ref={assistToggleRef}
           type="button"
@@ -1006,8 +1007,10 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           <span className="ml-auto text-[10px] leading-4 text-slate-400 sm:text-xs">Pick a template, then describe the change</span>
           <span aria-hidden="true" className={`shrink-0 text-cyan-100 transition-transform ${assistOpen ? "rotate-180" : ""}`}>⌄</span>
         </button>
+  );
 
-        {assistOpen ? (
+  const assistPanel = (
+assistOpen ? (
           <div id={`${baseId}-assist-panel`} role="region" aria-label="AI Assist settings" data-ai-assist-panel="true" className="mt-3 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5 outline-none">
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -1097,9 +1100,10 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               ) : null}
             </div>
           </div>
-        ) : null}
-        </div>
-        <div data-editor-settings="true">
+        ) : null
+  );
+
+  const colorControls = (
         <div
           data-editor-color-controls="true"
           className={`mt-6 grid gap-3 ${
@@ -1107,7 +1111,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           }`}
         >
           <label className="block">
-            <span className="text-sm font-medium text-slate-300">Text Color</span>
+            <span className="text-sm font-medium text-slate-300">{isHomePage ? "Color" : "Text Color"}</span>
             <div className="mt-2 rounded-2xl border border-white/10 bg-[rgba(30,24,56,0.9)] p-2">
               <input
                 type="color"
@@ -1142,13 +1146,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             </label>
           ) : null}
         </div>
+  );
 
-        <div
-          data-editor-font-size-control="true"
-          className="mt-5 block rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-4"
-        >
-          <div className="flex items-center justify-between text-sm font-medium text-slate-300">
-            <label htmlFor={`${baseId}-font-size`}>Font Size</label>
+  const alignmentButtons = (
             <div role="group" aria-label="Image text alignment" className="flex h-5 items-center gap-1">
               {(["left", "center", "right"] as const).map((value) => (
                 <button key={value} type="button" aria-label={`Align ${value}`} title={`Align ${value}`}
@@ -1162,6 +1162,16 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 </button>
               ))}
             </div>
+  );
+
+  const fontSizeControl = (
+        <div
+          data-editor-font-size-control="true"
+          className="mt-5 block rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-4"
+        >
+          <div className="flex items-center justify-between text-sm font-medium text-slate-300">
+            <label htmlFor={`${baseId}-font-size`}>Font Size</label>
+            {alignmentButtons}
             <span>{state.fontSize}px</span>
           </div>
           <input
@@ -1197,10 +1207,36 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             className="mt-3 w-full"
           />
         </div>
+  );
 
-        <details className="mt-8 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
+  const resetButton = (
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              setState(initialState());
+              setAlignment("center");
+              setAlignmentRevision((current) => current + 1);
+              setStylePrompt("");
+              setSelectedAssistTemplate("");
+              setAssistMessage(null);
+              setFeaturedFontCategories([]);
+              setFontSort("popular");
+              setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
+              setRemoveBackgroundWhenDownloading(DEFAULT_REMOVE_DOWNLOAD_BACKGROUND);
+              setDownloadMessage(null);
+            }}
+            className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
+          >
+            Reset All
+          </button>
+        </div>
+  );
+
+  const advancedOptions = (
+        <details data-editor-advanced="true" className="mt-8 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
           <summary className="cursor-pointer list-none text-xl font-semibold text-slate-100">
-            Advanced Options
+            {isHomePage ? <>Advanced <span aria-hidden="true">⌄</span></> : "Advanced Options"}
           </summary>
           <div className="mt-6 space-y-5">
             <div className="grid gap-4 sm:grid-cols-2">
@@ -1538,37 +1574,12 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 />
               </label>
             </div>
+            {isHomePage ? resetButton : null}
           </div>
         </details>
+  );
 
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={() => {
-              setState(getInitialState(variant));
-              setAlignment("center");
-              setAlignmentRevision((current) => current + 1);
-              setStylePrompt("");
-              setSelectedAssistTemplate("");
-              setAssistMessage(null);
-              setFeaturedFontCategories([]);
-              setFontSort("popular");
-              setVisibleFontCount(CORE_BUBBLE_FONT_COUNT);
-              setRemoveBackgroundWhenDownloading(DEFAULT_REMOVE_DOWNLOAD_BACKGROUND);
-              setDownloadMessage(null);
-            }}
-            className="inline-flex items-center rounded-full border border-white/10 bg-[rgba(30,24,56,0.9)] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/25 hover:text-cyan-100"
-          >
-            Reset All
-          </button>
-        </div>
-
-        {downloadMessage ? (
-          <p className="mt-4 text-sm leading-6 text-slate-400">{downloadMessage}</p>
-        ) : null}
-        </div>
-      </aside>
-
+  const results = (
       <section
         data-editor-results="true"
         className="self-start rounded-3xl border border-white/10 p-4 shadow-2xl shadow-[#080812]/25"
@@ -1576,6 +1587,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       >
         <div className="mb-4 flex flex-wrap items-start justify-between gap-4 pb-2">
           <div>
+            {isHomePage ? <span className="home-eyebrow">{bubbleFontLibrary.length} fonts</span> : null}
             <h2 className="text-xl font-semibold tracking-tight text-slate-50">
               Bubble Font Generator Results
             </h2>
@@ -1651,7 +1663,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
         <div
           data-result-font-list="true"
-          className="editor-scrollbar max-h-[1080px] space-y-3 overflow-y-auto pr-1"
+          className={isHomePage ? "home-font-grid" : "editor-scrollbar max-h-[1080px] space-y-3 overflow-y-auto pr-1"}
         >
           {visibleFonts.map((font) => {
             const preset = resultPresets[font.effectPresetId];
@@ -1659,12 +1671,13 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             return (
             <article
               key={font.id}
+              data-font-card={font.id}
               className="rounded-3xl p-3 shadow-xl shadow-black/20"
               style={resultBackgroundStyle}
             >
               <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-md bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
+                  <span data-font-name="true" className="rounded-md bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">
                     {font.displayName}
                   </span>
                   <span className="text-xs font-medium uppercase tracking-[0.12em] text-slate-100/80">
@@ -1676,6 +1689,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   <button
                     type="button"
                     onClick={() => downloadPresetPng(font, preset)}
+                    data-download-png="true"
                     className="inline-flex items-center rounded-md bg-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/30"
                   >
                     Download PNG
@@ -1693,7 +1707,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
               </div>
 
               <div
-                className={resultCardPreviewClassName}
+                className={isHomePage ? "home-font-preview" : resultCardPreviewClassName}
                 style={resultPreviewStyle}
               >
                 <ResultSvg
@@ -1738,7 +1752,66 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           ) : null}
         </div>
       </section>
-      {pagePath === routes.home ? <UnicodeCopyPanel text={state.text} /> : null}
+  );
+
+  if (isHomePage) {
+    return <div data-home-editor="true" className="home-editor">
+      <aside className="home-toolbar" aria-label="Text and image controls">
+        <div className="home-toolbar-grid">
+          <div data-editor-input="true">{textControl}</div>
+          {colorControls}
+          <label className="home-size-control">
+            <span>Size</span>
+            <select aria-label="Font size" value={state.fontSize}
+            onChange={(event) =>
+              setState((current) => {
+                const fontSize = Number(event.target.value);
+
+                return {
+                  ...current,
+                  fontSize,
+                  height: getAutoHeightForFontSize({
+                    currentHeight: current.height,
+                    fontSize,
+                    lineHeight: current.lineHeight,
+                    lineCount: buildLines(current.text).length,
+                    outlineWidth: current.outlineWidth,
+                    stickerEdgeEnabled: current.stickerEdgeEnabled,
+                    stickerEdgeWidth: current.stickerEdgeWidth,
+                    shadowEnabled: current.shadowEnabled,
+                    shadowBlur: current.shadowBlur,
+                    shadowY: current.shadowY,
+                    depth: current.depth,
+                  }),
+                };
+              })
+            }
+            >
+              {Array.from({ length: 109 }, (_, index) => index + 52).map((value) => <option key={value} value={value}>{value} px</option>)}
+            </select>
+          </label>
+          <div className="home-alignment"><span>Align</span>{alignmentButtons}</div>
+          {advancedOptions}
+          {assistToggle}
+        </div>
+        {assistPanel}
+      </aside>
+      <UnicodeCopyPanel text={state.text} />
+      {downloadMessage ? <p role="status" className="home-download-status">{downloadMessage}</p> : null}
+      {results}
+    </div>;
+  }
+
+  return (
+    <div className="grid items-start gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
+      <aside className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.82)] p-5 shadow-xl shadow-[#080812]/20">
+        <div data-editor-input="true">{textControl}{assistToggle}{assistPanel}</div>
+        <div data-editor-settings="true">
+          {colorControls}{fontSizeControl}{advancedOptions}{resetButton}
+          {downloadMessage ? <p className="mt-4 text-sm leading-6 text-slate-400">{downloadMessage}</p> : null}
+        </div>
+      </aside>
+      {results}
     </div>
   );
 }
