@@ -3,6 +3,8 @@
 import "./bubble-editor.css";
 
 import { UnicodeCopyPanel } from "@/components/editor/unicode-copy-panel";
+import { PositionedText } from "@/components/editor/positioned-text";
+import type { TextAlignment } from "@/lib/text-position";
 
 import { useId, useMemo, useRef, useState } from "react";
 
@@ -523,6 +525,9 @@ type ResultSvgProps = {
   forceTransparentBackground: boolean;
   svgRef?: (node: SVGSVGElement | null) => void;
   ariaLabel: string;
+  alignment: TextAlignment;
+  alignmentRevision: number;
+  positionRef: (sync: (() => void) | null) => void;
 };
 
 function ResultSvg({
@@ -534,6 +539,9 @@ function ResultSvg({
   forceTransparentBackground,
   svgRef,
   ariaLabel,
+  alignment,
+  alignmentRevision,
+  positionRef,
 }: ResultSvgProps) {
   const lineHeight = clamp(state.lineHeight + preset.lineHeightAdjust, 0.9, 1.6);
   const baseFontSize = state.fontSize * preset.fontScale;
@@ -612,6 +620,11 @@ function ResultSvg({
         />
       )}
 
+      <PositionedText width={state.width} height={state.height}
+        alignment={alignment} alignmentRevision={alignmentRevision} positionRef={positionRef}
+        font={`${font.fontWeight} ${fontSize}px "${font.family}"`}
+        strokePadding={Math.max(state.outlineEnabled ? outlineWidth : 0, state.stickerEdgeEnabled ? stickerWidth : 0)}
+        shadow={state.shadowEnabled ? { x: shadowX, y: shadowY, blur: shadowBlur } : { x: 0, y: 0, blur: 0 }}>
       <g filter={`url(#${filterId})`}>
         {lines.map((line, index) => {
           const y = startY + lineAdvance * index;
@@ -722,6 +735,7 @@ function ResultSvg({
           );
         })}
       </g>
+      </PositionedText>
     </svg>
   );
 }
@@ -731,6 +745,8 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const isTransparentBackgroundPage =
     pagePath === routes.transparentBubbleFontGenerator;
   const [state, setState] = useState(() => getInitialState(variant));
+  const [alignment, setAlignment] = useState<TextAlignment>("center");
+  const [alignmentRevision, setAlignmentRevision] = useState(0);
   const [stylePrompt, setStylePrompt] = useState("");
   const [assistOpen, setAssistOpen] = useState(false);
   const [assistMessage, setAssistMessage] = useState<string | null>(null);
@@ -743,6 +759,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     useState(DEFAULT_REMOVE_DOWNLOAD_BACKGROUND);
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
+  const positionRefs = useRef<Record<string, (() => void) | null>>({});
   const assistToggleRef = useRef<HTMLButtonElement>(null);
   const collapseAssist = () => {
     setAssistOpen(false);
@@ -885,6 +902,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       await document.fonts.load(`${font.fontWeight} 64px "${font.family}"`);
       await document.fonts.ready;
       const fontDataUrl = await fetchFontDataUrl(font.filePath);
+      positionRefs.current[font.id]?.();
 
       const downloadBackgroundFill = getDownloadBackgroundFill(
         isTransparentBackgroundPage || removeBackgroundWhenDownloading,
@@ -1125,15 +1143,29 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           ) : null}
         </div>
 
-        <label
+        <div
           data-editor-font-size-control="true"
           className="mt-5 block rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-4"
         >
           <div className="flex items-center justify-between text-sm font-medium text-slate-300">
-            <span>Font Size</span>
+            <label htmlFor={`${baseId}-font-size`}>Font Size</label>
+            <div role="group" aria-label="Image text alignment" className="flex h-5 items-center gap-1">
+              {(["left", "center", "right"] as const).map((value) => (
+                <button key={value} type="button" aria-label={`Align ${value}`} title={`Align ${value}`}
+                  aria-pressed={alignment === value}
+                  onClick={() => { setAlignment(value); setAlignmentRevision((current) => current + 1); }}
+                  className={`inline-flex h-7 w-7 items-center justify-center rounded-md transition focus-visible:outline-2 focus-visible:outline-cyan-200 ${alignment === value ? "bg-cyan-300/20 text-cyan-200" : "text-slate-400 hover:bg-white/10 hover:text-white"}`}>
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+                    <path d="M3 4h14M3 12h14" />
+                    <path d={value === "left" ? "M3 8h9M3 16h9" : value === "right" ? "M8 8h9M8 16h9" : "M5.5 8h9M5.5 16h9"} />
+                  </svg>
+                </button>
+              ))}
+            </div>
             <span>{state.fontSize}px</span>
           </div>
           <input
+            id={`${baseId}-font-size`}
             type="range"
             min={52}
             max={160}
@@ -1164,7 +1196,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             }
             className="mt-3 w-full"
           />
-        </label>
+        </div>
 
         <details className="mt-8 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
           <summary className="cursor-pointer list-none text-xl font-semibold text-slate-100">
@@ -1514,6 +1546,8 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
             type="button"
             onClick={() => {
               setState(getInitialState(variant));
+              setAlignment("center");
+              setAlignmentRevision((current) => current + 1);
               setStylePrompt("");
               setSelectedAssistTemplate("");
               setAssistMessage(null);
@@ -1666,6 +1700,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                   state={state}
                   preset={preset}
                   font={font}
+                  alignment={alignment}
+                  alignmentRevision={alignmentRevision}
+                  positionRef={(sync) => { positionRefs.current[font.id] = sync; }}
                   lines={lines}
                   filterId={`${baseId}-${font.id}`}
                   forceTransparentBackground={shouldPreviewTransparentBackground}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { PageContainer } from "./page-container";
-import { footerArticleLinks, footerToolLinks } from "@/lib/site";
+import { ExploreLinks } from "@/components/sections/explore-links";
 import { routes } from "@/lib/routes";
 
 export function SiteFooter() {
@@ -22,42 +22,7 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div>
-            <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-200">
-              Style Pages
-            </h2>
-            <div className="mt-4 flex flex-col gap-3 text-sm text-slate-400">
-              <Link href={routes.home} className="transition hover:text-cyan-200">
-                Bubble Font Generator
-              </Link>
-              {footerToolLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="transition hover:text-cyan-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-200">
-              Guides
-            </h2>
-            <div className="mt-4 flex flex-col gap-3 text-sm text-slate-400">
-              {footerArticleLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="transition hover:text-cyan-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+          <ExploreLinks footer />
         </div>
       </PageContainer>
     </footer>

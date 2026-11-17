@@ -17,6 +17,7 @@ const testFiles = [
   "tests/svg-font-face.test.ts",
   "tests/result-card-layout.test.ts",
   "tests/editor-sizing.test.ts",
+  "tests/text-position.test.ts",
 ];
 
 rmSync(outDir, { force: true, recursive: true });

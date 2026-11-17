@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { footerArticleLinks, footerToolLinks } from "@/lib/site";
 import { routes } from "@/lib/routes";
 
@@ -16,17 +15,18 @@ const descriptions: Record<string, string> = {
   [routes.freeBubbleFontGenerator]: "See how to create and download lettering with the free tools.",
 };
 
-export function ExploreLinks() {
+export function ExploreLinks({ footer = false }: { footer?: boolean }) {
   const groups = [
     { id: "style-pages", title: "Style Pages", links: [{ href: routes.home, label: "Bubble Font Generator" }, ...footerToolLinks] },
     { id: "guides", title: "Guides", links: footerArticleLinks },
   ];
-  return <div className="grid gap-8 lg:grid-cols-2">
-    {groups.map((group) => <section key={group.id} data-explore-group={group.id} aria-labelledby={`explore-${group.id}`} className="rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.58)] p-5 sm:p-6">
-      <h2 id={`explore-${group.id}`} className="text-2xl font-semibold text-white">{group.title}</h2>
+  const prefix = footer ? "footer-explore" : "explore";
+  return <div className={footer ? "grid gap-10 md:col-span-2 md:grid-cols-2" : "grid gap-8 lg:grid-cols-2"}>
+    {groups.map((group) => <section key={group.id} data-explore-group={group.id} aria-labelledby={`${prefix}-${group.id}`} className={footer ? "" : "rounded-3xl border border-white/10 bg-[rgba(24,20,48,0.58)] p-5 sm:p-6"}>
+      <h2 id={`${prefix}-${group.id}`} className={footer ? "text-sm font-semibold uppercase tracking-[0.16em] text-slate-200" : "text-2xl font-semibold text-white"}>{group.title}</h2>
       <ul className="mt-5 space-y-5">
         {group.links.map((link) => <li key={link.href}>
-          <Link href={link.href} className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">{link.label}</Link>
+          <a href={link.href} className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">{link.label}</a>
           <p className="mt-1 text-sm leading-6 text-slate-300">{descriptions[link.href]}</p>
         </li>)}
       </ul>
