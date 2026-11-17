@@ -4,7 +4,7 @@ import "./bubble-editor.css";
 
 import { UnicodeCopyPanel } from "@/components/editor/unicode-copy-panel";
 
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import {
   buildStyleAssistSuggestion,
@@ -743,6 +743,26 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
     useState(DEFAULT_REMOVE_DOWNLOAD_BACKGROUND);
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
+  const assistToggleRef = useRef<HTMLButtonElement>(null);
+  const assistPanelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!assistOpen || !assistPanelRef.current) return;
+
+    // The form follows the output panels, so opening it must also reveal it.
+    assistPanelRef.current.focus({ preventScroll: true });
+    assistPanelRef.current.scrollIntoView({
+      block: "center",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }, [assistOpen]);
+
+  const collapseAssist = () => {
+    setAssistOpen(false);
+    assistToggleRef.current?.focus({ preventScroll: true });
+    assistToggleRef.current?.scrollIntoView({ block: "center", behavior: "auto" });
+  };
+
   const lines = useMemo(() => buildLines(state.text), [state.text]);
   const orderedFonts = useMemo(() => {
     const variantCategories = getVariantFontCategories(variant);
@@ -970,6 +990,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
         </label>
 
         <button
+          ref={assistToggleRef}
           type="button"
           data-ai-assist-toggle="true"
           aria-expanded={assistOpen}
@@ -1605,7 +1626,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
       </section>
       {pagePath === routes.home ? <UnicodeCopyPanel text={state.text} /> : null}
       {assistOpen ? (
-        <div id={`${baseId}-assist-panel`} role="region" aria-label="AI Assist settings" data-ai-assist-panel="true" className="xl:col-span-full rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5">
+        <div ref={assistPanelRef} tabIndex={-1} id={`${baseId}-assist-panel`} role="region" aria-label="AI Assist settings" data-ai-assist-panel="true" className="xl:col-span-full rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5 outline-none">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="flex flex-wrap items-center gap-2">
@@ -1621,6 +1642,14 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
                 graffiti, outline, 3D depth, spacing, or shine.
               </p>
             </div>
+            <button
+              type="button"
+              onClick={collapseAssist}
+              aria-label="Collapse AI Assist"
+              className="shrink-0 cursor-pointer rounded-full border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-cyan-200"
+            >
+              Collapse
+            </button>
           </div>
 
           <label className="mt-4 block">
