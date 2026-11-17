@@ -22,7 +22,7 @@ export function PositionedText({ width, height, alignment, alignmentRevision, st
   const manualPosition = useRef<Point | null>(null);
   const appliedRevision = useRef(alignmentRevision);
   const placement = useRef<TextPlacement>({ x: 0, y: 0, scale: 1 });
-  const drag = useRef<{ id: number; start: Point; origin: Point } | null>(null);
+  const drag = useRef<{ id: number; start: Point; clientStart: Point; origin: TextPlacement; moved: boolean } | null>(null);
 
   function measure(): TextBounds | null {
     const box = contentRef.current?.getBBox();
@@ -70,21 +70,10 @@ export function PositionedText({ width, height, alignment, alignmentRevision, st
   function startDrag(event: PointerEvent<SVGGElement>) {
     if (!event.isPrimary || event.button !== 0) return;
     event.preventDefault();
-    const previous = placement.current;
-    manualPosition.current = { x: previous.x, y: previous.y };
-    syncPosition();
-    const bounds = measure();
-    if (bounds && previous.scale !== placement.current.scale) {
-      // Keep the text's center under the pointer when an oversized legacy
-      // preview needs to fit inside the canvas before it can be dragged.
-      const difference = previous.scale - placement.current.scale;
-      manualPosition.current = {
-        x: previous.x + difference * (bounds.x + bounds.width / 2),
-        y: previous.y + difference * (bounds.y + bounds.height / 2),
-      };
-      syncPosition();
-    }
-    drag.current = { id: event.pointerId, start: point(event), origin: { ...placement.current } };
+    drag.current = {
+      id: event.pointerId, start: point(event), origin: { ...placement.current },
+      clientStart: { x: event.clientX, y: event.clientY }, moved: false,
+    };
     event.currentTarget.setPointerCapture(event.pointerId);
     event.currentTarget.style.cursor = "grabbing";
   }
@@ -92,6 +81,25 @@ export function PositionedText({ width, height, alignment, alignmentRevision, st
   function moveDrag(event: PointerEvent<SVGGElement>) {
     const current = drag.current;
     if (!current || current.id !== event.pointerId) return;
+    if (!current.moved) {
+      // A click or small touch jitter must not reposition or resize the text.
+      if (Math.hypot(event.clientX - current.clientStart.x, event.clientY - current.clientStart.y) < 3) return;
+      const previous = current.origin;
+      manualPosition.current = { x: previous.x, y: previous.y };
+      syncPosition();
+      const bounds = measure();
+      if (bounds && previous.scale !== placement.current.scale) {
+        // Preserve the center when oversized text first fits into the canvas.
+        const difference = previous.scale - placement.current.scale;
+        manualPosition.current = {
+          x: previous.x + difference * (bounds.x + bounds.width / 2),
+          y: previous.y + difference * (bounds.y + bounds.height / 2),
+        };
+        syncPosition();
+      }
+      current.origin = { ...placement.current };
+      current.moved = true;
+    }
     const next = point(event);
     manualPosition.current = { x: current.origin.x + next.x - current.start.x, y: current.origin.y + next.y - current.start.y };
     syncPosition();
