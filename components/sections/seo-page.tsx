@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HomeContent } from "@/components/sections/home-content";
+import { ExploreLinks } from "@/components/sections/explore-links";
 
 import { BubbleEditor } from "@/components/editor/bubble-editor";
 import { PageContainer } from "@/components/layout/page-container";
@@ -303,6 +304,8 @@ export function SeoPage({ page }: SeoPageProps) {
               ) : null}
 
               {isHomePage ? <HomeContent /> : null}
+
+              {isHomePage || isLetterPage ? <ExploreLinks /> : null}
 
               {!isHomePage && !isLetterPage ? (
                 <section className="max-w-4xl rounded-3xl border border-cyan-300/15 bg-[rgba(24,20,48,0.76)] p-6 shadow-xl shadow-[#080812]/20">

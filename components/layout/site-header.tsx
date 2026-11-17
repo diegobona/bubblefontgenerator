@@ -45,7 +45,7 @@ export function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/8 bg-[#120f28]/78 backdrop-blur-xl">
+    <header data-home-header={pathname === routes.home ? "true" : undefined} className="sticky top-0 z-40 border-b border-white/8 bg-[#120f28]/78 backdrop-blur-xl">
       <PageContainer>
         <div className="flex min-h-16 flex-wrap items-center justify-between gap-6 py-3">
           <Link
