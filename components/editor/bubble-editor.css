@@ -7,7 +7,6 @@
   [data-home-editor="true"] [data-editor-input] { order: 0; }
   [data-home-editor="true"] [data-editor-results] { order: 1; min-width: 0; }
   [data-home-editor="true"] > section[aria-labelledby="copy-paste-heading"] { order: 2; }
-  [data-home-editor="true"] [data-ai-assist-panel] { order: 3; grid-column: 1 / -1; }
   [data-home-editor="true"] [data-editor-settings] { order: 4; }
   [data-home-editor="true"] [data-editor-input] textarea { height: 64px; padding: 8px 12px; }
   [data-home-editor="true"] [data-ai-assist-toggle] { margin-top: 8px; padding: 8px 10px; }

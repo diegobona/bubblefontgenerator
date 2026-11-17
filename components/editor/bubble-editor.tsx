@@ -4,7 +4,7 @@ import "./bubble-editor.css";
 
 import { UnicodeCopyPanel } from "@/components/editor/unicode-copy-panel";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 
 import {
   buildStyleAssistSuggestion,
@@ -744,23 +744,9 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const baseId = useId().replace(/:/g, "");
   const svgRefs = useRef<Record<string, SVGSVGElement | null>>({});
   const assistToggleRef = useRef<HTMLButtonElement>(null);
-  const assistPanelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!assistOpen || !assistPanelRef.current) return;
-
-    // The form follows the output panels, so opening it must also reveal it.
-    assistPanelRef.current.focus({ preventScroll: true });
-    assistPanelRef.current.scrollIntoView({
-      block: "center",
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-    });
-  }, [assistOpen]);
-
   const collapseAssist = () => {
     setAssistOpen(false);
     assistToggleRef.current?.focus({ preventScroll: true });
-    assistToggleRef.current?.scrollIntoView({ block: "center", behavior: "auto" });
   };
 
   const lines = useMemo(() => buildLines(state.text), [state.text]);
@@ -1003,6 +989,97 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
           <span aria-hidden="true" className={`shrink-0 text-cyan-100 transition-transform ${assistOpen ? "rotate-180" : ""}`}>⌄</span>
         </button>
 
+        {assistOpen ? (
+          <div id={`${baseId}-assist-panel`} role="region" aria-label="AI Assist settings" data-ai-assist-panel="true" className="mt-3 rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5 outline-none">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="text-lg font-semibold tracking-tight text-slate-50">
+                    AI Assist
+                  </h2>
+                  <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">
+                    AI
+                  </span>
+                </div>
+                <p className="mt-1 text-sm leading-6 text-slate-400">
+                  Describe a style or edit command. Try bigger text, remove shadow, cute sticker,
+                  graffiti, outline, 3D depth, spacing, or shine.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={collapseAssist}
+                aria-label="Collapse AI Assist"
+                className="shrink-0 cursor-pointer rounded-full border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-cyan-200"
+              >
+                Collapse
+              </button>
+            </div>
+
+            <label className="mt-4 block">
+              <span className="sr-only">Describe your style</span>
+              <input
+                type="text"
+                value={stylePrompt}
+                onChange={(event) => {
+                  setStylePrompt(event.target.value);
+                  setSelectedAssistTemplate("");
+                  setAssistMessage(null);
+                }}
+                placeholder="cute pink sticker"
+                className="w-full rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
+              />
+            </label>
+
+            <label className="mt-3 block">
+              <div className="relative">
+                <span className={AI_ASSIST_TEMPLATE_DISPLAY_CLASS_NAME}>
+                  <span className={AI_ASSIST_TEMPLATE_VALUE_CLASS_NAME}>
+                    {selectedAssistTemplateLabel}
+                  </span>
+                  <span className="shrink-0 text-[10px] text-cyan-100">v</span>
+                </span>
+                <select
+                  value={selectedAssistTemplate}
+                  onChange={(event) => {
+                    setSelectedAssistTemplate(event.target.value);
+                    setStylePrompt(event.target.value);
+                    setAssistMessage(null);
+                  }}
+                  className={AI_ASSIST_TEMPLATE_NATIVE_SELECT_CLASS_NAME}
+                  aria-label="Choose an AI assist template"
+                >
+                  <option value="" className="bg-slate-950">
+                    {AI_ASSIST_TEMPLATE_PLACEHOLDER}
+                  </option>
+                  {styleAssistTemplates.map((template) => (
+                    <option
+                      key={template.prompt}
+                      value={template.prompt}
+                      className="bg-slate-950"
+                    >
+                      {template.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </label>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => applyStyleAssist(stylePrompt)}
+                className="inline-flex items-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={stylePrompt.trim().length === 0}
+              >
+                Apply AI Assist
+              </button>
+              {assistMessage ? (
+                <p className="text-sm leading-6 text-slate-400">{assistMessage}</p>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
         </div>
         <div data-editor-settings="true">
         <div
@@ -1625,97 +1702,6 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
         </div>
       </section>
       {pagePath === routes.home ? <UnicodeCopyPanel text={state.text} /> : null}
-      {assistOpen ? (
-        <div ref={assistPanelRef} tabIndex={-1} id={`${baseId}-assist-panel`} role="region" aria-label="AI Assist settings" data-ai-assist-panel="true" className="xl:col-span-full rounded-3xl border border-white/10 bg-[rgba(30,24,56,0.76)] p-5 outline-none">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-lg font-semibold tracking-tight text-slate-50">
-                  AI Assist
-                </h2>
-                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">
-                  AI
-                </span>
-              </div>
-              <p className="mt-1 text-sm leading-6 text-slate-400">
-                Describe a style or edit command. Try bigger text, remove shadow, cute sticker,
-                graffiti, outline, 3D depth, spacing, or shine.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={collapseAssist}
-              aria-label="Collapse AI Assist"
-              className="shrink-0 cursor-pointer rounded-full border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-cyan-200"
-            >
-              Collapse
-            </button>
-          </div>
-
-          <label className="mt-4 block">
-            <span className="sr-only">Describe your style</span>
-            <input
-              type="text"
-              value={stylePrompt}
-              onChange={(event) => {
-                setStylePrompt(event.target.value);
-                setSelectedAssistTemplate("");
-                setAssistMessage(null);
-              }}
-              placeholder="cute pink sticker"
-              className="w-full rounded-2xl border border-white/10 bg-[rgba(18,17,40,0.96)] px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-cyan-300"
-            />
-          </label>
-
-          <label className="mt-3 block">
-            <div className="relative">
-              <span className={AI_ASSIST_TEMPLATE_DISPLAY_CLASS_NAME}>
-                <span className={AI_ASSIST_TEMPLATE_VALUE_CLASS_NAME}>
-                  {selectedAssistTemplateLabel}
-                </span>
-                <span className="shrink-0 text-[10px] text-cyan-100">v</span>
-              </span>
-              <select
-                value={selectedAssistTemplate}
-                onChange={(event) => {
-                  setSelectedAssistTemplate(event.target.value);
-                  setStylePrompt(event.target.value);
-                  setAssistMessage(null);
-                }}
-                className={AI_ASSIST_TEMPLATE_NATIVE_SELECT_CLASS_NAME}
-                aria-label="Choose an AI assist template"
-              >
-                <option value="" className="bg-slate-950">
-                  {AI_ASSIST_TEMPLATE_PLACEHOLDER}
-                </option>
-                {styleAssistTemplates.map((template) => (
-                  <option
-                    key={template.prompt}
-                    value={template.prompt}
-                    className="bg-slate-950"
-                  >
-                    {template.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </label>
-
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => applyStyleAssist(stylePrompt)}
-              className="inline-flex items-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={stylePrompt.trim().length === 0}
-            >
-              Apply AI Assist
-            </button>
-            {assistMessage ? (
-              <p className="text-sm leading-6 text-slate-400">{assistMessage}</p>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }
