@@ -61,6 +61,8 @@ export function SeoPage({ page }: SeoPageProps) {
               data-home-hero-header="true"
               className="mb-3 gap-6 xl:flex xl:items-start xl:justify-between"
             >
+              <svg className="home-hero-rays" viewBox="0 0 60 60" width="60" height="60" aria-hidden="true"><path d="m15 38 9 4m-3-24 9 12m10-20 4 13" fill="none" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" /></svg>
+              <svg className="home-hero-star" viewBox="0 0 70 60" width="70" height="60" aria-hidden="true"><path d="m27 5 6 12 14 2-10 10 2 14-12-7-13 7 3-14-11-10 14-2Z" fill="var(--accent)" /><circle cx="57" cy="45" r="5" fill="var(--decor-blue)" /></svg>
               <div className="min-w-0 flex-1">
                 <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                   {page.h1}
@@ -286,12 +288,12 @@ export function SeoPage({ page }: SeoPageProps) {
               {isHomePage ? <>
                 <div className="home-entry-cards">
                   <a href={routes.printableBubbleLetters}>
-                    <span className="home-entry-icon" aria-hidden="true">Aa</span>
+                    <span className="home-entry-icon" aria-hidden="true"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"><path d="M9 11V4h14v7M8 23H4V12h24v11h-4M9 19h14v9H9Z"/><path d="M23 15h1" strokeLinecap="round"/></svg></span>
                     <div><h2>Printable Templates</h2><p>Bubble letters and numbers to print, color, and use.</p></div>
                     <span aria-hidden="true">↗</span>
                   </a>
                   <a href={routes.bubbleLettersFont}>
-                    <span className="home-entry-icon" aria-hidden="true">Tt</span>
+                    <span className="home-entry-icon" aria-hidden="true"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3v17m-7-7 7 7 7-7M5 22v6h22v-6"/></svg></span>
                     <div><h2>Font Downloads (TTF)</h2><p>Download bubble fonts (TTF) to install and use anywhere.</p></div>
                     <span aria-hidden="true">↗</span>
                   </a>

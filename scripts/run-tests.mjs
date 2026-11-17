@@ -18,6 +18,7 @@ const testFiles = [
   "tests/result-card-layout.test.ts",
   "tests/editor-sizing.test.ts",
   "tests/text-position.test.ts",
+  "tests/home-artwork.test.ts",
 ];
 
 rmSync(outDir, { force: true, recursive: true });

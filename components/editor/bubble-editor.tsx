@@ -1,5 +1,7 @@
 "use client";
 
+import { homeArtworkDefaults, homeArtworkColors } from "@/lib/home-artwork";
+
 import "./bubble-editor.css";
 
 import { UnicodeCopyPanel } from "@/components/editor/unicode-copy-panel";
@@ -743,10 +745,13 @@ function ResultSvg({
 export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
   const variant = getVariantForPath(pagePath);
   const isHomePage = pagePath === routes.home;
-  const initialState = () => ({ ...getInitialState(variant), ...(isHomePage ? { text: "Bubble Magic" } : {}) });
+  const initialState = () => ({ ...getInitialState(variant), ...(isHomePage ? homeArtworkDefaults : {}) });
   const isTransparentBackgroundPage =
     pagePath === routes.transparentBubbleFontGenerator;
   const [state, setState] = useState(initialState);
+  const [customHomeColors, setCustomHomeColors] = useState({ text: false, background: false });
+  const artworkState = (font: BubbleFont) => isHomePage
+    ? { ...state, ...homeArtworkColors(font.id, state, customHomeColors) } : state;
   const [alignment, setAlignment] = useState<TextAlignment>("center");
   const [alignmentRevision, setAlignmentRevision] = useState(0);
   const [stylePrompt, setStylePrompt] = useState("");
@@ -908,7 +913,7 @@ export function BubbleEditor({ pagePath, heading }: BubbleEditorProps) {
 
       const downloadBackgroundFill = getDownloadBackgroundFill(
         isTransparentBackgroundPage || removeBackgroundWhenDownloading,
-        state.backgroundColor,
+        artworkState(font).backgroundColor,
       );
       const svgForDownload = svgElement.cloneNode(true) as SVGSVGElement;
       const backgroundRect = svgForDownload.querySelector(
@@ -1116,12 +1121,13 @@ assistOpen ? (
               <input
                 type="color"
                 value={state.textColor}
-                onChange={(event) =>
+                onChange={(event) => {
+                  setCustomHomeColors((current) => ({ ...current, text: true }));
                   setState((current) => ({
                     ...current,
                     textColor: event.target.value,
-                  }))
-                }
+                  }));
+                }}
                 className="h-11 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
               />
             </div>
@@ -1134,12 +1140,13 @@ assistOpen ? (
                 <input
                   type="color"
                   value={state.backgroundColor}
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    setCustomHomeColors((current) => ({ ...current, background: true }));
                     setState((current) => ({
                       ...current,
                       backgroundColor: event.target.value,
-                    }))
-                  }
+                    }));
+                  }}
                   className="h-11 w-full rounded-xl border border-white/10 bg-[rgba(18,17,40,0.96)] p-1"
                 />
               </div>
@@ -1215,6 +1222,7 @@ assistOpen ? (
             type="button"
             onClick={() => {
               setState(initialState());
+              setCustomHomeColors({ text: false, background: false });
               setAlignment("center");
               setAlignmentRevision((current) => current + 1);
               setStylePrompt("");
@@ -1667,6 +1675,7 @@ assistOpen ? (
         >
           {visibleFonts.map((font) => {
             const preset = resultPresets[font.effectPresetId];
+            const fontState = artworkState(font);
 
             return (
             <article
@@ -1708,10 +1717,10 @@ assistOpen ? (
 
               <div
                 className={isHomePage ? "home-font-preview" : resultCardPreviewClassName}
-                style={resultPreviewStyle}
+                style={isHomePage && !shouldPreviewTransparentBackground ? { backgroundColor: fontState.backgroundColor } : resultPreviewStyle}
               >
                 <ResultSvg
-                  state={state}
+                  state={fontState}
                   preset={preset}
                   font={font}
                   alignment={alignment}
